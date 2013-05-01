@@ -6,11 +6,19 @@ describe Tankard::Request do
 
   describe "#get" do
 
-    context "request status is not 200" do
+    context "request status is not 200 or 401" do
 
       it "raises a Tankard::Error::HttpError" do
         stub_get("test?key=abc123").to_return(status: [404, "Not Found"])
         expect { request.get("test") }.to raise_error(Tankard::Error::HttpError)
+      end
+    end
+
+    context "request status is 401" do
+
+      it "raises a Tankard::Error::ApiKeyUnauthorized error" do
+        stub_get("test?key=abc123").to_return(status: [401, "Unauthorized"])
+        expect { request.get("test") }.to raise_error(Tankard::Error::ApiKeyUnauthorized)
       end
     end
 

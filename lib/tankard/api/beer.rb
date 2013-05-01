@@ -18,9 +18,9 @@ module Tankard
         @options.merge!(options)
 
         if beer_id.is_a?(Array)
-          beer_id.map { |beer| request_data_with_nil_on_error("beer/#{beer}", @options) }.compact
+          beer_id.map { |beer| request_data_with_nil_on_http_error("beer/#{beer}", @options) }.compact
         else
-          request_data_with_nil_on_error("beer/#{beer_id}", @options)
+          request_data_with_nil_on_http_error("beer/#{beer_id}", @options)
         end
       end
 
@@ -63,7 +63,7 @@ module Tankard
             endpoint += "/#{@options.delete(:endpoint)}"
           end
 
-          request_data_with_nil_on_error(endpoint, @options)
+          request_data_with_nil_on_http_error(endpoint, @options)
         end
 
         def raise_if_no_id_in_options
@@ -82,10 +82,10 @@ module Tankard
           end
         end
 
-        def request_data_with_nil_on_error(uri, options)
+        def request_data_with_nil_on_http_error(uri, options)
           begin
             @request.get(uri, options)["data"]
-          rescue Tankard::Error::LoadError
+          rescue Tankard::Error::HttpError
             nil
           end
         end

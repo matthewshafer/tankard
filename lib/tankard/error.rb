@@ -5,5 +5,6 @@ module Tankard
     HttpError = Class.new(::StandardError)
     LoadError = Class.new(::StandardError)
     InvalidResponse = Class.new(::StandardError)
+    ApiKeyUnauthorized = Class.new(::StandardError)
   end
 end

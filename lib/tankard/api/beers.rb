@@ -41,7 +41,7 @@ module Tankard
           begin
             page += 1
             options[:p] = page
-            response = request_with_nil_on_error("beers", options)
+            response = request_with_nil_on_http_error("beers", options)
             total_pages = response["numberOfPages"]
             data = response["data"]
             data.each { |beer| block.call(beer) }
@@ -49,7 +49,7 @@ module Tankard
         end
 
         def find_on_single_page(block)
-          data = request_data_with_nil_on_error("beers", @options)
+          data = request_data_with_nil_on_http_error("beers", @options)
           raise Tankard::Error::InvalidResponse unless data
           
           if data.is_a?(Hash)
@@ -60,14 +60,14 @@ module Tankard
         end
 
         def request_data_with_nil_on_error(uri, options)
-          request_body = request_with_nil_on_error(uri, options)
+          request_body = request_with_nil_on_http_error(uri, options)
           request_body ? request_body["data"] : nil
         end
 
-        def request_with_nil_on_error(uri, options)
+        def request_with_nil_on_http_error(uri, options)
           begin
             @request.get(uri, options)
-          rescue Tankard::Error::LoadError
+          rescue Tankard::Error::HttpError
             nil
           end
         end
