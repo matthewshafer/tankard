@@ -85,7 +85,7 @@ module Tankard
         def request_data_with_nil_on_error(uri, options)
           begin
             @request.get(uri, options)["data"]
-          rescue Tankard::Error::HttpError
+          rescue Tankard::Error::LoadError
             nil
           end
         end
