@@ -63,7 +63,7 @@ module Tankard
             endpoint += "/#{@options.delete(:endpoint)}"
           end
 
-          request_data_with_nil_on_http_error(endpoint, @options)
+          request_data(endpoint, @options)
         end
 
         def raise_if_no_id_in_options
@@ -84,10 +84,19 @@ module Tankard
 
         def request_data_with_nil_on_http_error(uri, options)
           begin
-            @request.get(uri, options)["data"]
+            request_data(uri, options)
           rescue Tankard::Error::HttpError
             nil
           end
+        end
+
+        # break up the request methods into smaller pieces
+        def request_data(uri, options)
+          get_request(uri, options)["data"]
+        end
+
+        def get_request(uri, options)
+          @request.get(uri, options)
         end
     end
   end
