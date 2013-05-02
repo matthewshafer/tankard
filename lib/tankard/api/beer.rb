@@ -1,9 +1,11 @@
 require 'hashie'
+require 'tankard/api/request/get'
 
 module Tankard
   module Api
     class Beer
       include ::Enumerable
+      include Tankard::Api::Request::Get
 
       def initialize(request, options={})
         @request = request
@@ -18,9 +20,9 @@ module Tankard
         @options.merge!(options)
 
         if beer_id.is_a?(Array)
-          beer_id.map { |beer| request_data_with_nil_on_http_error("beer/#{beer}", @options) }.compact
+          beer_id.map { |beer| request_data_with_nil_on_http_error(@request, "beer/#{beer}", @options) }.compact
         else
-          request_data_with_nil_on_http_error("beer/#{beer_id}", @options)
+          request_data_with_nil_on_http_error(@request, "beer/#{beer_id}", @options)
         end
       end
 
@@ -63,7 +65,7 @@ module Tankard
             endpoint += "/#{@options.delete(:endpoint)}"
           end
 
-          request_data(endpoint, @options)
+          request_data(@request, endpoint, @options)
         end
 
         def raise_if_no_id_in_options
@@ -80,23 +82,6 @@ module Tankard
           else
             data.each { |beer| block.call(beer) }
           end
-        end
-
-        def request_data_with_nil_on_http_error(uri, options)
-          begin
-            request_data(uri, options)
-          rescue Tankard::Error::HttpError
-            nil
-          end
-        end
-
-        # break up the request methods into smaller pieces
-        def request_data(uri, options)
-          get_request(uri, options)["data"]
-        end
-
-        def get_request(uri, options)
-          @request.get(uri, options)
         end
     end
   end
