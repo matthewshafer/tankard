@@ -56,6 +56,13 @@ module Tankard
         self
       end
 
+      def params(options={})
+        options.each_pair do |key,value|
+          @options[key] = value
+        end
+        self
+      end
+
       private
 
         def request_data_from_options

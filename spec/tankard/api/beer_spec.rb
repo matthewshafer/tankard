@@ -116,7 +116,7 @@ describe Tankard::Api::Beer do
 
   describe "#variations" do
 
-    it "sets teh options[:endpoint] to variations" do
+    it "sets the options[:endpoint] to variations" do
       beer.variations
       beer_options = beer.instance_variable_get(:"@options")
       expect(beer_options[:endpoint]).to eql("variations")
@@ -124,6 +124,27 @@ describe Tankard::Api::Beer do
 
     it "returns itself" do
       expect(beer.object_id).to eql(beer.variations.object_id)
+    end
+  end
+
+  describe "#params" do
+
+    it "sets parameters" do
+      beer.params(withSocialAccounts: "y", withGuilds: "n")
+      beer_options = beer.instance_variable_get(:"@options")
+      expect(beer_options[:withSocialAccounts]).to eql("y")
+      expect(beer_options[:withGuilds]).to eql("n")
+    end
+
+    it "merges data when called multiple times" do
+      beer.params(test: "n")
+      beer.params(test: "y")
+      beer_options = beer.instance_variable_get(:"@options")
+      expect(beer_options[:test]).to eql("y")
+    end
+
+    it "returns itself" do
+      expect(beer.object_id).to eql(beer.params.object_id)
     end
   end
 

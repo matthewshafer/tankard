@@ -42,6 +42,14 @@ Tankard.beer.id("some_id").breweries.each { |x| p x}
 beer = Tankard.beer.find(["first_id", "second_id"])
 ```
 
+Alternatively you can send parameters to the request in two ways.  Here are examples:
+
+```ruby
+Tankard.beer(id: "some_id", endpoint: "breweries", anotherParam: "something").each { |x| p x }
+
+Tankard.beer.id("some_id").breweries.params(anotherParam: "something").each { |x| p x }
+```
+
 ## Contributing
 
 ### Issues
