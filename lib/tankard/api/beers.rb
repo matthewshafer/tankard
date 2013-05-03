@@ -33,7 +33,6 @@ module Tankard
       private
 
         def options_have_page_set
-          # need to make the keys respond to both symbol and string
           @options.has_key?(:p)
         end
 
