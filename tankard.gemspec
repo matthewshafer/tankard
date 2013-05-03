@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["matthewshafer@mac.com"]
   spec.description   = %q{Connector to the BreweryDB api}
   spec.summary       = %q{Allows easy quering to the breweryDB api}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/matthewshafer/tankard"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
