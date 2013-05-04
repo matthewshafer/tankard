@@ -1,11 +1,13 @@
 require 'hashie'
 require 'tankard/api/request/get'
+require 'tankard/api/utils/finders'
 
 module Tankard
   module Api
     class Beers
       include ::Enumerable
       include Tankard::Api::Request::Get
+      include Tankard::Api::Utils::Finders
 
       def initialize(request, options={})
         @request = request
@@ -14,9 +16,9 @@ module Tankard
 
       def each(&block)
         if options_have_page_set
-          find_on_single_page(block)
+          find_on_single_page("beers", @request, @options, block)
         else
-          find_on_all_pages(block)
+          find_on_all_pages("beers", @request, @options,block)
         end
       end
 
@@ -34,31 +36,6 @@ module Tankard
 
         def options_have_page_set
           @options.has_key?(:p)
-        end
-
-        def find_on_all_pages(block)
-          page = 0
-          options = @options.clone
-          begin
-            page += 1
-            options[:p] = page
-            response = get_request(@request, "beers", options)
-            total_pages = response["numberOfPages"].to_i
-            data = response["data"]
-            raise Tankard::Error::InvalidResponse unless data
-            data.each { |beer| block.call(beer) }
-          end while page < total_pages
-        end
-
-        def find_on_single_page(block)
-          data = request_data(@request, "beers", @options)
-          raise Tankard::Error::InvalidResponse unless data
-          
-          if data.is_a?(Hash)
-            block.call(data)
-          else
-            data.each { |beer| block.call(beer) }
-          end
         end
     end
   end
