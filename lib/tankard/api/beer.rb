@@ -1,11 +1,13 @@
 require 'hashie'
 require 'tankard/api/request/get'
+require 'tankard/api/utils/finders'
 
 module Tankard
   module Api
     class Beer
       include ::Enumerable
       include Tankard::Api::Request::Get
+      include Tankard::Api::Utils::Finders
 
       def initialize(request, options={})
         @request = request
@@ -13,7 +15,7 @@ module Tankard
       end
 
       def each(&block)
-        find_on_single_page(block)
+        find_on_single_page(uri_from_options_endpoint, @request, @options, block)
       end
 
       def find(beer_id, options={})
@@ -65,30 +67,19 @@ module Tankard
 
       private
 
-        def request_data_from_options
+        def uri_from_options_endpoint
           endpoint = "beer/#{raise_if_no_id_in_options}"
 
           if @options.endpoint?
             endpoint += "/#{@options.delete(:endpoint)}"
           end
 
-          request_data(@request, endpoint, @options)
+          endpoint
         end
 
         def raise_if_no_id_in_options
           raise Tankard::Error::NoBeerId unless @options.id?
           @options.delete(:id)
-        end
-
-        def find_on_single_page(block)
-          data = request_data_from_options
-          raise Tankard::Error::InvalidResponse unless data
-
-          if data.is_a?(Hash)
-            block.call(data)
-          else
-            data.each { |beer| block.call(beer) }
-          end
         end
     end
   end
