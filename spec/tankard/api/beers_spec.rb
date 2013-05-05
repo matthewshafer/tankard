@@ -33,6 +33,27 @@ describe Tankard::Api::Beers do
     end
   end
 
+  describe "#params" do
+
+    it "sets parameters" do
+      beers.params(withSocialAccounts: "y", withGuilds: "n")
+      beers_options = beers.instance_variable_get(:"@options")
+      expect(beers_options[:withSocialAccounts]).to eql("y")
+      expect(beers_options[:withGuilds]).to eql("n")
+    end
+
+    it "merges params when called multiple times" do
+      beers.params(test: "n")
+      beers.params(test: "y")
+      beers_options = beers.instance_variable_get(:"@options")
+      expect(beers_options[:test]).to eql("y")
+    end
+
+    it "returns itself" do
+      expect(beers.object_id).to eql(beers.params.object_id)
+    end
+  end
+
   describe "when making a request" do
 
     context "and a page is set" do

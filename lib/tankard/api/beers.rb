@@ -32,6 +32,13 @@ module Tankard
         self
       end
 
+      def params(options={})
+        options.each_pair do |key,value|
+          @options[key] = value
+        end
+        self
+      end
+
       private
 
         def options_have_page_set
