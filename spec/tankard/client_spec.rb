@@ -51,4 +51,15 @@ describe Tankard::Client do
       end
     end
   end
+
+  describe "#styles" do
+
+    context "when called" do
+
+      it "does not reuse an existing beer object" do
+        styles = client.styles
+        expect(styles.object_id != client.styles.object_id).to be_true
+      end
+    end
+  end
 end
