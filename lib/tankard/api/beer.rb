@@ -1,6 +1,7 @@
 require 'hashie'
 require 'tankard/api/request/get'
 require 'tankard/api/utils/page_finders'
+require 'tankard/api/utils/find'
 
 module Tankard
   module Api
@@ -8,6 +9,7 @@ module Tankard
       include ::Enumerable
       include Tankard::Api::Request::Get
       include Tankard::Api::Utils::PageFinders
+      include Tankard::Api::Utils::Find
 
       def initialize(request, options={})
         @request = request
@@ -16,16 +18,6 @@ module Tankard
 
       def each(&block)
         find_on_single_page(uri_from_options_endpoint, @request, @options, block)
-      end
-
-      def find(beer_id, options={})
-        @options.merge!(options)
-
-        if beer_id.is_a?(Array)
-          beer_id.map { |beer| request_data_with_nil_on_http_error(@request, "beer/#{beer}", @options) }.compact
-        else
-          request_data_with_nil_on_http_error(@request, "beer/#{beer_id}", @options)
-        end
       end
 
       def id(beer_id)
@@ -80,6 +72,10 @@ module Tankard
         def raise_if_no_id_in_options
           raise Tankard::Error::NoBeerId unless @options.id?
           @options.delete(:id)
+        end
+
+        def route
+          "beer"
         end
     end
   end
