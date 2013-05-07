@@ -1,13 +1,13 @@
 require 'hashie'
 require 'tankard/api/request/get'
-require 'tankard/api/utils/finders'
+require 'tankard/api/utils/page_finders'
 
 module Tankard
   module Api
     class Beers
       include ::Enumerable
       include Tankard::Api::Request::Get
-      include Tankard::Api::Utils::Finders
+      include Tankard::Api::Utils::PageFinders
 
       def initialize(request, options={})
         @request = request

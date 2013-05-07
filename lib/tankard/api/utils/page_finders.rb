@@ -3,7 +3,7 @@ require 'tankard/api/request/get'
 module Tankard
   module Api
     module Utils
-      module Finders
+      module PageFinders
         include Tankard::Api::Request::Get
 
         private
