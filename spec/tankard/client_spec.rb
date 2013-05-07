@@ -62,4 +62,28 @@ describe Tankard::Client do
       end
     end
   end
+
+  describe "#style" do
+
+    context "when called" do
+
+      it "does not reuse an existing style object" do
+        style = client.style
+        expect(style.object_id).not_to eql(client.style.object_id)
+      end
+    end
+
+    context "when passed a hash of options" do
+
+      before do
+        @request = mock("request")
+        Tankard::Request.stub!(:new).and_return(@request)
+      end
+
+      it "passes the options to the style object" do
+        Tankard::Api::Style.should_receive(:new).with(@request, { test: 123 })
+        client.style({ test: 123 })
+      end
+    end
+  end
 end

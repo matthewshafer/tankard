@@ -2,6 +2,7 @@ require 'tankard/request'
 require 'tankard/api/beer'
 require 'tankard/api/beers'
 require 'tankard/api/styles'
+require 'tankard/api/style'
 
 module Tankard
   class Client
@@ -24,6 +25,10 @@ module Tankard
 
     def styles
       Tankard::Api::Styles.new(@tankard_request)
+    end
+
+    def style(options={})
+      Tankard::Api::Style.new(@tankard_request, options)
     end
   end
 end
