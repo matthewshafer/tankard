@@ -197,7 +197,7 @@ describe Tankard::Api::Beer do
         @request.stub(:get).with("beer/valid1", {}).and_return({})
       end
 
-      it "gracefully fails" do
+      it "raises a Tankard::Error::InvalidResponse" do
         expect { beer.id("valid1").collect { |x| x} }.to raise_error(Tankard::Error::InvalidResponse)
       end
     end
