@@ -9,6 +9,7 @@ module Tankard
       include ::Enumerable
       include Tankard::Api::Request::Get
       include Tankard::Api::Utils::PageFinders
+      # @!parse extend Tankard::Api::Utils::Find
       include Tankard::Api::Utils::Find
 
       def initialize(request, options={})
