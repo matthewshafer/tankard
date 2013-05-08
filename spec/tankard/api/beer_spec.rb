@@ -11,41 +11,18 @@ describe Tankard::Api::Beer do
   describe "#find" do
 
     before do
-      @valid_beers = ["valid1", "valid2"]
-      @invalid_beers = ["invalid1", "invalid2"]
       @request.stub(:get).with("beer/valid1", {}).and_return({ "data" => "valid1_found"})
       @request.stub(:get).with("beer/valid2", {}).and_return({ "data" => "valid2_found"})
       @request.stub(:get).with("beer/invalid1", {}).and_raise(Tankard::Error::HttpError)
       @request.stub(:get).with("beer/invalid2", {}).and_raise(Tankard::Error::HttpError)
     end
 
-    context "when looking up a valid beer" do
-
-      it "returns data on that specific beer" do
-        expect(beer.find(@valid_beers.first)).to eql("valid1_found")
-      end
-    end
-
-    context "when looking up an invalid beer" do
-
-      it "returns nil when not found" do
-        expect(beer.find(@invalid_beers.first)).to eql(nil)
-      end
-    end
-
-    context "when looking up multiple valid beers" do
-
-      it "returns an array of data with each beer" do
-        expect(beer.find(@valid_beers)).to eql(["valid1_found", "valid2_found"])
-      end
-    end
-
-    context "when looking up multiple beers and one is invalid" do
-
-      it "returns an array with only the valid beers" do
-        beer_request = @valid_beers + @invalid_beers
-        expect(beer.find(beer_request)).to eql(["valid1_found", "valid2_found"])
-      end
+    it_should_behave_like "the find method" do
+      let(:context) { beer }
+      let(:valid_items) { ["valid1", "valid2"] }
+      let(:valid_responses) { ["valid1_found", "valid2_found"] }
+      let(:invalid_items) { ["invalid1", "invalid2"] }
+      let(:valid_invalid_items) { valid_items + invalid_items }
     end
   end
 

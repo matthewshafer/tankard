@@ -12,6 +12,7 @@ end
 require 'tankard'
 require 'rspec'
 require 'webmock/rspec'
+require 'shared_examples_for_find'
 
 WebMock.disable_net_connect!(allow: 'coveralls.io')
 

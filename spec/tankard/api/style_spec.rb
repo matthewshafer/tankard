@@ -10,41 +10,18 @@ describe Tankard::Api::Style do
   describe "#find" do
 
     before do
-      @valid_styles = [1, 2]
-      @invalid_styles = [3, 4]
       @request.stub(:get).with("style/1", {}).and_return({ "data" => "valid1_found"})
       @request.stub(:get).with("style/2", {}).and_return({ "data" => "valid2_found"})
       @request.stub(:get).with("style/3", {}).and_raise(Tankard::Error::HttpError)
       @request.stub(:get).with("style/4", {}).and_raise(Tankard::Error::HttpError)
     end
 
-    context "when looking up a valid style" do
-
-      it "returns data on that specific style" do
-        expect(style.find(@valid_styles.first)).to eql("valid1_found")
-      end
-    end
-
-    context "when looking up an invalid style" do
-
-      it "returns nil when not found" do
-        expect(style.find(@invalid_styles.first)).to eql(nil)
-      end
-    end
-
-    context "when looking up multiple valid styles" do
-
-      it "returns an array of data with each style" do
-        expect(style.find(@valid_styles)).to eql(["valid1_found", "valid2_found"])
-      end
-    end
-
-    context "when looking up multiple styles and one is invalid" do
-
-      it "returns an array with only the valid styles" do
-        style_request = @valid_styles + @invalid_styles
-        expect(style.find(style_request)).to eql(["valid1_found", "valid2_found"])
-      end
+    it_should_behave_like "the find method" do
+      let(:context) { style }
+      let(:valid_items) { [1, 2] }
+      let(:valid_responses) { ["valid1_found", "valid2_found"] }
+      let(:invalid_items) { [3, 4] }
+      let(:valid_invalid_items) { valid_items + invalid_items }
     end
   end
 
