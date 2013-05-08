@@ -77,6 +77,14 @@ module Tankard
         def route
           "beer"
         end
+
+        def http_client
+          @request
+        end
+
+        def http_request_parameters
+          @options
+        end
     end
   end
 end
