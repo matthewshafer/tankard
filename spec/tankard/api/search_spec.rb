@@ -206,7 +206,15 @@ describe Tankard::Api::Search do
     end
 
     context "and no data is returned on a multi page request" do
+      before do
+        @search = Tankard::Api::Search.new(@request)
+        @request.stub(:get).with("search", Hashie::Mash.new(q: "test", p: 1)).and_return({ "numberOfPages" => 2, "data" => ["test1", "test2"] })
+        @request.stub(:get).with("search", Hashie::Mash.new(q: "test", p: 2)).and_return({})
+      end
 
+      it "raises Tankard::Error::InvalidResponse" do
+        expect { @search.query("test").collect { |x| x } }.to raise_error(Tankard::Error::InvalidResponse)
+      end
     end
   end
 end
