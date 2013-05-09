@@ -1,6 +1,7 @@
 require 'tankard/request'
 require 'tankard/api/beer'
 require 'tankard/api/beers'
+require 'tankard/api/search'
 require 'tankard/api/styles'
 require 'tankard/api/style'
 
@@ -21,6 +22,10 @@ module Tankard
 
     def beers(options={})
       Tankard::Api::Beers.new(@tankard_request, options)
+    end
+
+    def search(options={})
+      Tankard::Api::Search.new(@tankard_request, options)
     end
 
     def styles

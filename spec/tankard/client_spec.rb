@@ -52,6 +52,30 @@ describe Tankard::Client do
     end
   end
 
+  describe "#search" do
+
+    context "when called" do
+
+      it "does not reuse an existing search object" do
+        search = client.search
+        expect(search.object_id).not_to eql(client.search.object_id)
+      end
+    end
+
+    context "when passed a hash of options" do
+
+      before do
+        @request = mock("request")
+        Tankard::Request.stub!(:new).and_return(@request)
+      end
+
+      it "passes the options to the search object" do
+        Tankard::Api::Search.should_receive(:new).with(@request, { test: 123 })
+        client.search({ test: 123 })
+      end
+    end
+  end
+
   describe "#styles" do
 
     context "when called" do
