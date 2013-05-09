@@ -27,7 +27,7 @@ describe Tankard::Api::Style do
 
   describe "#id" do
 
-    it "sets the options[:id] fo the style id passed in" do
+    it "sets the options[:id] for the style id passed in" do
       style.id(1)
       style_options = style.instance_variable_get(:"@options")
       expect(style_options[:id]).to eql(1)
