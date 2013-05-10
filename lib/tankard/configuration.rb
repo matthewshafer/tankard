@@ -13,8 +13,9 @@ module Tankard
 
     def reset!
       Tankard::Configuration::KEYS.each do |key|
-        instance_variable_set(:"@{key}", nil)
+        instance_variable_set(:"@#{key}", nil)
       end
+      reset_client
     end
 
     private
@@ -29,6 +30,10 @@ module Tankard
         unless @api_key.is_a?(String)
           raise Tankard::Error::ConfigurationError, "api_key is not a string"
         end
+      end
+
+      def reset_client
+        raise Tankard::Error::ConfigurationError, "Implement reset_client"
       end
   end
 end
