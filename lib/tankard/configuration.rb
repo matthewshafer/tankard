@@ -8,14 +8,8 @@ module Tankard
     def configure
       yield self
       validate_api_key!
-      self
-    end
-
-    def reset!
-      Tankard::Configuration::KEYS.each do |key|
-        instance_variable_set(:"@#{key}", nil)
-      end
       reset_client
+      self
     end
 
     private
