@@ -13,9 +13,19 @@ module Tankard
         @request = request
       end
 
-      def each(&block)
-        find_on_single_page("styles", @request, nil, block)
-      end
+      private
+
+        def http_request_uri
+          "styles"
+        end
+
+        def http_client
+          @request
+        end
+
+        def http_request_parameters
+          {}
+        end
     end
   end
 end

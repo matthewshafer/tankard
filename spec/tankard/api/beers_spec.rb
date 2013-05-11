@@ -72,65 +72,15 @@ describe Tankard::Api::Beers do
       end
     end
 
-    context "and additional options are set without a page" do
+    context "and additional options are set" do
 
       before do
         @beers_with_options = Tankard::Api::Beers.new(@request, test: "123")
-        @request.stub(:get).with("beers", Hashie::Mash.new(test: "123", p: 1)).and_return({ "data" => ["beers"]})
+        @request.stub(:get).with("beers", Hashie::Mash.new(test: "123")).and_return({ "data" => ["beers"]})
       end
 
       it "passes them to the request" do
         expect(@beers_with_options.collect { |x| x }).to eql(["beers"])
-      end
-    end
-
-    context "and additional options are set with a page" do
-
-      before do
-        @beers_with_options = Tankard::Api::Beers.new(@request, test: "123", p: 2)
-        @request.stub(:get).with("beers", Hashie::Mash.new(test: "123", p: 2)).and_return({ "data" => ["beers"]})
-      end
-
-      it "passes them to the request" do
-        expect(@beers_with_options.collect { |x| x }).to eql(["beers"])
-      end
-    end
-
-    context "and no data is returned on a single page request" do
-
-      before do
-        @beers = Tankard::Api::Beers.new(@request, p: 1)
-        @request.stub(:get).with("beers", Hashie::Mash.new(p: 1)).and_return({})
-      end
-
-      it "raises a Tankard::Error::InvalidResponse error" do
-        expect { @beers.collect { |x| x} }.to raise_error(Tankard::Error::InvalidResponse)
-      end
-    end
-
-    context "and no data is returned on a page in a multi page request" do
-
-      before do
-        @beers = Tankard::Api::Beers.new(@request)
-        @request.stub(:get).with("beers", Hashie::Mash.new(p: 1)).and_return({"numberOfPages" => 2, "data" => ["test1", "test2"]})
-        @request.stub(:get).with("beers", Hashie::Mash.new(p: 2)).and_return({})
-      end
-
-      it "raises a Tankard::Error::InvalidResponse error" do
-        expect { @beers.collect { |x| x} }.to raise_error(Tankard::Error::InvalidResponse)
-      end
-    end
-
-    context "and a page is not specified" do
-
-      before do
-        @beers = Tankard::Api::Beers.new(@request)
-        @request.stub(:get).with("beers", Hashie::Mash.new(p: 1)).and_return({"numberOfPages" => 2, "data" => ["test1", "test2"]})
-        @request.stub(:get).with("beers", Hashie::Mash.new(p: 2)).and_return({"numberOfPages" => 2, "data" => ["test3", "test4"]})
-      end
-
-      it "runs through all of the pages returned by brewerydb" do
-        expect(@beers.collect { |x| x}).to eql(["test1", "test2", "test3", "test4"])
       end
     end
   end

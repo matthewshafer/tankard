@@ -5,21 +5,12 @@ require 'tankard/api/utils/page_finders'
 module Tankard
   module Api
     class Beers
-      include ::Enumerable
       include Tankard::Api::Request::Get
       include Tankard::Api::Utils::PageFinders
 
       def initialize(request, options={})
         @request = request
         @options = Hashie::Mash.new(options)
-      end
-
-      def each(&block)
-        if options_have_page_set
-          find_on_single_page("beers", @request, @options, block)
-        else
-          find_on_all_pages("beers", @request, @options,block)
-        end
       end
 
       def name(beer_name)
@@ -41,8 +32,16 @@ module Tankard
 
       private
 
-        def options_have_page_set
-          @options.has_key?(:p)
+        def http_request_uri
+          "beers"
+        end
+
+        def http_client
+          @request
+        end
+
+        def http_request_parameters
+          @options
         end
     end
   end

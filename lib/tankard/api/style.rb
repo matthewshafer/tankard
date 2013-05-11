@@ -6,7 +6,6 @@ require 'tankard/api/utils/find'
 module Tankard
   module Api
     class Style
-      include ::Enumerable
       include Tankard::Api::Request::Get
       include Tankard::Api::Utils::PageFinders
       include Tankard::Api::Utils::Find
@@ -14,10 +13,6 @@ module Tankard
       def initialize(request, options={})
         @request = request
         @options = Hashie::Mash.new(options)
-      end
-
-      def each(&block)
-        find_on_single_page("style/#{raise_if_no_id_in_options}", @request, @options, block)
       end
 
       def id(style_id)
@@ -34,6 +29,10 @@ module Tankard
 
         def route
           "style"
+        end
+
+        def http_request_uri
+          "#{route}/#{raise_if_no_id_in_options}"
         end
 
         def http_client

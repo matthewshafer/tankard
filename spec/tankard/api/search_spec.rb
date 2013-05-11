@@ -141,10 +141,10 @@ describe Tankard::Api::Search do
     context "and the search query is set" do
 
       before do
-        @request.stub(:get).with("search", Hashie::Mash.new(p: 1, q: "test")).and_return("data" => ["search_result"])
+        @request.stub(:get).with("search", Hashie::Mash.new(q: "test")).and_return("data" => ["search_result"])
       end
 
-      it "uses the query in the request parameters" do
+      it "is placed in the request parameters" do
         expect(search.query("test").collect { |x| x }).to eql(["search_result"])
       end
     end
@@ -152,7 +152,7 @@ describe Tankard::Api::Search do
     context "the endpoint is set" do
 
       before do
-        @request.stub(:get).with("search/upc", Hashie::Mash.new(code: "123", p: 1)).and_return({ "data" => ["search_result"] })
+        @request.stub(:get).with("search/upc", Hashie::Mash.new(code: "123")).and_return({ "data" => ["search_result"] })
       end
 
       it "adds the endpoint to the request" do
@@ -185,35 +185,12 @@ describe Tankard::Api::Search do
     context "additional options are set" do
 
       before do
-        @search_with_options = Tankard::Api::Search.new(@request, test: "123", p: 1, q: "search")
-        @request.stub(:get).with("search", Hashie::Mash.new(test: "123", p: 1, q: "search")).and_return({ "data" => ["searched"] })
+        @search_with_options = Tankard::Api::Search.new(@request, test: "123", p: 2, q: "search")
+        @request.stub(:get).with("search", Hashie::Mash.new(test: "123", p: 2, q: "search")).and_return({ "data" => ["searched"] })
       end
 
       it "passes them to the request" do
         expect(@search_with_options.collect { |x| x }).to eql(["searched"])
-      end
-    end
-
-    context "and no data is returned on a single page request" do
-
-      before do
-        @request.stub(:get).with("search", Hashie::Mash.new(q: "test", p: 1)).and_return({})
-      end
-
-      it "raises Tankard::Error::InvalidResponse" do
-        expect { search.query("test").page(1).collect { |x| x } }.to raise_error(Tankard::Error::InvalidResponse)
-      end
-    end
-
-    context "and no data is returned on a multi page request" do
-      before do
-        @search = Tankard::Api::Search.new(@request)
-        @request.stub(:get).with("search", Hashie::Mash.new(q: "test", p: 1)).and_return({ "numberOfPages" => 2, "data" => ["test1", "test2"] })
-        @request.stub(:get).with("search", Hashie::Mash.new(q: "test", p: 2)).and_return({})
-      end
-
-      it "raises Tankard::Error::InvalidResponse" do
-        expect { @search.query("test").collect { |x| x } }.to raise_error(Tankard::Error::InvalidResponse)
       end
     end
   end

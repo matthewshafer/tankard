@@ -14,12 +14,7 @@ module Tankard
 
       def each(&block)
         raise_if_required_options_not_set
-
-        if options_have_page_set
-          find_on_single_page(uri_from_options_endpoint, @request, @options, block)
-        else
-          find_on_all_pages(uri_from_options_endpoint, @request, @options, block)
-        end
+        super(&block)
       end
 
       def query(search_query)
@@ -59,11 +54,7 @@ module Tankard
 
       private
 
-        def options_have_page_set
-          @options.has_key?(:p)
-        end
-
-        def uri_from_options_endpoint
+        def http_request_uri
           endpoint = "search"
 
           if @options.endpoint?
@@ -71,6 +62,14 @@ module Tankard
           end
 
           endpoint
+        end
+
+        def http_client
+          @request
+        end
+
+        def http_request_parameters
+          @options
         end
 
         def raise_if_required_options_not_set

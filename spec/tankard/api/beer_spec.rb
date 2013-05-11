@@ -167,16 +167,5 @@ describe Tankard::Api::Beer do
         expect(@beer_with_options.collect { |x| x }).to eql(["valid1_found"])
       end
     end
-
-    context "no data is returned" do
-
-      before do
-        @request.stub(:get).with("beer/valid1", {}).and_return({})
-      end
-
-      it "raises a Tankard::Error::InvalidResponse" do
-        expect { beer.id("valid1").collect { |x| x} }.to raise_error(Tankard::Error::InvalidResponse)
-      end
-    end
   end
 end

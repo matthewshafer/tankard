@@ -57,16 +57,5 @@ describe Tankard::Api::Style do
         expect(style.id(1).collect { |x| x}).to eql(["style_valid"])
       end
     end
-
-    context "and no data is returned" do
-
-      before do
-        @request.stub(:get).with("style/1", {}).and_return({})
-      end
-
-      it "raises a Tankard::Error::InvalidResponse" do
-        expect { style.id(1).collect { |x| x } }.to raise_error(Tankard::Error::InvalidResponse)
-      end
-    end
   end
 end

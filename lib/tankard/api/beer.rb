@@ -6,7 +6,6 @@ require 'tankard/api/utils/find'
 module Tankard
   module Api
     class Beer
-      include ::Enumerable
       include Tankard::Api::Request::Get
       include Tankard::Api::Utils::PageFinders
       include Tankard::Api::Utils::Find
@@ -14,10 +13,6 @@ module Tankard
       def initialize(request, options={})
         @request = request
         @options = Hashie::Mash.new(options)
-      end
-
-      def each(&block)
-        find_on_single_page(uri_from_options_endpoint, @request, @options, block)
       end
 
       def id(beer_id)
@@ -59,8 +54,8 @@ module Tankard
 
       private
 
-        def uri_from_options_endpoint
-          endpoint = "beer/#{raise_if_no_id_in_options}"
+        def http_request_uri
+          endpoint = "#{route}/#{raise_if_no_id_in_options}"
 
           if @options.endpoint?
             endpoint += "/#{@options.delete(:endpoint)}"
