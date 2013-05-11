@@ -125,46 +125,83 @@ describe Tankard::Api::Beer do
     end
   end
 
-  describe "when making a request" do
+  describe "private methods" do
 
-    context "the id for a beer is not set" do
+    describe "#raise_if_no_id_in_options" do
 
-      it "raises a Tankard::Error::NoBeerId error" do
-        expect { beer.each { |b| p b } }.to raise_error(Tankard::Error::NoBeerId)
+      context "when an ID is not set" do
+
+        it "raises Tankard::Error::NoBeerId" do
+          expect { beer.send(:raise_if_no_id_in_options) }.to raise_error(Tankard::Error::NoBeerId)
+        end
+      end
+
+      context "when an ID is set" do
+
+        before do
+          beer.instance_variable_get(:"@options")[:id] = "test"
+        end
+
+        it "returns the id from options" do
+          expect(beer.send(:raise_if_no_id_in_options)).to eql("test")
+        end
+
+        it "removes the id from options" do
+          beer.send(:raise_if_no_id_in_options)
+          expect(beer.instance_variable_get(:"@options")[:id]).to be_nil
+        end
       end
     end
 
-    context "the id for a beer is set" do
+    describe "#route" do
 
-      before do
-        @request.stub(:get).with("beer/valid1", {}).and_return({ "data" => { "valid1_found" => "beer", "valid1_found_more" => "more_details" }})
-      end
-
-      it "uses the beer id in the uri" do
-        expect(beer.id("valid1").collect { |x| x }).to eql([{"valid1_found" => "beer", "valid1_found_more" => "more_details" }])
+      it "returns the route for the api request" do
+        expect(beer.send(:route)).to eql("beer")
       end
     end
 
-    context "the endpoint is set" do
+    describe "#http_request_uri" do
 
       before do
-        @request.stub(:get).with("beer/valid1/breweries", {}).and_return({ "data" => ["valid1_found"]})
+        beer.stub!(:route).and_return("beer")
+        beer.stub!(:raise_if_no_id_in_options).and_return("123")
       end
 
-      it "adds the endpoint to the request" do
-        expect(beer.id("valid1").breweries.collect { |x| x }).to eql(["valid1_found"])
+      context "no endpoint is set" do
+
+        it "returns the route with the id" do
+          expect(beer.send(:http_request_uri)).to eql("beer/123")
+        end
+      end
+
+      context "endpoint is set" do
+
+        before do
+          beer.instance_variable_get(:"@options")[:endpoint] = "events"
+        end
+
+        it "returns the route with the id and endpoint" do
+          expect(beer.send(:http_request_uri)).to eql("beer/123/events")
+        end
+
+        it "removes the endpoint from options" do
+          beer.send(:http_request_uri)
+          expect(beer.instance_variable_get(:"@options")[:endpoint]).to be_nil
+        end
       end
     end
 
-    context "additional options are set" do
+    describe "#http_client" do
 
-      before do
-        @beer_with_options = Tankard::Api::Beer.new(@request, test: "123", id: "valid1")
-        @request.stub(:get).with("beer/valid1", Hashie::Mash.new(test: "123")).and_return({ "data" => ["valid1_found"]})
+      it "returns the request variable that is passed when the class is created" do
+        expect(beer.send(:http_client).object_id).to eql(@request.object_id)
       end
+    end
 
-      it "passes them to the request" do
-        expect(@beer_with_options.collect { |x| x }).to eql(["valid1_found"])
+    describe "#http_request_parameters" do
+
+      it "returns the options for the request" do
+        expect(beer.send(:http_request_parameters).object_id).to eql(beer.instance_variable_get(:"@options").object_id)
       end
     end
   end
