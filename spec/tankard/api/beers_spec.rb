@@ -54,33 +54,26 @@ describe Tankard::Api::Beers do
     end
   end
 
-  describe "when making a request" do
+  describe "private methods" do
 
-    context "and a page is set" do
+    describe "#http_request_uri" do
 
-      it "only queries a single page" do
-        beers.should_receive(:find_on_single_page)
-        beers.page(1).each { |x| x }
+      it "returns the string beers" do
+        expect(beers.send(:http_request_uri)).to eql("beers")
       end
     end
 
-    context "and a page is not set" do
+    describe "#http_client" do
 
-      it "queries multiple pages" do
-        beers.should_receive(:find_on_all_pages)
-        beers.each { |x| x }
+      it "returns the request variable that is passed in when the class is initialized" do
+        expect(beers.send(:http_client).object_id).to eql(@request.object_id)
       end
     end
 
-    context "and additional options are set" do
+    describe "#http_request_parameters" do
 
-      before do
-        @beers_with_options = Tankard::Api::Beers.new(@request, test: "123")
-        @request.stub(:get).with("beers", Hashie::Mash.new(test: "123")).and_return({ "data" => ["beers"]})
-      end
-
-      it "passes them to the request" do
-        expect(@beers_with_options.collect { |x| x }).to eql(["beers"])
+      it "returns the options for the request" do
+        expect(beers.send(:http_request_parameters).object_id).to eql(beers.instance_variable_get(:"@options").object_id)
       end
     end
   end
