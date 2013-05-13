@@ -113,84 +113,119 @@ describe Tankard::Api::Search do
     end
   end
 
-  describe "when making a request" do
+  describe "#each" do
 
-    context "and a page is set" do
+    it "should call raise_if_required_options_not_set" do
+      search.stub(:find_on_single_or_all_pages).and_return(nil)
+      search.should_receive(:raise_if_required_options_not_set)
+      search.each
+    end
 
-      it "only queries a single page" do
-        search.should_receive(:find_on_single_page)
-        search.query("test").page(1).each { |x| x }
+    it "calls the super object with the block" do
+      block = -> x { x }
+      search.stub(:raise_if_required_options_not_set).and_return(nil)
+      search.should_receive(:find_on_single_or_all_pages)
+      search.each(&block)
+    end
+  end
+
+  describe "private methods" do
+
+    describe "#raise_if_required_options_not_set" do
+
+      context "the endpoint is not set" do
+
+        it "raises Tankard::Error::NoSearchQuery when the query is not set" do
+          expect { search.send(:raise_if_required_options_not_set) }.to raise_error(Tankard::Error::NoSearchQuery)
+        end
+
+        it "does not raise Tankard::Error::NoSearchQuery when the query is set" do
+          search.instance_variable_get(:"@options")[:q] = "findme"
+          expect { search.send(:raise_if_required_options_not_set) }.not_to raise_error(Tankard::Error::NoSearchQuery)
+        end
+      end
+
+      context "the endpoint is set to upc" do
+
+        before do
+          search.instance_variable_get(:"@options")[:endpoint] = "upc"
+        end
+
+        it "raises Tankard::Error::MissingParameter when code is not set" do
+          expect { search.send(:raise_if_required_options_not_set) }.to raise_error(Tankard::Error::MissingParameter, "missing parameter: code")
+        end
+
+        it "does not raise Tankard::Error::MissingParameter when code is set" do
+          search.instance_variable_get(:"@options")[:code] = "1234"
+          expect { search.send(:raise_if_required_options_not_set) }.not_to raise_error(Tankard::Error::MissingParameter)
+        end
+      end
+
+      context "the endpoint is set to geo/point" do
+
+        before do
+          search.instance_variable_get(:"@options")[:endpoint] = "geo/point"
+        end
+
+        it "raises Tankard::Error::MissingParameter when latitude is not set" do
+          search.instance_variable_get(:"@options")[:lng] = 123
+          expect { search.send(:raise_if_required_options_not_set) }.to raise_error(Tankard::Error::MissingParameter, "missing Parameters: lat, lng")
+        end
+
+        it "raises Tankard::Error::MissingParameter when longitude is not set" do
+          search.instance_variable_get(:"@options")[:lat] = 123
+          expect { search.send(:raise_if_required_options_not_set) }.to raise_error(Tankard::Error::MissingParameter, "missing Parameters: lat, lng")
+        end
+
+        it "raises Tankard::Error::MissingParameter when latitude and longitude are not set" do
+          expect { search.send(:raise_if_required_options_not_set) }.to raise_error(Tankard::Error::MissingParameter, "missing Parameters: lat, lng")
+        end
+
+        it "does not raise Tankard::Error::MissingParameter when latitude and longitude are set" do
+          search.instance_variable_get(:"@options")[:lat] = 123
+          search.instance_variable_get(:"@options")[:lng] = 123
+          expect { search.send(:raise_if_required_options_not_set) }.not_to raise_error(Tankard::Error::MissingParameter)
+        end
       end
     end
 
-    context "and a page is not set" do
+    describe "#http_request_uri" do
 
-      it "queries multiple pages" do
-        search.should_receive(:find_on_all_pages)
-        search.query("test").each { |x| x }
+      context "no endpoint is set" do
+
+        it "returns search" do
+          expect(search.send(:http_request_uri)).to eql("search")
+        end
+      end
+
+      context "an endpoint is set" do
+
+        before do
+          search.instance_variable_get(:"@options")[:endpoint] = "upc"
+        end
+
+        it "adds the endpoint to the uri" do
+          expect(search.send(:http_request_uri)).to eql("search/upc")
+        end
+
+        it "removes the endpoint from options" do
+          search.send(:http_request_uri)
+          expect(search.instance_variable_get(:"@options")[:endpoint]).to eql(nil)
+        end
       end
     end
 
-    context "and the search query is not set" do
+    describe "#http_client" do
 
-      it "raises Tankard::Error::NoSearchQuery" do
-        expect { search.each { |s| p s } }.to raise_error(Tankard::Error::NoSearchQuery)
+      it "returns the request variable that is passed when the class is created" do
+        expect(search.send(:http_client).object_id).to eql(@request.object_id)
       end
     end
 
-    context "and the search query is set" do
+    describe "#http_request_parameters" do
 
-      before do
-        @request.stub(:get).with("search", Hashie::Mash.new(q: "test")).and_return("data" => ["search_result"])
-      end
-
-      it "is placed in the request parameters" do
-        expect(search.query("test").collect { |x| x }).to eql(["search_result"])
-      end
-    end
-
-    context "the endpoint is set" do
-
-      before do
-        @request.stub(:get).with("search/upc", Hashie::Mash.new(code: "123")).and_return({ "data" => ["search_result"] })
-      end
-
-      it "adds the endpoint to the request" do
-        expect(search.upc("123").collect { |x| x }).to eql(["search_result"])
-      end
-    end
-
-    context "the upc endpoint is set without the code parameter" do
-
-      it "raises Tankard::Error::MissingParameter" do
-        expect { search.params(endpoint: "upc").collect { |x| x } }. to raise_error(Tankard::Error::MissingParameter)
-      end
-    end
-
-    context "the geo/point endpoint isset without lat or lng parameters" do
-
-      it "raises Tankard::Error::MissingParameter when lat is set but lng isnt" do
-        expect { search.params(endpoint: "geo/point", lat: 123).collect { |x| x } }.to raise_error(Tankard::Error::MissingParameter)
-      end
-
-      it "raises Tankard::Error::MissingParameter when lng is set but lat isnt" do
-        expect { search.params(endpoint: "geo/point", lng: 2).collect { |x| x } }.to raise_error(Tankard::Error::MissingParameter)
-      end
-
-      it "raises Tankard::Error::MissingParameter when lat and lng are not set" do
-        expect { search.params(endpoint: "geo/point").collect { |x| x } }.to raise_error(Tankard::Error::MissingParameter)
-      end
-    end
-
-    context "additional options are set" do
-
-      before do
-        @search_with_options = Tankard::Api::Search.new(@request, test: "123", p: 2, q: "search")
-        @request.stub(:get).with("search", Hashie::Mash.new(test: "123", p: 2, q: "search")).and_return({ "data" => ["searched"] })
-      end
-
-      it "passes them to the request" do
-        expect(@search_with_options.collect { |x| x }).to eql(["searched"])
+      it "returns the options for the request" do
+        expect(search.send(:http_request_parameters).object_id).to eql(search.instance_variable_get(:"@options").object_id)
       end
     end
   end
