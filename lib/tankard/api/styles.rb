@@ -5,7 +5,6 @@ require 'tankard/api/utils/page_finders'
 module Tankard
   module Api
     class Styles
-      include ::Enumerable
       include Tankard::Api::Request::Get
       include Tankard::Api::Utils::PageFinders
 
