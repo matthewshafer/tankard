@@ -1,4 +1,4 @@
-## v0.1.0 (unreleased)
+## v0.1.0 (05/15/2013)
 * Add params method to beers.  Allows passing additional parameters in an additional way.
 * Add params method to beer.  Allows passing additional parameters in an additional way.
 * Add styles method & class.  Allows querying of the /styles route
