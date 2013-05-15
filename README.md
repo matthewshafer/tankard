@@ -3,6 +3,7 @@
 [![Dependency Status](https://gemnasium.com/matthewshafer/tankard.png)](https://gemnasium.com/matthewshafer/tankard)
 [![Code Climate](https://codeclimate.com/github/matthewshafer/tankard.png)](https://codeclimate.com/github/matthewshafer/tankard)
 [![Coverage Status](https://coveralls.io/repos/matthewshafer/tankard/badge.png?branch=master)](https://coveralls.io/r/matthewshafer/tankard)
+[![Gem Version](https://badge.fury.io/rb/tankard.png)](http://rubygems.org/gems/tankard)
 
 Allows easy quering of the BreweryDB Api
 
@@ -14,11 +15,18 @@ I've also been pretty interested in Jruby as of late and wanted to make Tankard 
 
 ## Installation
 
-Soon...
+```ruby
+gem install "tankard"
+```
+
+or add it to your gemfile
 
 ## Documentation
 
-Soon...
+Everytime a commit is pushed to github the documentation regenerates.
+You can find this at http://rubydoc.info/github/matthewshafer/tankard/frames
+
+If you visit rubygems you can find the documentation for a specific gem release.
 
 ## Usage
 
@@ -48,6 +56,37 @@ Alternatively you can send parameters to the request in two ways.  Here are exam
 Tankard.beer(id: "some_id", endpoint: "breweries", anotherParam: "something").each { |x| p x }
 
 Tankard.beer.id("some_id").breweries.params(anotherParam: "something").each { |x| p x }
+```
+
+### Beers
+
+This would return an array with all beers greater than 5% (to_a comes from enumerable in this case)
+
+```ruby
+Tankard.beers.abv("+5").to_a
+```
+### Search
+
+Here is how we could search for everything that matches "stone".
+We would get results that contain more than just beer (EX I would probably get a result for Stone Brewing)
+
+```ruby
+Tankard.search.query("stone").each { |x| p x }
+```
+### Style
+
+This works similiar to Beer, it just has less options
+
+```ruby
+Tankard.style.id("some_id").each { |x| p x }
+```
+
+### Styles
+
+Styles don't have any options so if I would like an array with all styles I can do something like
+
+```ruby
+Tankard.styles.to_a
 ```
 
 ## Contributing
