@@ -25,6 +25,15 @@ module Tankard
         @options = Hashie::Mash.new(options)
       end
 
+      # @!method find(id_or_array, options={})
+      #   Find a single or multiple beers by their id
+      #
+      #   @param id_or_array [String, Array]
+      #   @param options [Hash]
+      #   @return [Hash, Array] if a string with a beer id is passed to find then the hash of the beer is returned.
+      #     if an array is passed to find an array containing hashes with each beer is returned.
+      #     if a beer is not found nothing for that beer is returned.
+
       # @!method each(&block)
       #   Calls the given block once for each beer
       #
