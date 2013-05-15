@@ -37,7 +37,7 @@ module Tankard
       # @!method each(&block)
       #   Calls the given block once for each style
       #
-      #   @yieldparam [Hash] hash containing individual beer information
+      #   @yieldparam [Hash] hash containing individual style information
       #   @raise [Tankard::Error::MissingParameter] when the id is not set
       #   @raise [Tankard::Error::ApiKeyUnauthorized] when an api key is not valid
       #   @raise [Tankard::Error::InvalidResponse] when no data is returned fron the api

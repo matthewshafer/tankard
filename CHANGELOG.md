@@ -8,6 +8,7 @@
 * Add documentation for beers
 * Add documentation for search
 * Add documentation for style
+* Add documentation for styles
 
 ## v0.0.1
 * Support for querying a beer
