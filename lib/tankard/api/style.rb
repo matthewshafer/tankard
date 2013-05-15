@@ -5,16 +5,49 @@ require 'tankard/api/utils/find'
 
 module Tankard
   module Api
+    # Access for the /style route on brewerydb
+    #
+    # @see http://www.brewerydb.com/developers/docs-endpoint/style_index
+    # @author Matthew Shafer
     class Style
       include Tankard::Api::Request::Get
       include Tankard::Api::Utils::PageFinders
       include Tankard::Api::Utils::Find
+      # @!parse include ::Enumerable
 
+      # Initializes a new object
+      #
+      # @param request [Tankard::Request]
+      # @param options [Hash]
+      # @return [Tankard::Api::Style]
       def initialize(request, options={})
         @request = request
         @options = Hashie::Mash.new(options)
       end
 
+      # @!method find(id_or_array, options={})
+      #   Find a single or multiple styles by their id
+      #
+      #   @param id_or_array [String, Array]
+      #   @param options [Hash]
+      #   @return [Hash, Array] if a string with a style id is passed to find then the hash of the style is returned.
+      #     if an array is passed to find an array containing hashes with each style is returned.
+      #     if a style is not found nothing for that style is returned.
+
+      # @!method each(&block)
+      #   Calls the given block once for each style
+      #
+      #   @yieldparam [Hash] hash containing individual beer information
+      #   @raise [Tankard::Error::MissingParameter] when the id is not set
+      #   @raise [Tankard::Error::ApiKeyUnauthorized] when an api key is not valid
+      #   @raise [Tankard::Error::InvalidResponse] when no data is returned fron the api
+      #   @raise [Tankard::Error::HttpError] when a status other than 200 or 401 is returned
+      #   @raise [Tankard::Error::LoadError] when multi json is unable to decode json
+
+      # Style id to query
+      #
+      # @param style_id [String]
+      # @return [self] returns itself
       def id(style_id)
         @options.id = style_id
         self

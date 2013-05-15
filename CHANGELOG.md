@@ -5,6 +5,9 @@
 * Add style method & class.  Allows querying of the /style/:id route
 * Add search method & class. Allows querying of the /search route
 * Add documentation for beer
+* Add documentation for beers
+* Add documentation for search
+* Add documentation for style
 
 ## v0.0.1
 * Support for querying a beer
