@@ -37,7 +37,7 @@ module Tankard
       # @param beer_name [String]
       # @return [self] returns itself
       def name(beer_name)
-        @options[:name] = beer_name
+        @options.name = beer_name
         self
       end
 
@@ -46,7 +46,7 @@ module Tankard
       # @param number [Integer]
       # @return [self] returns itself
       def page(number)
-        @options[:p] = number
+        @options.p = number
         self
       end
 
