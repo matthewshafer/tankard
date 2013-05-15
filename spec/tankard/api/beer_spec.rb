@@ -131,8 +131,8 @@ describe Tankard::Api::Beer do
 
       context "when an ID is not set" do
 
-        it "raises Tankard::Error::NoBeerId" do
-          expect { beer.send(:raise_if_no_id_in_options) }.to raise_error(Tankard::Error::NoBeerId)
+        it "raises Tankard::Error::MissingParameter" do
+          expect { beer.send(:raise_if_no_id_in_options) }.to raise_error(Tankard::Error::MissingParameter, "No Beer ID is set")
         end
       end
 

@@ -43,7 +43,7 @@ describe Tankard::Api::Style do
     context "and the id for a style is not set" do
 
       it "raises a Tankard::Error::NoStyleId" do
-        expect { style.each { |s| p s } }.to raise_error(Tankard::Error::NoStyleId)
+        expect { style.each { |s| p s } }.to raise_error(Tankard::Error::MissingParameter, "No style id set")
       end
     end
 

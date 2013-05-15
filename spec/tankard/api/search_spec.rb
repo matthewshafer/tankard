@@ -136,12 +136,12 @@ describe Tankard::Api::Search do
       context "the endpoint is not set" do
 
         it "raises Tankard::Error::NoSearchQuery when the query is not set" do
-          expect { search.send(:raise_if_required_options_not_set) }.to raise_error(Tankard::Error::NoSearchQuery)
+          expect { search.send(:raise_if_required_options_not_set) }.to raise_error(Tankard::Error::MissingParameter, "No search query set")
         end
 
         it "does not raise Tankard::Error::NoSearchQuery when the query is set" do
           search.instance_variable_get(:"@options")[:q] = "findme"
-          expect { search.send(:raise_if_required_options_not_set) }.not_to raise_error(Tankard::Error::NoSearchQuery)
+          expect { search.send(:raise_if_required_options_not_set) }.not_to raise_error(Tankard::Error::MissingParameter, "No search query set")
         end
       end
 
