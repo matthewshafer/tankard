@@ -29,6 +29,11 @@ module Tankard
       #   Calls the given block once for each beer
       #
       #   @yieldparam [Hash] hash containing individual beer information
+      #   @raise [Tankard::Error::MissingParameter] when the id is not set
+      #   @raise [Tankard::Error::ApiKeyUnauthorized] when an api key is not valid
+      #   @raise [Tankard::Error::InvalidResponse] when no data is returned fron the api
+      #   @raise [Tankard::Error::HttpError] when a status other than 200 or 401 is returned
+      #   @raise [Tankard::Error::LoadError] when multi json is unable to decode json
 
       # BeerID to query
       #
