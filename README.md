@@ -60,10 +60,10 @@ Tankard.beer.id("some_id").breweries.params(anotherParam: "something").each { |x
 
 ### Beers
 
-This would return an array with all beers greater than 5% (to_a comes from enumerable in this case)
+This would return an array with all beers greater than 10% (to_a comes from enumerable in this case)
 
 ```ruby
-Tankard.beers.abv("+5").to_a
+Tankard.beers.params(abv: "+10").to_a
 ```
 ### Search
 
