@@ -7,6 +7,9 @@ module Tankard
         include ::Enumerable
         include Tankard::Api::Request::Get
 
+        # Loads data from brewerydb and calls supplied block with resulting data
+        #
+        # @yieldparam [Hash] hash containing individual beer information
         def each(&block)
           find_on_single_or_all_pages(http_request_uri, http_client, http_request_parameters, block)
         end
