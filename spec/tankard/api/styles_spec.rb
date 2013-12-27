@@ -5,7 +5,7 @@ describe Tankard::Api::Styles do
   let(:styles) { Tankard::Api::Styles.new(@request) }
 
   before do
-    @request = mock("request")
+    @request = double("request")
   end
 
   describe "when making a request" do

@@ -5,7 +5,7 @@ describe Tankard::Api::Beer do
   let(:beer) { Tankard::Api::Beer.new(@request) }
 
   before do
-    @request = mock("request")
+    @request = double("request")
   end
 
   describe "#find" do

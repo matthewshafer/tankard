@@ -7,7 +7,7 @@ describe Tankard::Api::Utils::PageFinders do
   describe "private methods" do
 
     before do
-      @request = mock("request")
+      @request = double("request")
     end
 
     describe "#http_request_uri" do

@@ -5,7 +5,7 @@ describe Tankard::Api::Search do
   let(:search) { Tankard::Api::Search.new(@request) }
 
   before do
-    @request = mock("request")
+    @request = double("request")
   end
 
   describe "#query" do

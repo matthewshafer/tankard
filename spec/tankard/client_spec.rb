@@ -17,7 +17,7 @@ describe Tankard::Client do
     context "when passed a hash of options" do
 
       before do
-        @request = mock("request")
+        @request = double("request")
         Tankard::Request.stub!(:new).and_return(@request)
       end
 
@@ -41,7 +41,7 @@ describe Tankard::Client do
     context "when passed a hash of options" do
 
       before do 
-        @request = mock("request")
+        @request = double("request")
         Tankard::Request.stub!(:new).and_return(@request)
       end
 
@@ -65,7 +65,7 @@ describe Tankard::Client do
     context "when passed a hash of options" do
 
       before do
-        @request = mock("request")
+        @request = double("request")
         Tankard::Request.stub!(:new).and_return(@request)
       end
 
@@ -100,7 +100,7 @@ describe Tankard::Client do
     context "when passed a hash of options" do
 
       before do
-        @request = mock("request")
+        @request = double("request")
         Tankard::Request.stub!(:new).and_return(@request)
       end
 
