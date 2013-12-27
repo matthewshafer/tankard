@@ -141,7 +141,7 @@ describe Tankard::Api::Search do
 
         it "does not raise Tankard::Error::NoSearchQuery when the query is set" do
           search.instance_variable_get(:"@options")[:q] = "findme"
-          expect { search.send(:raise_if_required_options_not_set) }.not_to raise_error(Tankard::Error::MissingParameter, "No search query set")
+          expect { search.send(:raise_if_required_options_not_set) }.not_to raise_error
         end
       end
 
@@ -157,7 +157,7 @@ describe Tankard::Api::Search do
 
         it "does not raise Tankard::Error::MissingParameter when code is set" do
           search.instance_variable_get(:"@options")[:code] = "1234"
-          expect { search.send(:raise_if_required_options_not_set) }.not_to raise_error(Tankard::Error::MissingParameter)
+          expect { search.send(:raise_if_required_options_not_set) }.not_to raise_error
         end
       end
 
@@ -184,7 +184,7 @@ describe Tankard::Api::Search do
         it "does not raise Tankard::Error::MissingParameter when latitude and longitude are set" do
           search.instance_variable_get(:"@options")[:lat] = 123
           search.instance_variable_get(:"@options")[:lng] = 123
-          expect { search.send(:raise_if_required_options_not_set) }.not_to raise_error(Tankard::Error::MissingParameter)
+          expect { search.send(:raise_if_required_options_not_set) }.not_to raise_error
         end
       end
     end

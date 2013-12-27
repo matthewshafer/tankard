@@ -25,8 +25,10 @@ describe Tankard::Request do
     context "request status is 200" do
 
       it "does not raise a Tankard::Error::HttpError" do
-        stub_get("test?key=abc123").to_return(status: 200)
-        expect { request.get("test") }.not_to raise_error(Tankard::Error::HttpError)
+        # default status when a body is set is 200.
+        # setting it here for readability
+        stub_get("test?key=abc123").to_return(status: 200, body: '{}')
+        expect { request.get("test") }.not_to raise_error
       end
     end
 
