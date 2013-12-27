@@ -18,7 +18,7 @@ describe Tankard::Client do
 
       before do
         @request = double("request")
-        Tankard::Request.stub!(:new).and_return(@request)
+        Tankard::Request.stub(:new).and_return(@request)
       end
 
       it "passes the options to the beer object" do
@@ -42,7 +42,7 @@ describe Tankard::Client do
 
       before do 
         @request = double("request")
-        Tankard::Request.stub!(:new).and_return(@request)
+        Tankard::Request.stub(:new).and_return(@request)
       end
 
       it "passes the options to the beer object" do
@@ -66,7 +66,7 @@ describe Tankard::Client do
 
       before do
         @request = double("request")
-        Tankard::Request.stub!(:new).and_return(@request)
+        Tankard::Request.stub(:new).and_return(@request)
       end
 
       it "passes the options to the search object" do
@@ -101,7 +101,7 @@ describe Tankard::Client do
 
       before do
         @request = double("request")
-        Tankard::Request.stub!(:new).and_return(@request)
+        Tankard::Request.stub(:new).and_return(@request)
       end
 
       it "passes the options to the style object" do

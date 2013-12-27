@@ -163,8 +163,8 @@ describe Tankard::Api::Beer do
     describe "#http_request_uri" do
 
       before do
-        beer.stub!(:route).and_return("beer")
-        beer.stub!(:raise_if_no_id_in_options).and_return("123")
+        beer.stub(:route).and_return("beer")
+        beer.stub(:raise_if_no_id_in_options).and_return("123")
       end
 
       context "no endpoint is set" do

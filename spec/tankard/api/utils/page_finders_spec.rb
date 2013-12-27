@@ -55,20 +55,20 @@ describe Tankard::Api::Utils::PageFinders do
     describe "#find_on_single_page" do
 
       it "sends response[data] to call_block_with_data" do
-        finders.stub!(:get_request).and_return({"data" => ["test"]})
+        finders.stub(:get_request).and_return({"data" => ["test"]})
         finders.should_receive(:call_block_with_data).with(["test"], nil)
         finders.send(:find_on_single_page, "test", @request, {}, nil)
       end
 
       it "returns 0 when number of pages is not set" do
-        finders.stub!(:get_request).and_return({"data" => ["test"]})
-        finders.stub!(:call_block_with_data).with(["test"], nil)
+        finders.stub(:get_request).and_return({"data" => ["test"]})
+        finders.stub(:call_block_with_data).with(["test"], nil)
         expect(finders.send(:find_on_single_page, "test", @request, {}, nil)).to eql(0)
       end
 
       it "returns a value when number of pages is set" do
-        finders.stub!(:get_request).and_return({"data" => ["test"], "numberOfPages" => "3"})
-        finders.stub!(:call_block_with_data).with(["test"], nil)
+        finders.stub(:get_request).and_return({"data" => ["test"], "numberOfPages" => "3"})
+        finders.stub(:call_block_with_data).with(["test"], nil)
         expect(finders.send(:find_on_single_page, "test", @request, {}, nil)).to eql(3)
       end
 
@@ -101,9 +101,9 @@ describe Tankard::Api::Utils::PageFinders do
     describe "#each" do
 
       before do
-        finders.stub!(:http_request_uri).and_return("test")
-        finders.stub!(:http_client).and_return(nil)
-        finders.stub!(:http_request_parameters).and_return({})
+        finders.stub(:http_request_uri).and_return("test")
+        finders.stub(:http_client).and_return(nil)
+        finders.stub(:http_request_parameters).and_return({})
       end
 
       it "calls find_on_single_or_all_pages" do
