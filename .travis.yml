@@ -1,7 +1,6 @@
 language: ruby
 rvm:
   - jruby-19mode
-  - rbx-19mode
   - rbx-2.0.0
   - rbx-2.1.1
   - rbx-2.2.2
@@ -34,10 +33,6 @@ matrix:
     - rvm: ruby-head
       jdk: openjdk7
     - rvm: ruby-head
-      jdk: oraclejdk7
-    - rvm: rbx-19mode
-      jdk: openjdk7
-    - rvm: rbx-19mode
       jdk: oraclejdk7
     - rvm: rbx-2.0.0
       jdk: openjdk7
