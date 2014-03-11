@@ -27,11 +27,12 @@ module Tankard
           def find_on_all_pages(uri, request, options, block)
             page = 0
 
-            begin
+            loop do
               page += 1
               options[:p] = page if page > 1
               total_pages = find_on_single_page(uri, request, options, block)
-            end while page < total_pages
+              break unless page < total_pages
+            end
           end
 
           def find_on_single_page(uri, request, options, block)
