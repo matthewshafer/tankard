@@ -107,9 +107,7 @@ module Tankard
         def http_request_uri
           endpoint = "#{route}/#{raise_if_no_id_in_options}"
 
-          if @options.endpoint?
-            endpoint += "/#{@options.delete(:endpoint)}"
-          end
+          endpoint += "/#{@options.delete(:endpoint)}" if @options.endpoint?
 
           endpoint
         end

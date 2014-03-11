@@ -102,9 +102,7 @@ module Tankard
         def http_request_uri
           endpoint = 'search'
 
-          if @options.endpoint?
-            endpoint += "/#{@options.delete(:endpoint)}"
-          end
+          endpoint += "/#{@options.delete(:endpoint)}" if @options.endpoint?
 
           endpoint
         end
