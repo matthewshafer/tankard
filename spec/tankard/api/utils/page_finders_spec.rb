@@ -4,47 +4,47 @@ describe Tankard::Api::Utils::PageFinders do
 
   let(:finders) { Class.new { include Tankard::Api::Utils::PageFinders }.new }
 
-  describe "private methods" do
+  describe 'private methods' do
 
     before do
-      @request = double("request")
+      @request = double('request')
     end
 
-    describe "#http_request_uri" do
+    describe '#http_request_uri' do
 
-      it "raises NoMethodError" do
+      it 'raises NoMethodError' do
         expect { finders.send(:http_request_uri) }.to raise_error(NoMethodError)
       end
     end
 
-    describe "#http_client" do
+    describe '#http_client' do
 
-      it "raises NoMethodError" do
+      it 'raises NoMethodError' do
         expect { finders.send(:http_client) }.to raise_error(NoMethodError)
       end
     end
 
-    describe "#http_request_parameters" do
+    describe '#http_request_parameters' do
 
-      it "raises NoMethodError" do
+      it 'raises NoMethodError' do
         expect { finders.send(:http_request_parameters) }.to raise_error(NoMethodError)
       end
     end
 
-    describe "#call_block_with_data" do
+    describe '#call_block_with_data' do
 
-      it "raises Tankard::Error::InvalidResponse when no data" do
+      it 'raises Tankard::Error::InvalidResponse when no data' do
         expect { finders.send(:call_block_with_data, nil, nil) }.to raise_error(Tankard::Error::InvalidResponse)
       end
 
-      it "accepts a hash of data" do
+      it 'accepts a hash of data' do
         result = []
         block = -> n { result.push(n) }
-        finders.send(:call_block_with_data, {"test" => "something"}, block)
-        expect(result).to eql([{"test"=> "something"}])
+        finders.send(:call_block_with_data, {'test' => 'something'}, block)
+        expect(result).to eql([{'test'=> 'something'}])
       end
 
-      it "loops through an array of data" do
+      it 'loops through an array of data' do
         result = []
         block = -> n { result.push(n+1) }
         finders.send(:call_block_with_data, [1,2,3], block)
@@ -52,62 +52,62 @@ describe Tankard::Api::Utils::PageFinders do
       end
     end
 
-    describe "#find_on_single_page" do
+    describe '#find_on_single_page' do
 
-      it "sends response[data] to call_block_with_data" do
-        finders.stub(:get_request).and_return({"data" => ["test"]})
-        finders.should_receive(:call_block_with_data).with(["test"], nil)
-        finders.send(:find_on_single_page, "test", @request, {}, nil)
+      it 'sends response[data] to call_block_with_data' do
+        finders.stub(:get_request).and_return({'data' => ['test']})
+        finders.should_receive(:call_block_with_data).with(['test'], nil)
+        finders.send(:find_on_single_page, 'test', @request, {}, nil)
       end
 
-      it "returns 0 when number of pages is not set" do
-        finders.stub(:get_request).and_return({"data" => ["test"]})
-        finders.stub(:call_block_with_data).with(["test"], nil)
-        expect(finders.send(:find_on_single_page, "test", @request, {}, nil)).to eql(0)
+      it 'returns 0 when number of pages is not set' do
+        finders.stub(:get_request).and_return({'data' => ['test']})
+        finders.stub(:call_block_with_data).with(['test'], nil)
+        expect(finders.send(:find_on_single_page, 'test', @request, {}, nil)).to eql(0)
       end
 
-      it "returns a value when number of pages is set" do
-        finders.stub(:get_request).and_return({"data" => ["test"], "numberOfPages" => "3"})
-        finders.stub(:call_block_with_data).with(["test"], nil)
-        expect(finders.send(:find_on_single_page, "test", @request, {}, nil)).to eql(3)
+      it 'returns a value when number of pages is set' do
+        finders.stub(:get_request).and_return({'data' => ['test'], 'numberOfPages' => '3'})
+        finders.stub(:call_block_with_data).with(['test'], nil)
+        expect(finders.send(:find_on_single_page, 'test', @request, {}, nil)).to eql(3)
       end
 
     end
 
-    describe "#find_on_all_pages" do
+    describe '#find_on_all_pages' do
 
-      it "only sets the page when the page is greater than 1" do
-        finders.should_receive(:find_on_single_page).with("test", @request, {}, nil).and_return(2)
-        finders.should_not_receive(:find_on_single_page).with("test", @request, {p:1}, nil)
-        finders.should_receive(:find_on_single_page).with("test", @request, {p:2}, nil).and_return(2)
+      it 'only sets the page when the page is greater than 1' do
+        finders.should_receive(:find_on_single_page).with('test', @request, {}, nil).and_return(2)
+        finders.should_not_receive(:find_on_single_page).with('test', @request, {p:1}, nil)
+        finders.should_receive(:find_on_single_page).with('test', @request, {p:2}, nil).and_return(2)
 
-        finders.send(:find_on_all_pages, "test", @request, {}, nil)
+        finders.send(:find_on_all_pages, 'test', @request, {}, nil)
       end
     end
 
-    describe "#find_on_single_or_all_pages" do
+    describe '#find_on_single_or_all_pages' do
 
-      it "calls find_with_options when a page is set in options" do
-        finders.should_receive(:find_on_single_page).with("test", nil, {p:2}, nil)
-        finders.send(:find_on_single_or_all_pages, "test", nil, {p:2}, nil)
+      it 'calls find_with_options when a page is set in options' do
+        finders.should_receive(:find_on_single_page).with('test', nil, {p:2}, nil)
+        finders.send(:find_on_single_or_all_pages, 'test', nil, {p:2}, nil)
       end
 
-      it "calls find_on_all_pages when a page is not set in options" do
-        finders.should_receive(:find_on_all_pages).with("test", nil, {}, nil)
-        finders.send(:find_on_single_or_all_pages, "test", nil, {}, nil)
+      it 'calls find_on_all_pages when a page is not set in options' do
+        finders.should_receive(:find_on_all_pages).with('test', nil, {}, nil)
+        finders.send(:find_on_single_or_all_pages, 'test', nil, {}, nil)
       end
     end
 
-    describe "#each" do
+    describe '#each' do
 
       before do
-        finders.stub(:http_request_uri).and_return("test")
+        finders.stub(:http_request_uri).and_return('test')
         finders.stub(:http_client).and_return(nil)
         finders.stub(:http_request_parameters).and_return({})
       end
 
-      it "calls find_on_single_or_all_pages" do
-        finders.should_receive(:find_on_single_or_all_pages).with("test", nil, {}, nil)
+      it 'calls find_on_single_or_all_pages' do
+        finders.should_receive(:find_on_single_or_all_pages).with('test', nil, {}, nil)
         finders.each
       end
     end

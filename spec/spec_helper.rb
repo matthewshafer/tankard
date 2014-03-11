@@ -17,5 +17,5 @@ require 'shared_examples_for_find'
 WebMock.disable_net_connect!(allow: 'coveralls.io')
 
 def stub_get(path)
-  stub_request(:get, "http://api.brewerydb.com/v2/" + path)
+  stub_request(:get, 'http://api.brewerydb.com/v2/' + path)
 end
