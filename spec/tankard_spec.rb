@@ -37,11 +37,13 @@ describe Tankard do
     context 'when invalid configuration data is provided' do
 
       it 'raises a configuration error' do
-        expect {
+        expected_error = expect do
           Tankard.configure do |config|
             config.api_key = 1234
           end
-        }.to raise_error(Tankard::Error::ConfigurationError)
+        end
+
+        expected_error.to raise_error(Tankard::Error::ConfigurationError)
       end
     end
 

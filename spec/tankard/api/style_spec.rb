@@ -10,8 +10,8 @@ describe Tankard::Api::Style do
   describe '#find' do
 
     before do
-      @request.stub(:get).with('style/1', {}).and_return({ 'data' => 'valid1_found'})
-      @request.stub(:get).with('style/2', {}).and_return({ 'data' => 'valid2_found'})
+      @request.stub(:get).with('style/1', {}).and_return('data' => 'valid1_found')
+      @request.stub(:get).with('style/2', {}).and_return('data' => 'valid2_found')
       @request.stub(:get).with('style/3', {}).and_raise(Tankard::Error::HttpError)
       @request.stub(:get).with('style/4', {}).and_raise(Tankard::Error::HttpError)
     end
@@ -19,7 +19,7 @@ describe Tankard::Api::Style do
     it_should_behave_like 'the find method' do
       let(:context) { style }
       let(:valid_items) { [1, 2] }
-      let(:valid_responses) { ['valid1_found', 'valid2_found'] }
+      let(:valid_responses) { %w(valid1_found valid2_found) }
       let(:invalid_items) { [3, 4] }
       let(:valid_invalid_items) { valid_items + invalid_items }
     end
@@ -50,11 +50,11 @@ describe Tankard::Api::Style do
     context 'and the id for a style is set' do
 
       before do
-        @request.stub(:get).with('style/1', {}).and_return({ 'data' => ['style_valid'] })
+        @request.stub(:get).with('style/1', {}).and_return('data' => ['style_valid'])
       end
 
       it 'uses the style id in the uri' do
-        expect(style.id(1).collect { |x| x}).to eql(['style_valid'])
+        expect(style.id(1).map { |x| x }).to eql(['style_valid'])
       end
     end
   end

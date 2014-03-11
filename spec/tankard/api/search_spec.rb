@@ -52,7 +52,7 @@ describe Tankard::Api::Search do
     end
 
     it 'returns itself' do
-      expect(search.object_id).to eql (search.type('test').object_id)
+      expect(search.object_id).to eql(search.type('test').object_id)
     end
   end
 

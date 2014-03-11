@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Tankard::Client do
 
-  let(:client) { Tankard::Client.new({api_key: 'abc123'}) }
+  let(:client) { Tankard::Client.new(api_key: 'abc123') }
 
   describe '#beer' do
 
@@ -22,8 +22,8 @@ describe Tankard::Client do
       end
 
       it 'passes the options to the beer object' do
-        Tankard::Api::Beer.should_receive(:new).with(@request, {test: 123})
-        client.beer({test: 123})
+        Tankard::Api::Beer.should_receive(:new).with(@request, test: 123)
+        client.beer(test: 123)
       end
     end
   end
@@ -46,8 +46,8 @@ describe Tankard::Client do
       end
 
       it 'passes the options to the beer object' do
-        Tankard::Api::Beers.should_receive(:new).with(@request, {test: 123})
-        client.beers({test: 123})
+        Tankard::Api::Beers.should_receive(:new).with(@request, test: 123)
+        client.beers(test: 123)
       end
     end
   end
@@ -70,8 +70,8 @@ describe Tankard::Client do
       end
 
       it 'passes the options to the search object' do
-        Tankard::Api::Search.should_receive(:new).with(@request, { test: 123 })
-        client.search({ test: 123 })
+        Tankard::Api::Search.should_receive(:new).with(@request, test: 123)
+        client.search(test: 123)
       end
     end
   end
@@ -105,8 +105,8 @@ describe Tankard::Client do
       end
 
       it 'passes the options to the style object' do
-        Tankard::Api::Style.should_receive(:new).with(@request, { test: 123 })
-        client.style({ test: 123 })
+        Tankard::Api::Style.should_receive(:new).with(@request, test: 123)
+        client.style(test: 123)
       end
     end
   end

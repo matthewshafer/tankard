@@ -11,17 +11,17 @@ describe Tankard::Api::Beer do
   describe '#find' do
 
     before do
-      @request.stub(:get).with('beer/valid1', {}).and_return({ 'data' => 'valid1_found'})
-      @request.stub(:get).with('beer/valid2', {}).and_return({ 'data' => 'valid2_found'})
+      @request.stub(:get).with('beer/valid1', {}).and_return('data' => 'valid1_found')
+      @request.stub(:get).with('beer/valid2', {}).and_return('data' => 'valid2_found')
       @request.stub(:get).with('beer/invalid1', {}).and_raise(Tankard::Error::HttpError)
       @request.stub(:get).with('beer/invalid2', {}).and_raise(Tankard::Error::HttpError)
     end
 
     it_should_behave_like 'the find method' do
       let(:context) { beer }
-      let(:valid_items) { ['valid1', 'valid2'] }
-      let(:valid_responses) { ['valid1_found', 'valid2_found'] }
-      let(:invalid_items) { ['invalid1', 'invalid2'] }
+      let(:valid_items) { %w(valid1 valid2) }
+      let(:valid_responses) { %w(valid1_found valid2_found) }
+      let(:invalid_items) { %w(invalid1 invalid2) }
       let(:valid_invalid_items) { valid_items + invalid_items }
     end
   end
