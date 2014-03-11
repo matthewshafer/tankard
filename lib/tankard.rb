@@ -16,7 +16,7 @@ module Tankard
     end
 
     def respond_to?(method)
-      return client.respond_to?(method)
+      client.respond_to?(method)
     end
 
     private
