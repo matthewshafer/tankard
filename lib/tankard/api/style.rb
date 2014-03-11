@@ -20,7 +20,7 @@ module Tankard
       # @param request [Tankard::Request]
       # @param options [Hash]
       # @return [Tankard::Api::Style]
-      def initialize(request, options={})
+      def initialize(request, options = {})
         @request = request
         @options = Hashie::Mash.new(options)
       end

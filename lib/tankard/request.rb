@@ -10,7 +10,7 @@ module Tankard
       @api_key = api_key
     end
 
-    def get(route, params={})
+    def get(route, params = {})
       params[:key] = @api_key
       request = @http.get(build_request_url(route), params)
       raise_if_status_not_ok(request.status)

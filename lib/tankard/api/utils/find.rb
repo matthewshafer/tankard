@@ -6,7 +6,7 @@ module Tankard
       module Find
         include Tankard::Api::Request::Get
 
-        def find(id_or_array, options={})
+        def find(id_or_array, options = {})
           options = http_request_parameters.merge!(options)
 
           if id_or_array.is_a?(Array)
