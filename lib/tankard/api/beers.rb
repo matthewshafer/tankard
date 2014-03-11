@@ -64,7 +64,7 @@ module Tankard
       private
 
         def http_request_uri
-          "beers"
+          'beers'
         end
 
         def http_client

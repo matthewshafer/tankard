@@ -19,15 +19,15 @@ module Tankard
         private
 
           def route
-            raise NoMethodError.new("Must implement and return the base route")
+            raise NoMethodError.new('Must implement and return the base route')
           end
 
           def http_client
-            raise NoMethodError.new("Must return the http object to make requests with")
+            raise NoMethodError.new('Must return the http object to make requests with')
           end
 
           def http_request_parameters
-            raise NoMethodError.new("Must return a hash like structure with request parameters")
+            raise NoMethodError.new('Must return a hash like structure with request parameters')
           end
       end
     end

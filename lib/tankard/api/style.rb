@@ -56,12 +56,12 @@ module Tankard
       private
 
         def raise_if_no_id_in_options
-          raise Tankard::Error::MissingParameter, "No style id set" unless @options.id?
+          raise Tankard::Error::MissingParameter, 'No style id set' unless @options.id?
           @options.delete(:id)
         end
 
         def route
-          "style"
+          'style'
         end
 
         def http_request_uri

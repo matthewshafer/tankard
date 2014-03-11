@@ -55,7 +55,7 @@ module Tankard
       #
       # @return [self] returns itself
       def breweries
-        @options.endpoint = "breweries"
+        @options.endpoint = 'breweries'
         self
       end
 
@@ -63,7 +63,7 @@ module Tankard
       #
       # @return [self] returns itself
       def events
-        @options.endpoint = "events"
+        @options.endpoint = 'events'
         self
       end
 
@@ -71,7 +71,7 @@ module Tankard
       #
       # @return [self] returns itself
       def ingredients
-        @options.endpoint = "ingredients"
+        @options.endpoint = 'ingredients'
         self
       end
 
@@ -79,7 +79,7 @@ module Tankard
       #
       # @return [self] returns itself
       def social_accounts
-        @options.endpoint = "socialaccounts"
+        @options.endpoint = 'socialaccounts'
         self
       end
 
@@ -87,7 +87,7 @@ module Tankard
       #
       # @return [self] returns itself
       def variations
-        @options.endpoint = "variations"
+        @options.endpoint = 'variations'
         self
       end
 
@@ -115,12 +115,12 @@ module Tankard
         end
 
         def raise_if_no_id_in_options
-          raise Tankard::Error::MissingParameter, "No Beer ID is set" unless @options.id?
+          raise Tankard::Error::MissingParameter, 'No Beer ID is set' unless @options.id?
           @options.delete(:id)
         end
 
         def route
-          "beer"
+          'beer'
         end
 
         def http_client

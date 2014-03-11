@@ -15,7 +15,7 @@ module Tankard
 
           # break up the request methods into smaller pieces
           def request_data(request_object, uri, options)
-            get_request(request_object, uri, options)["data"]
+            get_request(request_object, uri, options)['data']
           end
 
           def get_request(request_object, uri, options)

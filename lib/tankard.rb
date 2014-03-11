@@ -1,8 +1,8 @@
-require "tankard/version"
-require "tankard/configuration"
-require "tankard/error"
-require "tankard/client"
-require "atomic"
+require 'tankard/version'
+require 'tankard/configuration'
+require 'tankard/error'
+require 'tankard/client'
+require 'atomic'
 
 module Tankard
   @client = ::Atomic.new

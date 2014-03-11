@@ -80,7 +80,7 @@ module Tankard
       # @return [self] returns itself
       def upc(upc_code)
         @options.code = upc_code
-        @options.endpoint = "upc"
+        @options.endpoint = 'upc'
         self
       end
 
@@ -93,14 +93,14 @@ module Tankard
       def geo_point(latitude, longitude)
         @options.lat = latitude
         @options.lng = longitude
-        @options.endpoint = "geo/point"
+        @options.endpoint = 'geo/point'
         self
       end
 
       private
 
         def http_request_uri
-          endpoint = "search"
+          endpoint = 'search'
 
           if @options.endpoint?
             endpoint += "/#{@options.delete(:endpoint)}"
@@ -120,11 +120,11 @@ module Tankard
         def raise_if_required_options_not_set
           case @options.endpoint
           when nil
-            raise Tankard::Error::MissingParameter, "No search query set" unless @options.q?
-          when "upc"
-            raise Tankard::Error::MissingParameter, "missing parameter: code" unless @options.code?
-          when "geo/point"
-            raise Tankard::Error::MissingParameter, "missing Parameters: lat, lng" unless @options.lat? && @options.lng?
+            raise Tankard::Error::MissingParameter, 'No search query set' unless @options.q?
+          when 'upc'
+            raise Tankard::Error::MissingParameter, 'missing parameter: code' unless @options.code?
+          when 'geo/point'
+            raise Tankard::Error::MissingParameter, 'missing Parameters: lat, lng' unless @options.lat? && @options.lng?
           end
         end
     end

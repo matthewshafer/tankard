@@ -36,8 +36,8 @@ module Tankard
 
           def find_on_single_page(uri, request, options, block)
             response = get_request(request, uri, options)
-            call_block_with_data(response["data"], block)
-            response["numberOfPages"].to_i
+            call_block_with_data(response['data'], block)
+            response['numberOfPages'].to_i
           end
 
           def call_block_with_data(data, block)
@@ -51,15 +51,15 @@ module Tankard
           end
 
           def http_request_uri
-            raise NoMethodError.new("Need to implement method")
+            raise NoMethodError.new('Need to implement method')
           end
 
           def http_client
-            raise NoMethodError.new("Need to implement method")
+            raise NoMethodError.new('Need to implement method')
           end
 
           def http_request_parameters
-            raise NoMethodError.new("Need to implement method")
+            raise NoMethodError.new('Need to implement method')
           end
       end
     end
