@@ -120,11 +120,11 @@ module Tankard
         def raise_if_required_options_not_set
           case @options.endpoint
           when nil
-            raise Tankard::Error::MissingParameter, 'No search query set' unless @options.q?
+            fail Tankard::Error::MissingParameter, 'No search query set' unless @options.q?
           when 'upc'
-            raise Tankard::Error::MissingParameter, 'missing parameter: code' unless @options.code?
+            fail Tankard::Error::MissingParameter, 'missing parameter: code' unless @options.code?
           when 'geo/point'
-            raise Tankard::Error::MissingParameter, 'missing Parameters: lat, lng' unless @options.lat? && @options.lng?
+            fail Tankard::Error::MissingParameter, 'missing Parameters: lat, lng' unless @options.lat? && @options.lng?
           end
         end
     end

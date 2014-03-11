@@ -115,7 +115,7 @@ module Tankard
         end
 
         def raise_if_no_id_in_options
-          raise Tankard::Error::MissingParameter, 'No Beer ID is set' unless @options.id?
+          fail Tankard::Error::MissingParameter, 'No Beer ID is set' unless @options.id?
           @options.delete(:id)
         end
 

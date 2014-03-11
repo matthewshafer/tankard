@@ -24,9 +24,9 @@ module Tankard
         when 200
           true
         when 401
-          raise Tankard::Error::ApiKeyUnauthorized
+          fail Tankard::Error::ApiKeyUnauthorized
         else
-          raise Tankard::Error::HttpError
+          fail Tankard::Error::HttpError
         end
       end
 

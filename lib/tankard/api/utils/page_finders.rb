@@ -41,7 +41,7 @@ module Tankard
           end
 
           def call_block_with_data(data, block)
-            raise Tankard::Error::InvalidResponse unless data
+            fail Tankard::Error::InvalidResponse unless data
 
             if data.is_a?(Hash)
               block.call(data)
@@ -51,15 +51,15 @@ module Tankard
           end
 
           def http_request_uri
-            raise NoMethodError.new('Need to implement method')
+            fail NoMethodError, 'Need to implement method'
           end
 
           def http_client
-            raise NoMethodError.new('Need to implement method')
+            fail NoMethodError, 'Need to implement method'
           end
 
           def http_request_parameters
-            raise NoMethodError.new('Need to implement method')
+            fail NoMethodError, 'Need to implement method'
           end
       end
     end

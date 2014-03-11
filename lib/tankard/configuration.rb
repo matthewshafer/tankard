@@ -22,12 +22,12 @@ module Tankard
 
       def validate_api_key!
         unless @api_key.is_a?(String)
-          raise Tankard::Error::ConfigurationError, 'api_key is not a string'
+          fail Tankard::Error::ConfigurationError, 'api_key is not a string'
         end
       end
 
       def reset_client
-        raise Tankard::Error::ConfigurationError, 'Implement reset_client'
+        fail Tankard::Error::ConfigurationError, 'Implement reset_client'
       end
   end
 end
