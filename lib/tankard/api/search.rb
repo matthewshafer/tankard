@@ -58,7 +58,7 @@ module Tankard
       # @param options [Hash]
       # @return [self] returns itself
       def params(options = {})
-        options.each_pair do |key,value|
+        options.each_pair do |key, value|
           @options[key] = value
         end
         self
