@@ -30,19 +30,19 @@ module Tankard
         @request = request
       end
 
-      private
+    private
 
-        def http_request_uri
-          'styles'
-        end
+      def http_request_uri
+        'styles'
+      end
 
-        def http_client
-          @request
-        end
+      def http_client
+        @request
+      end
 
-        def http_request_parameters
-          {}
-        end
+      def http_request_parameters
+        {}
+      end
     end
   end
 end

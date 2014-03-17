@@ -97,34 +97,34 @@ module Tankard
         self
       end
 
-      private
+    private
 
-        def http_request_uri
-          endpoint = 'search'
+      def http_request_uri
+        endpoint = 'search'
 
-          endpoint += "/#{@options.delete(:endpoint)}" if @options.endpoint?
+        endpoint += "/#{@options.delete(:endpoint)}" if @options.endpoint?
 
-          endpoint
+        endpoint
+      end
+
+      def http_client
+        @request
+      end
+
+      def http_request_parameters
+        @options
+      end
+
+      def raise_if_required_options_not_set
+        case @options.endpoint
+        when nil
+          fail Tankard::Error::MissingParameter, 'No search query set' unless @options.q?
+        when 'upc'
+          fail Tankard::Error::MissingParameter, 'missing parameter: code' unless @options.code?
+        when 'geo/point'
+          fail Tankard::Error::MissingParameter, 'missing Parameters: lat, lng' unless @options.lat? && @options.lng?
         end
-
-        def http_client
-          @request
-        end
-
-        def http_request_parameters
-          @options
-        end
-
-        def raise_if_required_options_not_set
-          case @options.endpoint
-          when nil
-            fail Tankard::Error::MissingParameter, 'No search query set' unless @options.q?
-          when 'upc'
-            fail Tankard::Error::MissingParameter, 'missing parameter: code' unless @options.code?
-          when 'geo/point'
-            fail Tankard::Error::MissingParameter, 'missing Parameters: lat, lng' unless @options.lat? && @options.lng?
-          end
-        end
+      end
     end
   end
 end

@@ -19,15 +19,15 @@ module Tankard
       client.respond_to?(method)
     end
 
-    private
+  private
 
-      def method_missing(method_name, *args, &block)
-        return super unless client.respond_to?(method_name)
-        client.send(method_name, *args, &block)
-      end
+    def method_missing(method_name, *args, &block)
+      return super unless client.respond_to?(method_name)
+      client.send(method_name, *args, &block)
+    end
 
-      def reset_client
-        @client.value = nil
-      end
+    def reset_client
+      @client.value = nil
+    end
   end
 end

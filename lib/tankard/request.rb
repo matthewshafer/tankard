@@ -17,29 +17,27 @@ module Tankard
       load_json(request.body)
     end
 
-    private
+  private
 
-      def raise_if_status_not_ok(status)
-        case status
-        when 200
-          true
-        when 401
-          fail Tankard::Error::ApiKeyUnauthorized
-        else
-          fail Tankard::Error::HttpError
-        end
+    def raise_if_status_not_ok(status)
+      case status
+      when 200
+        true
+      when 401
+        fail Tankard::Error::ApiKeyUnauthorized
+      else
+        fail Tankard::Error::HttpError
       end
+    end
 
-      def build_request_url(route)
-        Tankard::Configuration::BREWERYDB_URL + route
-      end
+    def build_request_url(route)
+      Tankard::Configuration::BREWERYDB_URL + route
+    end
 
-      def load_json(json_data)
-        begin
-          MultiJson.load(json_data)
-        rescue MultiJson::LoadError
-          raise Tankard::Error::LoadError
-        end
-      end
+    def load_json(json_data)
+      MultiJson.load(json_data)
+    rescue MultiJson::LoadError
+      raise Tankard::Error::LoadError
+    end
   end
 end

@@ -61,19 +61,19 @@ module Tankard
         self
       end
 
-      private
+    private
 
-        def http_request_uri
-          'beers'
-        end
+      def http_request_uri
+        'beers'
+      end
 
-        def http_client
-          @request
-        end
+      def http_client
+        @request
+      end
 
-        def http_request_parameters
-          @options
-        end
+      def http_request_parameters
+        @options
+      end
     end
   end
 end

@@ -12,22 +12,22 @@ module Tankard
       self
     end
 
-    private
+  private
 
-      def credentials
-        {
-          api_key: @api_key
-        }
-      end
+    def credentials
+      {
+        api_key: @api_key
+      }
+    end
 
-      def validate_api_key!
-        unless @api_key.is_a?(String)
-          fail Tankard::Error::ConfigurationError, 'api_key is not a string'
-        end
+    def validate_api_key!
+      unless @api_key.is_a?(String)
+        fail Tankard::Error::ConfigurationError, 'api_key is not a string'
       end
+    end
 
-      def reset_client
-        fail Tankard::Error::ConfigurationError, 'Implement reset_client'
-      end
+    def reset_client
+      fail Tankard::Error::ConfigurationError, 'Implement reset_client'
+    end
   end
 end

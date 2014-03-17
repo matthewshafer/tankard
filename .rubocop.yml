@@ -1,3 +1,5 @@
+AccessModifierIndentation:
+  EnforcedStyle: outdent
 EmptyLinesAroundBody:
   Enabled: false
 LineLength:

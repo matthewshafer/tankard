@@ -16,19 +16,19 @@ module Tankard
           end
         end
 
-        private
+      private
 
-          def route
-            fail NoMethodError, 'Must implement and return the base route'
-          end
+        def route
+          fail NoMethodError, 'Must implement and return the base route'
+        end
 
-          def http_client
-            fail NoMethodError, 'Must return the http object to make requests with'
-          end
+        def http_client
+          fail NoMethodError, 'Must return the http object to make requests with'
+        end
 
-          def http_request_parameters
-            fail NoMethodError, 'Must return a hash like structure with request parameters'
-          end
+        def http_request_parameters
+          fail NoMethodError, 'Must return a hash like structure with request parameters'
+        end
       end
     end
   end

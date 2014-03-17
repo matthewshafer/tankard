@@ -102,32 +102,32 @@ module Tankard
         self
       end
 
-      private
+    private
 
-        def http_request_uri
-          endpoint = "#{route}/#{raise_if_no_id_in_options}"
+      def http_request_uri
+        endpoint = "#{route}/#{raise_if_no_id_in_options}"
 
-          endpoint += "/#{@options.delete(:endpoint)}" if @options.endpoint?
+        endpoint += "/#{@options.delete(:endpoint)}" if @options.endpoint?
 
-          endpoint
-        end
+        endpoint
+      end
 
-        def raise_if_no_id_in_options
-          fail Tankard::Error::MissingParameter, 'No Beer ID is set' unless @options.id?
-          @options.delete(:id)
-        end
+      def raise_if_no_id_in_options
+        fail Tankard::Error::MissingParameter, 'No Beer ID is set' unless @options.id?
+        @options.delete(:id)
+      end
 
-        def route
-          'beer'
-        end
+      def route
+        'beer'
+      end
 
-        def http_client
-          @request
-        end
+      def http_client
+        @request
+      end
 
-        def http_request_parameters
-          @options
-        end
+      def http_request_parameters
+        @options
+      end
     end
   end
 end
