@@ -1,3 +1,9 @@
+AllCops:
+  Includes:
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'tankard.gemspec'
+
 AccessModifierIndentation:
   EnforcedStyle: outdent
 EmptyLinesAroundBody:
