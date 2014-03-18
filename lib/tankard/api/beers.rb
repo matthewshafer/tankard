@@ -18,7 +18,7 @@ module Tankard
       # @param request [Tankard::Request]
       # @param options [Hash]
       # @return [Tankard::Api::Beers]
-      def initialize(request, options={})
+      def initialize(request, options = {})
         @request = request
         @options = Hashie::Mash.new(options)
       end
@@ -54,26 +54,26 @@ module Tankard
       #
       # @param options [Hash]
       # @return [self] returns itself
-      def params(options={})
-        options.each_pair do |key,value|
+      def params(options = {})
+        options.each_pair do |key, value|
           @options[key] = value
         end
         self
       end
 
-      private
+    private
 
-        def http_request_uri
-          "beers"
-        end
+      def http_request_uri
+        'beers'
+      end
 
-        def http_client
-          @request
-        end
+      def http_client
+        @request
+      end
 
-        def http_request_parameters
-          @options
-        end
+      def http_request_parameters
+        @options
+      end
     end
   end
 end

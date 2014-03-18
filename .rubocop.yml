@@ -1,0 +1,15 @@
+AllCops:
+  Includes:
+    - 'Gemfile'
+    - 'Rakefile'
+    - 'tankard.gemspec'
+
+AccessModifierIndentation:
+  EnforcedStyle: outdent
+EmptyLinesAroundBody:
+  Enabled: false
+LineLength:
+  Enabled: false
+MethodLength:
+  CountComments: false  # count full line comments?
+  Max: 10

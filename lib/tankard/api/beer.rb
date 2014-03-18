@@ -18,7 +18,7 @@ module Tankard
       # @param request [Tankard::Request]
       # @param options [Hash]
       # @return [Tankard::Api::Beer]
-      def initialize(request, options={})
+      def initialize(request, options = {})
         @request = request
         @options = Hashie::Mash.new(options)
       end
@@ -55,7 +55,7 @@ module Tankard
       #
       # @return [self] returns itself
       def breweries
-        @options.endpoint = "breweries"
+        @options.endpoint = 'breweries'
         self
       end
 
@@ -63,7 +63,7 @@ module Tankard
       #
       # @return [self] returns itself
       def events
-        @options.endpoint = "events"
+        @options.endpoint = 'events'
         self
       end
 
@@ -71,7 +71,7 @@ module Tankard
       #
       # @return [self] returns itself
       def ingredients
-        @options.endpoint = "ingredients"
+        @options.endpoint = 'ingredients'
         self
       end
 
@@ -79,7 +79,7 @@ module Tankard
       #
       # @return [self] returns itself
       def social_accounts
-        @options.endpoint = "socialaccounts"
+        @options.endpoint = 'socialaccounts'
         self
       end
 
@@ -87,7 +87,7 @@ module Tankard
       #
       # @return [self] returns itself
       def variations
-        @options.endpoint = "variations"
+        @options.endpoint = 'variations'
         self
       end
 
@@ -95,41 +95,39 @@ module Tankard
       #
       # @param options [Hash]
       # @return [self] returns itself
-      def params(options={})
-        options.each_pair do |key,value|
+      def params(options = {})
+        options.each_pair do |key, value|
           @options[key] = value
         end
         self
       end
 
-      private
+    private
 
-        def http_request_uri
-          endpoint = "#{route}/#{raise_if_no_id_in_options}"
+      def http_request_uri
+        endpoint = "#{route}/#{raise_if_no_id_in_options}"
 
-          if @options.endpoint?
-            endpoint += "/#{@options.delete(:endpoint)}"
-          end
+        endpoint += "/#{@options.delete(:endpoint)}" if @options.endpoint?
 
-          endpoint
-        end
+        endpoint
+      end
 
-        def raise_if_no_id_in_options
-          raise Tankard::Error::MissingParameter, "No Beer ID is set" unless @options.id?
-          @options.delete(:id)
-        end
+      def raise_if_no_id_in_options
+        fail Tankard::Error::MissingParameter, 'No Beer ID is set' unless @options.id?
+        @options.delete(:id)
+      end
 
-        def route
-          "beer"
-        end
+      def route
+        'beer'
+      end
 
-        def http_client
-          @request
-        end
+      def http_client
+        @request
+      end
 
-        def http_request_parameters
-          @options
-        end
+      def http_request_parameters
+        @options
+      end
     end
   end
 end

@@ -8,7 +8,7 @@ require 'tankard/api/style'
 module Tankard
   class Client
 
-    def initialize(options={})
+    def initialize(options = {})
       Tankard::Configuration::KEYS.each do |key|
         instance_variable_set(:"@#{key}", options[key])
       end
@@ -16,15 +16,15 @@ module Tankard
       @tankard_request = Tankard::Request.new(@api_key)
     end
 
-    def beer(options={})
+    def beer(options = {})
       Tankard::Api::Beer.new(@tankard_request, options)
     end
 
-    def beers(options={})
+    def beers(options = {})
       Tankard::Api::Beers.new(@tankard_request, options)
     end
 
-    def search(options={})
+    def search(options = {})
       Tankard::Api::Search.new(@tankard_request, options)
     end
 
@@ -32,7 +32,7 @@ module Tankard
       Tankard::Api::Styles.new(@tankard_request)
     end
 
-    def style(options={})
+    def style(options = {})
       Tankard::Api::Style.new(@tankard_request, options)
     end
   end

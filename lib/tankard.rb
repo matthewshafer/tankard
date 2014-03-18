@@ -1,8 +1,8 @@
-require "tankard/version"
-require "tankard/configuration"
-require "tankard/error"
-require "tankard/client"
-require "atomic"
+require 'tankard/version'
+require 'tankard/configuration'
+require 'tankard/error'
+require 'tankard/client'
+require 'atomic'
 
 module Tankard
   @client = ::Atomic.new
@@ -16,18 +16,18 @@ module Tankard
     end
 
     def respond_to?(method)
-      return client.respond_to?(method)
+      client.respond_to?(method)
     end
 
-    private
+  private
 
-      def method_missing(method_name, *args, &block)
-        return super unless client.respond_to?(method_name)
-        client.send(method_name, *args, &block)
-      end
+    def method_missing(method_name, *args, &block)
+      return super unless client.respond_to?(method_name)
+      client.send(method_name, *args, &block)
+    end
 
-      def reset_client
-        @client.value = nil
-      end
+    def reset_client
+      @client.value = nil
+    end
   end
 end
