@@ -29,7 +29,7 @@ describe Tankard::Api::Style do
 
     it 'sets the options[:id] for the style id passed in' do
       style.id(1)
-      style_options = style.instance_variable_get(:"@options")
+      style_options = style.instance_variable_get(:"@http_request_parameters")
       expect(style_options[:id]).to eql(1)
     end
 
@@ -55,6 +55,71 @@ describe Tankard::Api::Style do
 
       it 'uses the style id in the uri' do
         expect(style.id(1).map { |x| x }).to eql(['style_valid'])
+      end
+    end
+  end
+
+  describe 'private methods' do
+
+    describe '#raise_if_no_id_in_options' do
+
+      context 'when an ID is not set' do
+
+        it 'raises Tankard::Error::MissingParameter' do
+          expect { style.send(:raise_if_no_id_in_options) }.to raise_error(Tankard::Error::MissingParameter, 'No style id set')
+        end
+      end
+
+      context 'when an ID is set' do
+
+        before do
+          style.instance_variable_get(:"@http_request_parameters")[:id] = 'test'
+        end
+
+        it 'returns the id from options' do
+          expect(style.send(:raise_if_no_id_in_options)).to eql('test')
+        end
+
+        it 'removes the id from options' do
+          style.send(:raise_if_no_id_in_options)
+          expect(style.instance_variable_get(:"@http_request_parameters")[:id]).to be_nil
+        end
+      end
+    end
+
+    describe '#route' do
+
+      it 'returns the route for the api request' do
+        expect(style.send(:route)).to eql('style')
+      end
+    end
+
+    describe '#http_request_uri' do
+
+      before do
+        style.stub(:route).and_return('style')
+        style.stub(:raise_if_no_id_in_options).and_return('123')
+      end
+
+      context 'no endpoint is set' do
+
+        it 'returns the route with the id' do
+          expect(style.send(:http_request_uri)).to eql('style/123')
+        end
+      end
+    end
+
+    describe '#http_client' do
+
+      it 'returns the request variable that is passed when the class is created' do
+        expect(style.send(:http_client).object_id).to eql(@request.object_id)
+      end
+    end
+
+    describe '#http_request_parameters' do
+
+      it 'returns the options for the request' do
+        expect(style.send(:http_request_parameters).object_id).to eql(style.instance_variable_get(:"@http_request_parameters").object_id)
       end
     end
   end

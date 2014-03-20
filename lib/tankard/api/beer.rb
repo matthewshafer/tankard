@@ -19,8 +19,8 @@ module Tankard
       # @param options [Hash]
       # @return [Tankard::Api::Beer]
       def initialize(request, options = {})
-        @request = request
-        @options = Hashie::Mash.new(options)
+        @http_client = request
+        @http_request_parameters = Hashie::Mash.new(options)
       end
 
       # @!method find(id_or_array, options={})
@@ -47,7 +47,7 @@ module Tankard
       # @param beer_id [String]
       # @return [self] returns itself
       def id(beer_id)
-        @options.id = beer_id
+        @http_request_parameters.id = beer_id
         self
       end
 
@@ -55,7 +55,7 @@ module Tankard
       #
       # @return [self] returns itself
       def breweries
-        @options.endpoint = 'breweries'
+        @http_request_parameters.endpoint = 'breweries'
         self
       end
 
@@ -63,7 +63,7 @@ module Tankard
       #
       # @return [self] returns itself
       def events
-        @options.endpoint = 'events'
+        @http_request_parameters.endpoint = 'events'
         self
       end
 
@@ -71,7 +71,7 @@ module Tankard
       #
       # @return [self] returns itself
       def ingredients
-        @options.endpoint = 'ingredients'
+        @http_request_parameters.endpoint = 'ingredients'
         self
       end
 
@@ -79,7 +79,7 @@ module Tankard
       #
       # @return [self] returns itself
       def social_accounts
-        @options.endpoint = 'socialaccounts'
+        @http_request_parameters.endpoint = 'socialaccounts'
         self
       end
 
@@ -87,7 +87,7 @@ module Tankard
       #
       # @return [self] returns itself
       def variations
-        @options.endpoint = 'variations'
+        @http_request_parameters.endpoint = 'variations'
         self
       end
 
@@ -97,36 +97,31 @@ module Tankard
       # @return [self] returns itself
       def params(options = {})
         options.each_pair do |key, value|
-          @options[key] = value
+          @http_request_parameters[key] = value
         end
         self
       end
 
     private
 
+      attr_reader :http_client
+      attr_reader :http_request_parameters
+
       def http_request_uri
         endpoint = "#{route}/#{raise_if_no_id_in_options}"
 
-        endpoint += "/#{@options.delete(:endpoint)}" if @options.endpoint?
+        endpoint += "/#{@http_request_parameters.delete(:endpoint)}" if @http_request_parameters.endpoint?
 
         endpoint
       end
 
       def raise_if_no_id_in_options
-        fail Tankard::Error::MissingParameter, 'No Beer ID is set' unless @options.id?
-        @options.delete(:id)
+        fail Tankard::Error::MissingParameter, 'No Beer ID is set' unless @http_request_parameters.id?
+        @http_request_parameters.delete(:id)
       end
 
       def route
         'beer'
-      end
-
-      def http_client
-        @request
-      end
-
-      def http_request_parameters
-        @options
       end
     end
   end

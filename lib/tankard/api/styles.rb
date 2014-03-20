@@ -27,17 +27,15 @@ module Tankard
       # @param request [Tankard::Request]
       # @return [Tankard::Api::Styles]
       def initialize(request)
-        @request = request
+        @http_client = request
       end
 
     private
 
+      attr_reader :http_client
+
       def http_request_uri
         'styles'
-      end
-
-      def http_client
-        @request
       end
 
       def http_request_parameters
