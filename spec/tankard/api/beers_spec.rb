@@ -9,9 +9,9 @@ describe Tankard::Api::Beers do
 
   describe '#name' do
 
-    it 'sets the options[:name] of a beer' do
+    it 'sets the http_request_parameters[:name] of a beer' do
       beers.name('stone')
-      beers_options = beers.instance_variable_get(:"@options")
+      beers_options = beers.instance_variable_get(:"@http_request_parameters")
       expect(beers_options[:name]).to eql('stone')
     end
 
@@ -22,9 +22,9 @@ describe Tankard::Api::Beers do
 
   describe '#page' do
 
-    it 'sets the options[:p] for the page number' do
+    it 'sets the http_request_parameters[:p] for the page number' do
       beers.page(1)
-      beers_options = beers.instance_variable_get(:"@options")
+      beers_options = beers.instance_variable_get(:"@http_request_parameters")
       expect(beers_options[:p]).to eql(1)
     end
 
@@ -37,7 +37,7 @@ describe Tankard::Api::Beers do
 
     it 'sets parameters' do
       beers.params(withSocialAccounts: 'y', withGuilds: 'n')
-      beers_options = beers.instance_variable_get(:"@options")
+      beers_options = beers.instance_variable_get(:"@http_request_parameters")
       expect(beers_options[:withSocialAccounts]).to eql('y')
       expect(beers_options[:withGuilds]).to eql('n')
     end
@@ -45,7 +45,7 @@ describe Tankard::Api::Beers do
     it 'merges params when called multiple times' do
       beers.params(test: 'n')
       beers.params(test: 'y')
-      beers_options = beers.instance_variable_get(:"@options")
+      beers_options = beers.instance_variable_get(:"@http_request_parameters")
       expect(beers_options[:test]).to eql('y')
     end
 
@@ -72,8 +72,8 @@ describe Tankard::Api::Beers do
 
     describe '#http_request_parameters' do
 
-      it 'returns the options for the request' do
-        expect(beers.send(:http_request_parameters).object_id).to eql(beers.instance_variable_get(:"@options").object_id)
+      it 'returns the http_request_parameters for the request' do
+        expect(beers.send(:http_request_parameters).object_id).to eql(beers.instance_variable_get(:"@http_request_parameters").object_id)
       end
     end
   end

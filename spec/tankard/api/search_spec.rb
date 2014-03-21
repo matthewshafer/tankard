@@ -10,9 +10,9 @@ describe Tankard::Api::Search do
 
   describe '#query' do
 
-    it 'sets options[:q] with the query the user wants to run' do
+    it 'sets http_request_parameters[:q] with the query the user wants to run' do
       search.query('test')
-      search_options = search.instance_variable_get(:"@options")
+      search_options = search.instance_variable_get(:"@http_request_parameters")
       expect(search_options[:q]).to eql('test')
     end
 
@@ -26,7 +26,7 @@ describe Tankard::Api::Search do
 
     it 'sets parameters' do
       search.params(withSocialAccounts: 'y', withGuilds: 'n')
-      search_options = search.instance_variable_get(:"@options")
+      search_options = search.instance_variable_get(:"@http_request_parameters")
       expect(search_options[:withSocialAccounts]).to eql('y')
       expect(search_options[:withGuilds]).to eql('n')
     end
@@ -34,7 +34,7 @@ describe Tankard::Api::Search do
     it 'merges params when called multiple times' do
       search.params(test: 'n')
       search.params(test: 'y')
-      search_options = search.instance_variable_get(:"@options")
+      search_options = search.instance_variable_get(:"@http_request_parameters")
       expect(search_options[:test]).to eql('y')
     end
 
@@ -45,9 +45,9 @@ describe Tankard::Api::Search do
 
   describe '#type' do
 
-    it 'sets options[:type] with the type to search for' do
+    it 'sets http_request_parameters[:type] with the type to search for' do
       search.type('beer')
-      search_options = search.instance_variable_get(:"@options")
+      search_options = search.instance_variable_get(:"@http_request_parameters")
       expect(search_options[:type]).to eql('beer')
     end
 
@@ -58,9 +58,9 @@ describe Tankard::Api::Search do
 
   describe '#page' do
 
-    it 'sets options[:p] with the page number to load' do
+    it 'sets http_request_parameters[:p] with the page number to load' do
       search.page(1)
-      search_options = search.instance_variable_get(:"@options")
+      search_options = search.instance_variable_get(:"@http_request_parameters")
       expect(search_options[:p]).to eql(1)
     end
 
@@ -73,14 +73,14 @@ describe Tankard::Api::Search do
 
     before do
       search.upc('123')
-      @search_options = search.instance_variable_get(:"@options")
+      @search_options = search.instance_variable_get(:"@http_request_parameters")
     end
 
-    it 'sets options[:endpoint] with the search endpoint to use' do
+    it 'sets http_request_parameters[:endpoint] with the search endpoint to use' do
       expect(@search_options[:endpoint]).to eql('upc')
     end
 
-    it 'sets options[:code] with the upc code' do
+    it 'sets http_request_parameters[:code] with the upc code' do
       expect(@search_options[:code]).to eql('123')
     end
 
@@ -93,18 +93,18 @@ describe Tankard::Api::Search do
 
     before do
       search.geo_point(1.23, 4.56)
-      @search_options = search.instance_variable_get(:"@options")
+      @search_options = search.instance_variable_get(:"@http_request_parameters")
     end
 
-    it 'sets options[:endpoint] with the correct search endpoint to use' do
+    it 'sets http_request_parameters[:endpoint] with the correct search endpoint to use' do
       expect(@search_options[:endpoint]).to eql('geo/point')
     end
 
-    it 'sets options[:lat] with the latitude' do
+    it 'sets http_request_parameters[:lat] with the latitude' do
       expect(@search_options[:lat]).to eql(1.23)
     end
 
-    it 'sets options[:lng] with the longitude' do
+    it 'sets http_request_parameters[:lng] with the longitude' do
       expect(@search_options[:lng]).to eql(4.56)
     end
 
@@ -140,7 +140,7 @@ describe Tankard::Api::Search do
         end
 
         it 'does not raise Tankard::Error::NoSearchQuery when the query is set' do
-          search.instance_variable_get(:"@options")[:q] = 'findme'
+          search.instance_variable_get(:"@http_request_parameters")[:q] = 'findme'
           expect { search.send(:raise_if_required_options_not_set) }.not_to raise_error
         end
       end
@@ -148,7 +148,7 @@ describe Tankard::Api::Search do
       context 'the endpoint is set to upc' do
 
         before do
-          search.instance_variable_get(:"@options")[:endpoint] = 'upc'
+          search.instance_variable_get(:"@http_request_parameters")[:endpoint] = 'upc'
         end
 
         it 'raises Tankard::Error::MissingParameter when code is not set' do
@@ -156,7 +156,7 @@ describe Tankard::Api::Search do
         end
 
         it 'does not raise Tankard::Error::MissingParameter when code is set' do
-          search.instance_variable_get(:"@options")[:code] = '1234'
+          search.instance_variable_get(:"@http_request_parameters")[:code] = '1234'
           expect { search.send(:raise_if_required_options_not_set) }.not_to raise_error
         end
       end
@@ -164,16 +164,16 @@ describe Tankard::Api::Search do
       context 'the endpoint is set to geo/point' do
 
         before do
-          search.instance_variable_get(:"@options")[:endpoint] = 'geo/point'
+          search.instance_variable_get(:"@http_request_parameters")[:endpoint] = 'geo/point'
         end
 
         it 'raises Tankard::Error::MissingParameter when latitude is not set' do
-          search.instance_variable_get(:"@options")[:lng] = 123
+          search.instance_variable_get(:"@http_request_parameters")[:lng] = 123
           expect { search.send(:raise_if_required_options_not_set) }.to raise_error(Tankard::Error::MissingParameter, 'missing Parameters: lat, lng')
         end
 
         it 'raises Tankard::Error::MissingParameter when longitude is not set' do
-          search.instance_variable_get(:"@options")[:lat] = 123
+          search.instance_variable_get(:"@http_request_parameters")[:lat] = 123
           expect { search.send(:raise_if_required_options_not_set) }.to raise_error(Tankard::Error::MissingParameter, 'missing Parameters: lat, lng')
         end
 
@@ -182,8 +182,8 @@ describe Tankard::Api::Search do
         end
 
         it 'does not raise Tankard::Error::MissingParameter when latitude and longitude are set' do
-          search.instance_variable_get(:"@options")[:lat] = 123
-          search.instance_variable_get(:"@options")[:lng] = 123
+          search.instance_variable_get(:"@http_request_parameters")[:lat] = 123
+          search.instance_variable_get(:"@http_request_parameters")[:lng] = 123
           expect { search.send(:raise_if_required_options_not_set) }.not_to raise_error
         end
       end
@@ -201,16 +201,16 @@ describe Tankard::Api::Search do
       context 'an endpoint is set' do
 
         before do
-          search.instance_variable_get(:"@options")[:endpoint] = 'upc'
+          search.instance_variable_get(:"@http_request_parameters")[:endpoint] = 'upc'
         end
 
         it 'adds the endpoint to the uri' do
           expect(search.send(:http_request_uri)).to eql('search/upc')
         end
 
-        it 'removes the endpoint from options' do
+        it 'removes the endpoint from http_request_parameters' do
           search.send(:http_request_uri)
-          expect(search.instance_variable_get(:"@options")[:endpoint]).to eql(nil)
+          expect(search.instance_variable_get(:"@http_request_parameters")[:endpoint]).to eql(nil)
         end
       end
     end
@@ -224,8 +224,8 @@ describe Tankard::Api::Search do
 
     describe '#http_request_parameters' do
 
-      it 'returns the options for the request' do
-        expect(search.send(:http_request_parameters).object_id).to eql(search.instance_variable_get(:"@options").object_id)
+      it 'returns the http_request_parameters for the request' do
+        expect(search.send(:http_request_parameters).object_id).to eql(search.instance_variable_get(:"@http_request_parameters").object_id)
       end
     end
   end

@@ -19,8 +19,8 @@ module Tankard
       # @param options [Hash]
       # @return [Tankard::Api::Beers]
       def initialize(request, options = {})
-        @request = request
-        @options = Hashie::Mash.new(options)
+        @http_client = request
+        @http_request_parameters = Hashie::Mash.new(options)
       end
 
       # @!method each(&block)
@@ -37,7 +37,7 @@ module Tankard
       # @param beer_name [String]
       # @return [self] returns itself
       def name(beer_name)
-        @options.name = beer_name
+        @http_request_parameters.name = beer_name
         self
       end
 
@@ -46,7 +46,7 @@ module Tankard
       # @param number [Integer]
       # @return [self] returns itself
       def page(number)
-        @options.p = number
+        @http_request_parameters.p = number
         self
       end
 
@@ -56,23 +56,18 @@ module Tankard
       # @return [self] returns itself
       def params(options = {})
         options.each_pair do |key, value|
-          @options[key] = value
+          @http_request_parameters[key] = value
         end
         self
       end
 
     private
 
+      attr_reader :http_client
+      attr_reader :http_request_parameters
+
       def http_request_uri
         'beers'
-      end
-
-      def http_client
-        @request
-      end
-
-      def http_request_parameters
-        @options
       end
     end
   end

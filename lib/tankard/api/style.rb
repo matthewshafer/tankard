@@ -21,8 +21,8 @@ module Tankard
       # @param options [Hash]
       # @return [Tankard::Api::Style]
       def initialize(request, options = {})
-        @request = request
-        @options = Hashie::Mash.new(options)
+        @http_client = request
+        @http_request_parameters = Hashie::Mash.new(options)
       end
 
       # @!method find(id_or_array, options={})
@@ -49,15 +49,18 @@ module Tankard
       # @param style_id [String]
       # @return [self] returns itself
       def id(style_id)
-        @options.id = style_id
+        @http_request_parameters.id = style_id
         self
       end
 
     private
 
+      attr_reader :http_client
+      attr_reader :http_request_parameters
+
       def raise_if_no_id_in_options
-        fail Tankard::Error::MissingParameter, 'No style id set' unless @options.id?
-        @options.delete(:id)
+        fail Tankard::Error::MissingParameter, 'No style id set' unless @http_request_parameters.id?
+        @http_request_parameters.delete(:id)
       end
 
       def route
@@ -66,14 +69,6 @@ module Tankard
 
       def http_request_uri
         "#{route}/#{raise_if_no_id_in_options}"
-      end
-
-      def http_client
-        @request
-      end
-
-      def http_request_parameters
-        @options
       end
     end
   end
