@@ -59,8 +59,9 @@ module Tankard
       attr_reader :http_request_parameters
 
       def raise_if_no_id_in_options
-        fail Tankard::Error::MissingParameter, 'No style id set' unless @http_request_parameters.id?
-        @http_request_parameters.delete(:id)
+        @style_id = @http_request_parameters.delete(:id) if @http_request_parameters.id?
+        fail Tankard::Error::MissingParameter, 'No style id set' unless @style_id
+        @style_id
       end
 
       def route

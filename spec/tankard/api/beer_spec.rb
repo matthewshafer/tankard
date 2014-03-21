@@ -150,6 +150,22 @@ describe Tankard::Api::Beer do
           beer.send(:raise_if_no_id_in_options)
           expect(beer.instance_variable_get(:"@http_request_parameters")[:id]).to be_nil
         end
+
+        it 'can be called multiple times and not raise error' do
+          beer.send(:raise_if_no_id_in_options)
+          expect { beer.send(:raise_if_no_id_in_options) }.not_to raise_error
+        end
+
+        it 'caches the ID for future method calls' do
+          beer.send(:raise_if_no_id_in_options)
+          expect(beer.send(:raise_if_no_id_in_options)).to eql('test')
+        end
+
+        it 'updates the cache value if the user sets a new ID' do
+          beer.send(:raise_if_no_id_in_options)
+          beer.instance_variable_get(:"@http_request_parameters")[:id] = 'test1'
+          expect(beer.send(:raise_if_no_id_in_options)).to eql('test1')
+        end
       end
     end
 
@@ -187,6 +203,17 @@ describe Tankard::Api::Beer do
         it 'removes the endpoint from options' do
           beer.send(:http_request_uri)
           expect(beer.instance_variable_get(:"@http_request_parameters")[:endpoint]).to be_nil
+        end
+
+        it 'caches the endpoint for future method calls' do
+          beer.send(:http_request_uri)
+          expect(beer.send(:http_request_uri)).to eql('beer/123/events')
+        end
+
+        it 'updates the cached endpoint if the user sets a new one' do
+          beer.send(:http_request_uri)
+          beer.instance_variable_get(:"@http_request_parameters")[:endpoint] = 'breweries'
+          expect(beer.send(:http_request_uri)).to eql('beer/123/breweries')
         end
       end
     end

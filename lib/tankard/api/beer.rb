@@ -108,16 +108,16 @@ module Tankard
       attr_reader :http_request_parameters
 
       def http_request_uri
+        @request_endpoint = "/#{@http_request_parameters.delete(:endpoint)}" if @http_request_parameters.endpoint?
         endpoint = "#{route}/#{raise_if_no_id_in_options}"
-
-        endpoint += "/#{@http_request_parameters.delete(:endpoint)}" if @http_request_parameters.endpoint?
-
+        endpoint += @request_endpoint if @request_endpoint
         endpoint
       end
 
       def raise_if_no_id_in_options
-        fail Tankard::Error::MissingParameter, 'No Beer ID is set' unless @http_request_parameters.id?
-        @http_request_parameters.delete(:id)
+        @beer_id = @http_request_parameters.delete(:id) if @http_request_parameters.id?
+        fail Tankard::Error::MissingParameter, 'No Beer ID is set' unless @beer_id
+        @beer_id
       end
 
       def route

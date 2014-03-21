@@ -84,6 +84,22 @@ describe Tankard::Api::Style do
           style.send(:raise_if_no_id_in_options)
           expect(style.instance_variable_get(:"@http_request_parameters")[:id]).to be_nil
         end
+
+        it 'can be called multiple times and not raise error' do
+          style.send(:raise_if_no_id_in_options)
+          expect { style.send(:raise_if_no_id_in_options) }.not_to raise_error
+        end
+
+        it 'caches the ID for future method calls' do
+          style.send(:raise_if_no_id_in_options)
+          expect(style.send(:raise_if_no_id_in_options)).to eql('test')
+        end
+
+        it 'updates the cache value if the user sets a new ID' do
+          style.send(:raise_if_no_id_in_options)
+          style.instance_variable_get(:"@http_request_parameters")[:id] = 'test1'
+          expect(style.send(:raise_if_no_id_in_options)).to eql('test1')
+        end
       end
     end
 

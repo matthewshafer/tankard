@@ -212,6 +212,17 @@ describe Tankard::Api::Search do
           search.send(:http_request_uri)
           expect(search.instance_variable_get(:"@http_request_parameters")[:endpoint]).to eql(nil)
         end
+
+        it 'caches the endpoint for future method calls' do
+          search.send(:http_request_uri)
+          expect(search.send(:http_request_uri)).to eql('search/upc')
+        end
+
+        it 'updates the cached endpoint if the user sets a new one' do
+          search.send(:http_request_uri)
+          search.instance_variable_get(:"@http_request_parameters")[:endpoint] = 'geo/point'
+          expect(search.send(:http_request_uri)).to eql('search/geo/point')
+        end
       end
     end
 
