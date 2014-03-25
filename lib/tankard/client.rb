@@ -6,6 +6,10 @@ require 'tankard/api/styles'
 require 'tankard/api/style'
 
 module Tankard
+    # Interaction point for various endpoints
+    # When querying Tankard normally there is only one of these alive at a time
+    #
+    # @author Matthew Shafer
   class Client
 
     def initialize(options = {})

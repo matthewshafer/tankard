@@ -3,6 +3,9 @@ require 'httpclient'
 require 'tankard/error'
 
 module Tankard
+  # Handles making actual requests and checking them for any invalid status codes
+  #
+  # @author Matthew Shafer
   class Request
 
     def initialize(api_key)

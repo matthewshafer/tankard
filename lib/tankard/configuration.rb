@@ -1,4 +1,7 @@
 module Tankard
+  # Configuring and validating credentials
+  #
+  # @author Matthew Shafer
   module Configuration
     attr_writer :api_key
 

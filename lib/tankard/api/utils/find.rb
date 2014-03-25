@@ -3,6 +3,9 @@ require 'tankard/api/request/get'
 module Tankard
   module Api
     module Utils
+      # Helper for finding one or more things by ID(s)
+      #
+      # @author Matthew Shafer
       module Find
         include Tankard::Api::Request::Get
 

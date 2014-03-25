@@ -4,6 +4,9 @@ require 'tankard/error'
 require 'tankard/client'
 require 'atomic'
 
+# Sets up and delegates 'most' method calls to the Tankard Client
+#
+# @author Matthew Shafer
 module Tankard
   @client = ::Atomic.new
 

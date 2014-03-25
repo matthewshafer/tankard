@@ -1,6 +1,9 @@
 module Tankard
   module Api
     module Request
+      # Helper for GET requests
+      #
+      # @author Matthew Shafer
       module Get
 
       private

@@ -1,4 +1,7 @@
 module Tankard
+  # Custom errors classes
+  #
+  # @author Matthew Shafer
   module Error
     ConfigurationError = Class.new(::StandardError)
     MissingParameter = Class.new(::StandardError)

@@ -3,6 +3,10 @@ require 'tankard/api/request/get'
 module Tankard
   module Api
     module Utils
+      # Seamless querying of multiple pages of results
+      # Allows using any ruby enumerable (EX. map)
+      #
+      # @author Matthew Shafer
       module PageFinders
         include ::Enumerable
         include Tankard::Api::Request::Get
