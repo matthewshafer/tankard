@@ -3,10 +3,11 @@ rvm:
   - jruby-19mode
   - rbx-2.0.0
   - rbx-2.1.1
-  - rbx-2.2.2
+  - rbx-2.2.6
   - 1.9.3
   - 2.0.0
   - 2.1.0
+  - 2.1.1
   - ruby-head
   - jruby-head
 jdk:
@@ -29,6 +30,10 @@ matrix:
     - rvm: 2.1.0
       jdk: openjdk7
     - rvm: 2.1.0
+      jdk: oraclejdk7
+    - rvm: 2.1.1
+      jdk: openjdk7
+    - rvm: 2.1.1
       jdk: oraclejdk7
     - rvm: ruby-head
       jdk: openjdk7
