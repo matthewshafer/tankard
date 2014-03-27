@@ -14,6 +14,7 @@ jdk:
   - openjdk6
   - openjdk7
   - oraclejdk7
+  - oraclejdk8
 matrix:
   allow_failures:
     - rvm: ruby-head
@@ -23,31 +24,47 @@ matrix:
       jdk: openjdk7
     - rvm: 1.9.3
       jdk: oraclejdk7
+    - rvm: 1.9.3
+      jdk: oraclejdk8
     - rvm: 2.0.0
       jdk: openjdk7
     - rvm: 2.0.0
       jdk: oraclejdk7
+    - rvm: 2.0.0
+      jdk: oraclejdk8
     - rvm: 2.1.0
       jdk: openjdk7
     - rvm: 2.1.0
       jdk: oraclejdk7
+    - rvm: 2.1.0
+      jdk: oraclejdk8
     - rvm: 2.1.1
       jdk: openjdk7
     - rvm: 2.1.1
       jdk: oraclejdk7
+    - rvm: 2.1.1
+      jdk: oraclejdk8
     - rvm: ruby-head
       jdk: openjdk7
     - rvm: ruby-head
       jdk: oraclejdk7
+    - rvm: ruby-head
+      jdk: oraclejdk8
     - rvm: rbx-2.0.0
       jdk: openjdk7
     - rvm: rbx-2.0.0
       jdk: oraclejdk7
+    - rvm: rbx-2.0.0
+      jdk: oraclejdk8
     - rvm: rbx-2.1.1
       jdk: openjdk7
     - rvm: rbx-2.1.1
       jdk: oraclejdk7
+    - rvm: rbx-2.1.1
+      jdk: oraclejdk8
     - rvm: rbx-2.2.6
       jdk: openjdk7
     - rvm: rbx-2.2.6
       jdk: oraclejdk7
+    - rvm: rbx-2.2.6
+      jdk: oraclejdk8
