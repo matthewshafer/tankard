@@ -47,7 +47,7 @@ matrix:
       jdk: openjdk7
     - rvm: rbx-2.1.1
       jdk: oraclejdk7
-    - rvm: rbx-2.2.2
+    - rvm: rbx-2.2.6
       jdk: openjdk7
-    - rvm: rbx-2.2.2
+    - rvm: rbx-2.2.6
       jdk: oraclejdk7
