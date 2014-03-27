@@ -14,7 +14,7 @@ module Tankard
     include Configuration
 
     def client
-      @client.compare_and_swap(nil, Tankard::Client.new(credentials)) unless @client.value
+      @client.compare_and_swap(nil, Tankard::Client.new(credentials))
       @client.value
     end
 
