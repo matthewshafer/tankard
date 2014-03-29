@@ -18,12 +18,12 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(/^spec\//)
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'rake'
+  spec.add_development_dependency 'rake', '~> 10.1'
   spec.add_development_dependency 'rspec', '~> 2.14'
   spec.add_development_dependency 'webmock', '~> 1.16'
   spec.add_development_dependency 'simplecov', '~> 0.8'
   spec.add_development_dependency 'coveralls', '~> 0.7'
-  spec.add_development_dependency 'pry', '~> 0.9.12'
+  spec.add_development_dependency 'pry', '~> 0.9'
   spec.add_development_dependency 'rubysl', '~> 2.0' if RUBY_ENGINE == 'rbx'
   spec.add_development_dependency 'json', '~> 1.8' if RUBY_ENGINE == 'rbx'
   spec.add_development_dependency 'rubinius-coverage', '~> 2.0' if RUBY_ENGINE == 'rbx'
