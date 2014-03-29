@@ -1,3 +1,10 @@
+## v0.2.0 (03/28/14)
+* Fixed Rspec deprecation's
+* Relaxed strictness of required gem's
+* Refactored a significant amount of the gem
+* Allow reusing of a query
+* Test gem against more ruby interpreters
+
 ## v0.1.0 (05/15/2013)
 * Add params method to beers.  Allows passing additional parameters in an additional way.
 * Add params method to beer.  Allows passing additional parameters in an additional way.
