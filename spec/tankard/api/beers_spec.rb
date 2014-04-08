@@ -20,6 +20,19 @@ describe Tankard::Api::Beers do
     end
   end
 
+  describe '#abv' do
+
+    it 'sets the http_request_parameters[:abv] for the query' do
+      beers.abv('+10')
+      beers_options = beers.instance_variable_get(:"@http_request_parameters")
+      expect(beers_options[:abv]).to eql('+10')
+    end
+
+    it 'returns self' do
+      expect(beers.object_id).to eql(beers.abv('+10').object_id)
+    end
+  end
+
   describe '#page' do
 
     it 'sets the http_request_parameters[:p] for the page number' do

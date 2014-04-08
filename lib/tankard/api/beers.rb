@@ -41,6 +41,15 @@ module Tankard
         self
       end
 
+      # Beer abv to query with
+      #
+      # @param beer_abv [String]
+      # @return [self] returns itself
+      def abv(beer_abv)
+        @http_request_parameters.abv = beer_abv
+        self
+      end
+
       # Page number to request
       #
       # @param number [Integer]
