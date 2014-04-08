@@ -50,6 +50,11 @@ module Tankard
         self
       end
 
+      def ibu(beer_ibu)
+        @http_request_parameters.ibu = beer_ibu
+        self
+      end
+
       # Page number to request
       #
       # @param number [Integer]
