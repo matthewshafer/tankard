@@ -39,6 +39,19 @@ describe Tankard::Api::Beer do
     end
   end
 
+  describe '#adjuncts' do
+
+    it 'sets the options[:endpoint] to adjuncts' do
+      beer.adjuncts
+      beer_options = beer.instance_variable_get(:"@http_request_parameters")
+      expect(beer_options[:endpoint]).to eql('adjuncts')
+    end
+
+    it 'returns itself' do
+      expect(beer.object_id).to eql(beer.adjuncts.object_id)
+    end
+  end
+
   describe '#breweries' do
 
     it 'sets the options[:endpoint] to breweries' do
@@ -62,6 +75,32 @@ describe Tankard::Api::Beer do
 
     it 'returns itself' do
       expect(beer.object_id).to eql(beer.events.object_id)
+    end
+  end
+
+  describe '#fermentables' do
+
+    it 'sets the options[:endpoint] to fermentables' do
+      beer.fermentables
+      beer_options = beer.instance_variable_get(:"@http_request_parameters")
+      expect(beer_options[:endpoint]).to eql('fermentables')
+    end
+
+    it 'returns itself' do
+      expect(beer.object_id).to eql(beer.fermentables.object_id)
+    end
+  end
+
+  describe '#hops' do
+
+    it 'sets the options[:endpoint] to hops' do
+      beer.hops
+      beer_options = beer.instance_variable_get(:"@http_request_parameters")
+      expect(beer_options[:endpoint]).to eql('hops')
+    end
+
+    it 'returns itself' do
+      expect(beer.object_id).to eql(beer.hops.object_id)
     end
   end
 
@@ -91,6 +130,19 @@ describe Tankard::Api::Beer do
     end
   end
 
+  describe '#upcs' do
+
+    it 'sets the options[:endpoint] to upcs' do
+      beer.upcs
+      beer_options = beer.instance_variable_get(:"@http_request_parameters")
+      expect(beer_options[:endpoint]).to eql('upcs')
+    end
+
+    it 'returns itself' do
+      expect(beer.object_id).to eql(beer.upcs.object_id)
+    end
+  end
+
   describe '#variations' do
 
     it 'sets the options[:endpoint] to variations' do
@@ -101,6 +153,19 @@ describe Tankard::Api::Beer do
 
     it 'returns itself' do
       expect(beer.object_id).to eql(beer.variations.object_id)
+    end
+  end
+
+  describe '#yeasts' do
+
+    it 'sets the options[:endpoint] to yeasts' do
+      beer.yeasts
+      beer_options = beer.instance_variable_get(:"@http_request_parameters")
+      expect(beer_options[:endpoint]).to eql('yeasts')
+    end
+
+    it 'returns itself' do
+      expect(beer.object_id).to eql(beer.yeasts.object_id)
     end
   end
 

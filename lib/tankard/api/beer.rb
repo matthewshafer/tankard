@@ -51,6 +51,14 @@ module Tankard
         self
       end
 
+      # Sets the request to beer/:id/adjuncts
+      #
+      # @return [self] returns itself
+      def adjuncts
+        @http_request_parameters.endpoint = 'adjuncts'
+        self
+      end
+
       # Sets the request to beer/:id/breweries
       #
       # @return [self] returns itself
@@ -64,6 +72,22 @@ module Tankard
       # @return [self] returns itself
       def events
         @http_request_parameters.endpoint = 'events'
+        self
+      end
+
+      # Sets the request to beer/:id/fermentables
+      #
+      # @return [self] returns itself
+      def fermentables
+        @http_request_parameters.endpoint = 'fermentables'
+        self
+      end
+
+      # Sets the request to beer/:id/hops
+      #
+      # @return [self] returns itself
+      def hops
+        @http_request_parameters.endpoint = 'hops'
         self
       end
 
@@ -83,11 +107,27 @@ module Tankard
         self
       end
 
+      # Sets the reques to beer/:id/upcs
+      #
+      # @return [self] returns itself
+      def upcs
+        @http_request_parameters.endpoint = 'upcs'
+        self
+      end
+
       # Sets the request to beer/:id/variations
       #
       # @return [self] returns itself
       def variations
         @http_request_parameters.endpoint = 'variations'
+        self
+      end
+
+      # Sets the reques to beer/:id/yeasts
+      #
+      # @return [self] returns itself
+      def yeasts
+        @http_request_parameters.endpoint = 'yeasts'
         self
       end
 
