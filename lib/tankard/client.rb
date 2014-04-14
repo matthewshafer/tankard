@@ -4,6 +4,7 @@ require 'tankard/api/beers'
 require 'tankard/api/search'
 require 'tankard/api/styles'
 require 'tankard/api/style'
+require 'tankard/api/adjuncts'
 
 module Tankard
     # Interaction point for various endpoints
@@ -18,6 +19,10 @@ module Tankard
       end
 
       @tankard_request = Tankard::Request.new(@api_key)
+    end
+
+    def adjuncts(options = {})
+      Tankard::Api::Adjuncts.new(@tankard_request, options)
     end
 
     def beer(options = {})
