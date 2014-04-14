@@ -89,6 +89,26 @@ describe Tankard::Api::Search do
     end
   end
 
+  describe '#style' do
+
+    before do
+      search.style('abc')
+      @search_options = search.instance_variable_get(:"@http_request_parameters")
+    end
+
+    it 'sets the http_request_parameters[:endpoint] to style' do
+      expect(@search_options[:endpoint]).to eql('style')
+    end
+
+    it 'sets the http_request_parameters[:q] with the search query' do
+      expect(@search_options[:q]).to eql('abc')
+    end
+
+    it 'returns itself' do
+      expect(search.object_id).to eql(search.style('abc').object_id)
+    end
+  end
+
   describe '#geo_point' do
 
     before do

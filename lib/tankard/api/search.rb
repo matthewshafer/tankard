@@ -84,6 +84,17 @@ module Tankard
         self
       end
 
+      # search for a specific style.
+      # sets the endpoint to style and passes the query as a parameter (q)
+      #
+      # @param query [String]
+      # @return [self] returns itself
+      def style(query)
+        @http_request_parameters.q = query
+        @http_request_parameters.endpoint = 'style'
+        self
+      end
+
       # search for berweries around a specific point.
       # sets the endpoint to geo/point and passes lat/lng as parameters
       #
