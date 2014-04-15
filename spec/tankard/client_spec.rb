@@ -4,6 +4,30 @@ describe Tankard::Client do
 
   let(:client) { Tankard::Client.new(api_key: 'abc123') }
 
+  describe '#adjunct' do
+
+    context 'when called' do
+
+      it 'does not reuse an existing adjunct object' do
+        first_adjunct = client.adjunct
+        expect(first_adjunct.object_id).to_not eql(client.adjunct.object_id)
+      end
+    end
+
+    context 'when passed a hash of options' do
+
+      before do
+        @request = double('request')
+        Tankard::Request.stub(:new).and_return(@request)
+      end
+
+      it 'passes the options to the beer object' do
+        Tankard::Api::Adjunct.should_receive(:new).with(@request, test: 123)
+        client.adjunct(test: 123)
+      end
+    end
+  end
+
   describe '#adjuncts' do
 
     context 'when called' do
