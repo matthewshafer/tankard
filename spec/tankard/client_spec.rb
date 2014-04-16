@@ -58,7 +58,7 @@ describe Tankard::Client do
 
       it 'does not reuse an existing beer object' do
         first_beer = client.beer
-        expect(first_beer.object_id != client.beer.object_id).to be_true
+        expect(first_beer.object_id).to_not eql(client.beer.object_id)
       end
     end
 
@@ -82,7 +82,7 @@ describe Tankard::Client do
 
       it 'does not reuse an existing beer object' do
         beers = client.beers
-        expect(beers.object_id != client.beers.object_id).to be_true
+        expect(beers.object_id).to_not eql(client.beers.object_id)
       end
     end
 
@@ -106,7 +106,7 @@ describe Tankard::Client do
 
       it 'does not reuse an existing categories object' do
         categories = client.categories
-        expect(categories.object_id != client.categories.object_id).to be_true
+        expect(categories.object_id).to_not eql(client.categories.object_id)
       end
     end
   end
@@ -141,7 +141,7 @@ describe Tankard::Client do
 
       it 'does not reuse an existing styles object' do
         styles = client.styles
-        expect(styles.object_id != client.styles.object_id).to be_true
+        expect(styles.object_id).not_to eql(client.styles.object_id)
       end
     end
   end
