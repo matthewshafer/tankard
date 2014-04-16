@@ -100,6 +100,17 @@ describe Tankard::Client do
     end
   end
 
+  describe '#categories' do
+
+    context 'when called' do
+
+      it 'does not reuse an existing categories object' do
+        categories = client.categories
+        expect(categories.object_id != client.categories.object_id).to be_true
+      end
+    end
+  end
+
   describe '#search' do
 
     context 'when called' do
