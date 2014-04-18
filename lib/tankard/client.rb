@@ -7,6 +7,7 @@ require 'tankard/api/style'
 require 'tankard/api/adjuncts'
 require 'tankard/api/adjunct'
 require 'tankard/api/categories'
+require 'tankard/api/yeasts'
 
 module Tankard
     # Interaction point for various endpoints
@@ -53,6 +54,10 @@ module Tankard
 
     def style(options = {})
       Tankard::Api::Style.new(@tankard_request, options)
+    end
+
+    def yeasts(options = {})
+      Tankard::Api::Yeasts.new(@tankard_request, options)
     end
   end
 end
