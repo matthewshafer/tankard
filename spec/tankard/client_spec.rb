@@ -170,6 +170,30 @@ describe Tankard::Client do
     end
   end
 
+  describe '#yeast' do
+
+    context 'when called' do
+
+      it 'does not reuse an existing yeast object' do
+        yeast = client.yeast
+        expect(yeast.object_id).not_to eql(client.yeast.object_id)
+      end
+    end
+
+    context 'when passed a hash of options' do
+
+      before do
+        @request = double('request')
+        Tankard::Request.stub(:new).and_return(@request)
+      end
+
+      it 'passes the options ot the yeast object' do
+        Tankard::Api::Yeast.should_receive(:new).with(@request, test: 123)
+        client.yeast(test: 123)
+      end
+    end
+  end
+
   describe '#yeasts' do
 
     context 'when called' do

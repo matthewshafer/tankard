@@ -7,6 +7,7 @@ require 'tankard/api/style'
 require 'tankard/api/adjuncts'
 require 'tankard/api/adjunct'
 require 'tankard/api/categories'
+require 'tankard/api/yeast'
 require 'tankard/api/yeasts'
 
 module Tankard
@@ -54,6 +55,10 @@ module Tankard
 
     def style(options = {})
       Tankard::Api::Style.new(@tankard_request, options)
+    end
+
+    def yeast(options = {})
+      Tankard::Api::Yeast.new(@tankard_request, options)
     end
 
     def yeasts(options = {})
