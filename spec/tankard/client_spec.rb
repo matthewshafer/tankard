@@ -111,6 +111,30 @@ describe Tankard::Client do
     end
   end
 
+  describe '#category' do
+
+    context 'when called' do
+
+      it 'does not reuse an existing category object' do
+        category = client.category
+        expect(category.object_id).not_to eql(client.category.object_id)
+      end
+    end
+
+    context 'when passed a hash of options' do
+
+      before do
+        @request = double('request')
+        Tankard::Request.stub(:new).and_return(@request)
+      end
+
+      it 'passes the options to the category object' do
+        Tankard::Api::Category.should_receive(:new).with(@request, test: 123)
+        client.category(test: 123)
+      end
+    end
+  end
+
   describe '#search' do
 
     context 'when called' do

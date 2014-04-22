@@ -7,6 +7,7 @@ require 'tankard/api/style'
 require 'tankard/api/adjuncts'
 require 'tankard/api/adjunct'
 require 'tankard/api/categories'
+require 'tankard/api/category'
 require 'tankard/api/yeast'
 require 'tankard/api/yeasts'
 
@@ -43,6 +44,10 @@ module Tankard
 
     def categories
       Tankard::Api::Categories.new(@tankard_request)
+    end
+
+    def category(options = {})
+      Tankard::Api::Category.new(@tankard_request, options)
     end
 
     def search(options = {})
