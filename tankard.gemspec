@@ -18,18 +18,18 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(/^spec\//)
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'rake', '~> 10.1'
+  spec.add_development_dependency 'rake', '~> 10.4'
   spec.add_development_dependency 'rspec', '~> 2.14'
-  spec.add_development_dependency 'webmock', '~> 1.16'
-  spec.add_development_dependency 'simplecov', '~> 0.8'
+  spec.add_development_dependency 'webmock', '~> 1.20'
+  spec.add_development_dependency 'simplecov', '~> 0.9'
   spec.add_development_dependency 'coveralls', '~> 0.7'
-  spec.add_development_dependency 'pry', '~> 0.9'
-  spec.add_development_dependency 'rubysl', '~> 2.0' if RUBY_ENGINE == 'rbx'
+  spec.add_development_dependency 'pry', '~> 0.10'
+  spec.add_development_dependency 'rubysl', '~> 2.1' if RUBY_ENGINE == 'rbx'
   spec.add_development_dependency 'json', '~> 1.8' if RUBY_ENGINE == 'rbx'
   spec.add_development_dependency 'rubinius-coverage', '~> 2.0' if RUBY_ENGINE == 'rbx'
 
   spec.add_dependency 'atomic', '~> 1.1'
-  spec.add_dependency 'httpclient', '~> 2.3'
-  spec.add_dependency 'multi_json', '~> 1.8'
-  spec.add_dependency 'hashie', '~> 2.0'
+  spec.add_dependency 'httpclient', '~> 2.5'
+  spec.add_dependency 'multi_json', '~> 1.10'
+  spec.add_dependency 'hashie', '~> 3.3'
 end
