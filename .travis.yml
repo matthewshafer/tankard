@@ -22,3 +22,4 @@ matrix:
     - rvm: ruby-head
     - rvm: jruby-head
   fast_finish: true
+install: bundle install --jobs=1 --retry=3
