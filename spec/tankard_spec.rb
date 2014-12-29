@@ -15,7 +15,7 @@ describe Tankard do
     describe '.respond_to?' do
 
       it 'delegates to Tankard::Client' do
-        expect(Tankard.respond_to?(:test)).to be_true
+        expect(Tankard.respond_to?(:test)).to be_truthy
       end
     end
 
