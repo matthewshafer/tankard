@@ -1,9 +1,9 @@
 # Tankard
-[![Build Status](https://travis-ci.org/matthewshafer/tankard.png?branch=master)](https://travis-ci.org/matthewshafer/tankard)
-[![Dependency Status](https://gemnasium.com/matthewshafer/tankard.png)](https://gemnasium.com/matthewshafer/tankard)
-[![Code Climate](https://codeclimate.com/github/matthewshafer/tankard.png)](https://codeclimate.com/github/matthewshafer/tankard)
-[![Coverage Status](https://coveralls.io/repos/matthewshafer/tankard/badge.png?branch=master)](https://coveralls.io/r/matthewshafer/tankard)
-[![Gem Version](https://badge.fury.io/rb/tankard.png)](http://rubygems.org/gems/tankard)
+[![Build Status](https://travis-ci.org/matthewshafer/tankard.svg?branch=master)](https://travis-ci.org/matthewshafer/tankard)
+[![Dependency Status](https://gemnasium.com/matthewshafer/tankard.svg)](https://gemnasium.com/matthewshafer/tankard)
+[![Code Climate](https://codeclimate.com/github/matthewshafer/tankard/badges/gpa.svg)](https://codeclimate.com/github/matthewshafer/tankard)
+[![Coverage Status](https://img.shields.io/coveralls/matthewshafer/tankard.svg)](https://coveralls.io/r/matthewshafer/tankard?branch=master)
+[![Gem Version](https://badge.fury.io/rb/tankard.svg)](http://badge.fury.io/rb/tankard)
 
 Allows easy quering of the BreweryDB Api
 
