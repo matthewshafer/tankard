@@ -8,14 +8,21 @@ require 'atomic'
 #
 # @author Matthew Shafer
 module Tankard
-  @client = ::Atomic.new
+  @client = ::Atomic.new(nil)
 
   class << self
     include Configuration
 
     def client
-      @client.compare_and_swap(nil, Tankard::Client.new(credentials))
-      @client.value
+      tankard_client = nil
+
+      loop do
+        tankard_client = @client.value
+        break if tankard_client
+        @client.compare_and_swap(nil, Tankard::Client.new(credentials))
+      end
+
+      tankard_client
     end
 
     def respond_to?(method)
