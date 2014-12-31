@@ -4,6 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/matthewshafer/tankard/badges/gpa.svg)](https://codeclimate.com/github/matthewshafer/tankard)
 [![Coverage Status](https://img.shields.io/coveralls/matthewshafer/tankard.svg)](https://coveralls.io/r/matthewshafer/tankard?branch=master)
 [![Gem Version](https://badge.fury.io/rb/tankard.svg)](http://badge.fury.io/rb/tankard)
+[![Inline docs](http://inch-ci.org/github/matthewshafer/tankard.svg?branch=master)](http://inch-ci.org/github/matthewshafer/tankard)
 
 Allows easy quering of the BreweryDB Api
 
