@@ -24,9 +24,7 @@ module Tankard
     end
 
     def validate_api_key!
-      unless @api_key.is_a?(String)
-        fail Tankard::Error::ConfigurationError, 'api_key is not a string'
-      end
+      fail Tankard::Error::ConfigurationError, 'api_key is not a string' unless @api_key.is_a?(String)
     end
 
     def reset_client
