@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Tankard::Api::Beer do
-
   let(:beer) { Tankard::Api::Beer.new(@request) }
 
   before do
@@ -9,7 +8,6 @@ describe Tankard::Api::Beer do
   end
 
   describe '#find' do
-
     before do
       @request.stub(:get).with('beer/valid1', {}).and_return('data' => 'valid1_found')
       @request.stub(:get).with('beer/valid2', {}).and_return('data' => 'valid2_found')
@@ -27,7 +25,6 @@ describe Tankard::Api::Beer do
   end
 
   describe '#id' do
-
     it 'sets the options[:id] to the beer id passed in' do
       beer.id('port')
       beer_options = beer.instance_variable_get(:"@http_request_parameters")
@@ -40,7 +37,6 @@ describe Tankard::Api::Beer do
   end
 
   describe '#adjuncts' do
-
     it 'sets the options[:endpoint] to adjuncts' do
       beer.adjuncts
       beer_options = beer.instance_variable_get(:"@http_request_parameters")
@@ -53,7 +49,6 @@ describe Tankard::Api::Beer do
   end
 
   describe '#breweries' do
-
     it 'sets the options[:endpoint] to breweries' do
       beer.breweries
       beer_options = beer.instance_variable_get(:"@http_request_parameters")
@@ -66,7 +61,6 @@ describe Tankard::Api::Beer do
   end
 
   describe '#events' do
-
     it 'sets the options[:endpoint] to events' do
       beer.events
       beer_options = beer.instance_variable_get(:"@http_request_parameters")
@@ -79,7 +73,6 @@ describe Tankard::Api::Beer do
   end
 
   describe '#fermentables' do
-
     it 'sets the options[:endpoint] to fermentables' do
       beer.fermentables
       beer_options = beer.instance_variable_get(:"@http_request_parameters")
@@ -92,7 +85,6 @@ describe Tankard::Api::Beer do
   end
 
   describe '#hops' do
-
     it 'sets the options[:endpoint] to hops' do
       beer.hops
       beer_options = beer.instance_variable_get(:"@http_request_parameters")
@@ -105,7 +97,6 @@ describe Tankard::Api::Beer do
   end
 
   describe '#ingredients' do
-
     it 'sets the options[:endpoint] to ingredients' do
       beer.ingredients
       beer_options = beer.instance_variable_get(:"@http_request_parameters")
@@ -118,7 +109,6 @@ describe Tankard::Api::Beer do
   end
 
   describe '#social_accounts' do
-
     it 'sets the options[:endpoint] to socialaccounts' do
       beer.social_accounts
       beer_options = beer.instance_variable_get(:"@http_request_parameters")
@@ -131,7 +121,6 @@ describe Tankard::Api::Beer do
   end
 
   describe '#upcs' do
-
     it 'sets the options[:endpoint] to upcs' do
       beer.upcs
       beer_options = beer.instance_variable_get(:"@http_request_parameters")
@@ -144,7 +133,6 @@ describe Tankard::Api::Beer do
   end
 
   describe '#variations' do
-
     it 'sets the options[:endpoint] to variations' do
       beer.variations
       beer_options = beer.instance_variable_get(:"@http_request_parameters")
@@ -157,7 +145,6 @@ describe Tankard::Api::Beer do
   end
 
   describe '#yeasts' do
-
     it 'sets the options[:endpoint] to yeasts' do
       beer.yeasts
       beer_options = beer.instance_variable_get(:"@http_request_parameters")
@@ -170,7 +157,6 @@ describe Tankard::Api::Beer do
   end
 
   describe '#params' do
-
     it 'sets parameters' do
       beer.params(withSocialAccounts: 'y', withGuilds: 'n')
       beer_options = beer.instance_variable_get(:"@http_request_parameters")
@@ -191,18 +177,14 @@ describe Tankard::Api::Beer do
   end
 
   describe 'private methods' do
-
     describe '#raise_if_no_id_in_options' do
-
       context 'when an ID is not set' do
-
         it 'raises Tankard::Error::MissingParameter' do
           expect { beer.send(:raise_if_no_id_in_options) }.to raise_error(Tankard::Error::MissingParameter, 'No Beer ID is set')
         end
       end
 
       context 'when an ID is set' do
-
         before do
           beer.instance_variable_get(:"@http_request_parameters")[:id] = 'test'
         end
@@ -235,28 +217,24 @@ describe Tankard::Api::Beer do
     end
 
     describe '#route' do
-
       it 'returns the route for the api request' do
         expect(beer.send(:route)).to eql('beer')
       end
     end
 
     describe '#http_request_uri' do
-
       before do
         beer.stub(:route).and_return('beer')
         beer.stub(:raise_if_no_id_in_options).and_return('123')
       end
 
       context 'no endpoint is set' do
-
         it 'returns the route with the id' do
           expect(beer.send(:http_request_uri)).to eql('beer/123')
         end
       end
 
       context 'endpoint is set' do
-
         before do
           beer.instance_variable_get(:"@http_request_parameters")[:endpoint] = 'events'
         end
@@ -284,14 +262,12 @@ describe Tankard::Api::Beer do
     end
 
     describe '#http_client' do
-
       it 'returns the request variable that is passed when the class is created' do
         expect(beer.send(:http_client).object_id).to eql(@request.object_id)
       end
     end
 
     describe '#http_request_parameters' do
-
       it 'returns the options for the request' do
         expect(beer.send(:http_request_parameters).object_id).to eql(beer.instance_variable_get(:"@http_request_parameters").object_id)
       end

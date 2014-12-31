@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe Tankard do
-
   context 'when delegating to a client' do
-
     before do
       Tankard::Client.any_instance.stub(:test).and_return('testing')
     end
@@ -13,14 +11,12 @@ describe Tankard do
     end
 
     describe '.respond_to?' do
-
       it 'delegates to Tankard::Client' do
         expect(Tankard.respond_to?(:test)).to be_truthy
       end
     end
 
     describe '.client' do
-
       it 'returns a Tankard::Client' do
         expect(Tankard.client).to be_kind_of(Tankard::Client)
       end
@@ -33,9 +29,7 @@ describe Tankard do
   end
 
   describe '.configuration' do
-
     context 'when invalid configuration data is provided' do
-
       it 'raises a configuration error' do
         expected_error = expect do
           Tankard.configure do |config|
@@ -48,7 +42,6 @@ describe Tankard do
     end
 
     context 'when valid configuration data is provided' do
-
       before do
         Tankard.configure do |config|
           config.api_key = 'abc123'

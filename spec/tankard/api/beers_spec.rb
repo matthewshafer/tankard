@@ -8,7 +8,6 @@ describe Tankard::Api::Beers do
   end
 
   describe '#name' do
-
     it 'sets the http_request_parameters[:name] of a beer' do
       beers.name('stone')
       beers_options = beers.instance_variable_get(:"@http_request_parameters")
@@ -21,7 +20,6 @@ describe Tankard::Api::Beers do
   end
 
   describe '#abv' do
-
     it 'sets the http_request_parameters[:abv] for the query' do
       beers.abv('+10')
       beers_options = beers.instance_variable_get(:"@http_request_parameters")
@@ -34,7 +32,6 @@ describe Tankard::Api::Beers do
   end
 
   describe '#ibu' do
-
     it 'sets the http_request_parameters[:ibu] for the query' do
       beers.ibu('30,50')
       beers_options = beers.instance_variable_get(:"@http_request_parameters")
@@ -47,7 +44,6 @@ describe Tankard::Api::Beers do
   end
 
   describe '#page' do
-
     it 'sets the http_request_parameters[:p] for the page number' do
       beers.page(1)
       beers_options = beers.instance_variable_get(:"@http_request_parameters")
@@ -60,7 +56,6 @@ describe Tankard::Api::Beers do
   end
 
   describe '#params' do
-
     it 'sets parameters' do
       beers.params(withSocialAccounts: 'y', withGuilds: 'n')
       beers_options = beers.instance_variable_get(:"@http_request_parameters")
@@ -81,23 +76,19 @@ describe Tankard::Api::Beers do
   end
 
   describe 'private methods' do
-
     describe '#http_request_uri' do
-
       it 'returns the string beers' do
         expect(beers.send(:http_request_uri)).to eql('beers')
       end
     end
 
     describe '#http_client' do
-
       it 'returns the request variable that is passed in when the class is initialized' do
         expect(beers.send(:http_client).object_id).to eql(@request.object_id)
       end
     end
 
     describe '#http_request_parameters' do
-
       it 'returns the http_request_parameters for the request' do
         expect(beers.send(:http_request_parameters).object_id).to eql(beers.instance_variable_get(:"@http_request_parameters").object_id)
       end

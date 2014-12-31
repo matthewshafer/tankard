@@ -8,7 +8,6 @@ describe Tankard::Api::Adjunct do
   end
 
   describe '#find' do
-
     before do
       @request.stub(:get).with('adjunct/valid1', {}).and_return('data' => 'valid1_found')
       @request.stub(:get).with('adjunct/valid2', {}).and_return('data' => 'valid2_found')

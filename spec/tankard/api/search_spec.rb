@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Tankard::Api::Search do
-
   let(:search) { Tankard::Api::Search.new(@request) }
 
   before do
@@ -9,7 +8,6 @@ describe Tankard::Api::Search do
   end
 
   describe '#query' do
-
     it 'sets http_request_parameters[:q] with the query the user wants to run' do
       search.query('test')
       search_options = search.instance_variable_get(:"@http_request_parameters")
@@ -19,11 +17,9 @@ describe Tankard::Api::Search do
     it 'returns itself' do
       expect(search.object_id).to eql(search.query('test').object_id)
     end
-
   end
 
   describe '#params' do
-
     it 'sets parameters' do
       search.params(withSocialAccounts: 'y', withGuilds: 'n')
       search_options = search.instance_variable_get(:"@http_request_parameters")
@@ -44,7 +40,6 @@ describe Tankard::Api::Search do
   end
 
   describe '#type' do
-
     it 'sets http_request_parameters[:type] with the type to search for' do
       search.type('beer')
       search_options = search.instance_variable_get(:"@http_request_parameters")
@@ -57,7 +52,6 @@ describe Tankard::Api::Search do
   end
 
   describe '#page' do
-
     it 'sets http_request_parameters[:p] with the page number to load' do
       search.page(1)
       search_options = search.instance_variable_get(:"@http_request_parameters")
@@ -70,7 +64,6 @@ describe Tankard::Api::Search do
   end
 
   describe '#upc' do
-
     before do
       search.upc('123')
       @search_options = search.instance_variable_get(:"@http_request_parameters")
@@ -90,7 +83,6 @@ describe Tankard::Api::Search do
   end
 
   describe '#style' do
-
     before do
       search.style('abc')
       @search_options = search.instance_variable_get(:"@http_request_parameters")
@@ -110,7 +102,6 @@ describe Tankard::Api::Search do
   end
 
   describe '#geo_point' do
-
     before do
       search.geo_point(1.23, 4.56)
       @search_options = search.instance_variable_get(:"@http_request_parameters")
@@ -134,7 +125,6 @@ describe Tankard::Api::Search do
   end
 
   describe '#each' do
-
     it 'should call raise_if_required_options_not_set' do
       search.stub(:find_on_single_or_all_pages).and_return(nil)
       search.should_receive(:raise_if_required_options_not_set)
@@ -150,11 +140,8 @@ describe Tankard::Api::Search do
   end
 
   describe 'private methods' do
-
     describe '#raise_if_required_options_not_set' do
-
       context 'the endpoint is not set' do
-
         it 'raises Tankard::Error::NoSearchQuery when the query is not set' do
           expect { search.send(:raise_if_required_options_not_set) }.to raise_error(Tankard::Error::MissingParameter, 'No search query set')
         end
@@ -166,7 +153,6 @@ describe Tankard::Api::Search do
       end
 
       context 'the endpoint is set to upc' do
-
         before do
           search.instance_variable_get(:"@http_request_parameters")[:endpoint] = 'upc'
         end
@@ -182,7 +168,6 @@ describe Tankard::Api::Search do
       end
 
       context 'the endpoint is set to geo/point' do
-
         before do
           search.instance_variable_get(:"@http_request_parameters")[:endpoint] = 'geo/point'
         end
@@ -210,16 +195,13 @@ describe Tankard::Api::Search do
     end
 
     describe '#http_request_uri' do
-
       context 'no endpoint is set' do
-
         it 'returns search' do
           expect(search.send(:http_request_uri)).to eql('search')
         end
       end
 
       context 'an endpoint is set' do
-
         before do
           search.instance_variable_get(:"@http_request_parameters")[:endpoint] = 'upc'
         end
@@ -247,14 +229,12 @@ describe Tankard::Api::Search do
     end
 
     describe '#http_client' do
-
       it 'returns the request variable that is passed when the class is created' do
         expect(search.send(:http_client).object_id).to eql(@request.object_id)
       end
     end
 
     describe '#http_request_parameters' do
-
       it 'returns the http_request_parameters for the request' do
         expect(search.send(:http_request_parameters).object_id).to eql(search.instance_variable_get(:"@http_request_parameters").object_id)
       end

@@ -8,7 +8,6 @@ describe Tankard::Api::Adjuncts do
   end
 
   describe '#page' do
-
     it 'sets the http_request_parameters[:p] for the page number' do
       adjuncts.page(1)
       adjuncts_options = adjuncts.instance_variable_get(:"@http_request_parameters")
@@ -21,7 +20,6 @@ describe Tankard::Api::Adjuncts do
   end
 
   describe '#params' do
-
     it 'sets parameters' do
       adjuncts.params(p: 5)
       adjuncts_options = adjuncts.instance_variable_get(:"@http_request_parameters")
@@ -41,23 +39,19 @@ describe Tankard::Api::Adjuncts do
   end
 
   describe 'private method' do
-
     describe '#http_request_uri' do
-
       it 'returns the string adjuncts' do
         expect(adjuncts.send(:http_request_uri)).to eql('adjuncts')
       end
     end
 
     describe '#http_client' do
-
       it 'returns the request variable that is passed to the class when initialized' do
         expect(adjuncts.send(:http_client).object_id).to eql(@request.object_id)
       end
     end
 
     describe '#http_request_parameters' do
-
       it 'returns the http_request_parameters for the request' do
         expect(adjuncts.send(:http_request_parameters).object_id).to eql(adjuncts.instance_variable_get(:"@http_request_parameters").object_id)
       end
