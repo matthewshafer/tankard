@@ -104,5 +104,4 @@ describe Tankard::Api::Utils::PageFinders do
       end
     end
   end
-
 end
