@@ -9,10 +9,10 @@ describe Tankard::Api::Beer do
 
   describe '#find' do
     before do
-      @request.stub(:get).with('beer/valid1', {}).and_return('data' => 'valid1_found')
-      @request.stub(:get).with('beer/valid2', {}).and_return('data' => 'valid2_found')
-      @request.stub(:get).with('beer/invalid1', {}).and_raise(Tankard::Error::HttpError)
-      @request.stub(:get).with('beer/invalid2', {}).and_raise(Tankard::Error::HttpError)
+      allow(@request).to receive(:get).with('beer/valid1', {}).and_return('data' => 'valid1_found')
+      allow(@request).to receive(:get).with('beer/valid2', {}).and_return('data' => 'valid2_found')
+      allow(@request).to receive(:get).with('beer/invalid1', {}).and_raise(Tankard::Error::HttpError)
+      allow(@request).to receive(:get).with('beer/invalid2', {}).and_raise(Tankard::Error::HttpError)
     end
 
     it_should_behave_like 'the find method' do
@@ -224,8 +224,8 @@ describe Tankard::Api::Beer do
 
     describe '#http_request_uri' do
       before do
-        beer.stub(:route).and_return('beer')
-        beer.stub(:raise_if_no_id_in_options).and_return('123')
+        allow(beer).to receive(:route).and_return('beer')
+        allow(beer).to receive(:raise_if_no_id_in_options).and_return('123')
       end
 
       context 'no endpoint is set' do

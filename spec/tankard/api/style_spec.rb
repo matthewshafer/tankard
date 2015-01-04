@@ -9,10 +9,10 @@ describe Tankard::Api::Style do
 
   describe '#find' do
     before do
-      @request.stub(:get).with('style/1', {}).and_return('data' => 'valid1_found')
-      @request.stub(:get).with('style/2', {}).and_return('data' => 'valid2_found')
-      @request.stub(:get).with('style/3', {}).and_raise(Tankard::Error::HttpError)
-      @request.stub(:get).with('style/4', {}).and_raise(Tankard::Error::HttpError)
+      allow(@request).to receive(:get).with('style/1', {}).and_return('data' => 'valid1_found')
+      allow(@request).to receive(:get).with('style/2', {}).and_return('data' => 'valid2_found')
+      allow(@request).to receive(:get).with('style/3', {}).and_raise(Tankard::Error::HttpError)
+      allow(@request).to receive(:get).with('style/4', {}).and_raise(Tankard::Error::HttpError)
     end
 
     it_should_behave_like 'the find method' do

@@ -126,15 +126,15 @@ describe Tankard::Api::Search do
 
   describe '#each' do
     it 'should call raise_if_required_options_not_set' do
-      search.stub(:find_on_single_or_all_pages).and_return(nil)
-      search.should_receive(:raise_if_required_options_not_set)
+      allow(search).to receive(:find_on_single_or_all_pages).and_return(nil)
+      expect(search).to receive(:raise_if_required_options_not_set)
       search.each
     end
 
     it 'calls the super object with the block' do
       block = -> x { x }
-      search.stub(:raise_if_required_options_not_set).and_return(nil)
-      search.should_receive(:find_on_single_or_all_pages)
+      allow(search).to receive(:raise_if_required_options_not_set).and_return(nil)
+      expect(search).to receive(:find_on_single_or_all_pages)
       search.each(&block)
     end
   end

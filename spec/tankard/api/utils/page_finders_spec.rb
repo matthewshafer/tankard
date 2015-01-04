@@ -48,32 +48,32 @@ describe Tankard::Api::Utils::PageFinders do
 
     describe '#find_on_single_page' do
       before do
-        finders.stub(:http_request_uri).and_return('test')
-        finders.stub(:http_client).and_return(@request)
-        finders.stub(:call_block_with_data).with(['test'], nil)
+        allow(finders).to receive(:http_request_uri).and_return('test')
+        allow(finders).to receive(:http_client).and_return(@request)
+        allow(finders).to receive(:call_block_with_data).with(['test'], nil)
       end
 
       it 'sends response[data] to call_block_with_data' do
-        finders.stub(:get_request).and_return('data' => ['test'])
+        allow(finders).to receive(:get_request).and_return('data' => ['test'])
         finders.send(:find_on_single_page, {}, nil)
       end
 
       it 'returns 0 when number of pages is not set' do
-        finders.stub(:get_request).and_return('data' => ['test'])
+        allow(finders).to receive(:get_request).and_return('data' => ['test'])
         expect(finders.send(:find_on_single_page, {}, nil)).to eql(0)
       end
 
       it 'returns a value when number of pages is set' do
-        finders.stub(:get_request).and_return('data' => ['test'], 'numberOfPages' => '3')
+        allow(finders).to receive(:get_request).and_return('data' => ['test'], 'numberOfPages' => '3')
         expect(finders.send(:find_on_single_page, {}, nil)).to eql(3)
       end
     end
 
     describe '#find_on_all_pages' do
       it 'only sets the page when the page is greater than 1' do
-        finders.should_receive(:find_on_single_page).with({}, nil).and_return(2)
-        finders.should_not_receive(:find_on_single_page).with({ p: 1 }, nil)
-        finders.should_receive(:find_on_single_page).with({ p: 2 }, nil).and_return(2)
+        expect(finders).to receive(:find_on_single_page).with({}, nil).and_return(2)
+        expect(finders).not_to receive(:find_on_single_page).with({ p: 1 }, nil)
+        expect(finders).to receive(:find_on_single_page).with({ p: 2 }, nil).and_return(2)
 
         finders.send(:find_on_all_pages, {}, nil)
       end
@@ -81,25 +81,25 @@ describe Tankard::Api::Utils::PageFinders do
 
     describe '#find_on_single_or_all_pages' do
       it 'calls find_with_options when a page is set in options' do
-        finders.should_receive(:find_on_single_page).with({ p: 2 }, nil)
+        expect(finders).to receive(:find_on_single_page).with({ p: 2 }, nil)
         finders.send(:find_on_single_or_all_pages, { p: 2 }, nil)
       end
 
       it 'calls find_on_all_pages when a page is not set in options' do
-        finders.should_receive(:find_on_all_pages).with({}, nil)
+        expect(finders).to receive(:find_on_all_pages).with({}, nil)
         finders.send(:find_on_single_or_all_pages, {}, nil)
       end
     end
 
     describe '#each' do
       before do
-        finders.stub(:http_request_uri).and_return('test')
-        finders.stub(:http_client).and_return(nil)
-        finders.stub(:http_request_parameters).and_return({})
+        allow(finders).to receive(:http_request_uri).and_return('test')
+        allow(finders).to receive(:http_client).and_return(nil)
+        allow(finders).to receive(:http_request_parameters).and_return({})
       end
 
       it 'calls find_on_single_or_all_pages' do
-        finders.should_receive(:find_on_single_or_all_pages).with({}, nil)
+        expect(finders).to receive(:find_on_single_or_all_pages).with({}, nil)
         finders.each
       end
     end
