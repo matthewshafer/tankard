@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tankard::Api::Categories do
+RSpec.describe Tankard::Api::Categories do
   let(:categories) { Tankard::Api::Categories.new(@request) }
 
   before do

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tankard::Api::Utils::Find do
+RSpec.describe Tankard::Api::Utils::Find do
   let(:find) { Class.new { include Tankard::Api::Utils::Find }.new }
 
   describe '#route' do

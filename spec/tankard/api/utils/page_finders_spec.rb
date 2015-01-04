@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tankard::Api::Utils::PageFinders do
+RSpec.describe Tankard::Api::Utils::PageFinders do
   let(:finders) { Class.new { include Tankard::Api::Utils::PageFinders }.new }
 
   describe 'private methods' do

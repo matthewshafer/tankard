@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tankard do
+RSpec.describe Tankard do
   context 'when delegating to a client' do
     before do
       allow_any_instance_of(Tankard::Client).to receive(:test).and_return('testing')

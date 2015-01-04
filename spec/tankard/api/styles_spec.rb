@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tankard::Api::Styles do
+RSpec.describe Tankard::Api::Styles do
   let(:styles) { Tankard::Api::Styles.new(@request) }
 
   before do

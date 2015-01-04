@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tankard::Client do
+RSpec.describe Tankard::Client do
   let(:client) { Tankard::Client.new(api_key: 'abc123') }
 
   describe '#adjunct' do

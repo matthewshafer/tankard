@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tankard::Api::Beers do
+RSpec.describe Tankard::Api::Beers do
   let(:beers) { Tankard::Api::Beers.new(@request) }
 
   before do

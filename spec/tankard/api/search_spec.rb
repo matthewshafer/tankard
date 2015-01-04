@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tankard::Api::Search do
+RSpec.describe Tankard::Api::Search do
   let(:search) { Tankard::Api::Search.new(@request) }
 
   before do
