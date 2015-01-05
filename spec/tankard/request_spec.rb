@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tankard::Request do
+RSpec.describe Tankard::Request do
   let(:request) { Tankard::Request.new('abc123') }
 
   describe '#get' do

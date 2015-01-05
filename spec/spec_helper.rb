@@ -19,3 +19,5 @@ WebMock.disable_net_connect!(allow: 'coveralls.io')
 def stub_get(path)
   stub_request(:get, 'http://api.brewerydb.com/v2/' + path)
 end
+
+RSpec.configure(&:disable_monkey_patching!)

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tankard::Api::Yeast do
+RSpec.describe Tankard::Api::Yeast do
   let(:yeast) { Tankard::Api::Yeast.new(@request) }
 
   before do
@@ -9,10 +9,10 @@ describe Tankard::Api::Yeast do
 
   describe '#find' do
     before do
-      @request.stub(:get).with('yeast/1', {}).and_return('data' => 'valid1_found')
-      @request.stub(:get).with('yeast/2', {}).and_return('data' => 'valid2_found')
-      @request.stub(:get).with('yeast/3', {}).and_raise(Tankard::Error::HttpError)
-      @request.stub(:get).with('yeast/4', {}).and_raise(Tankard::Error::HttpError)
+      allow(@request).to receive(:get).with('yeast/1', {}).and_return('data' => 'valid1_found')
+      allow(@request).to receive(:get).with('yeast/2', {}).and_return('data' => 'valid2_found')
+      allow(@request).to receive(:get).with('yeast/3', {}).and_raise(Tankard::Error::HttpError)
+      allow(@request).to receive(:get).with('yeast/4', {}).and_raise(Tankard::Error::HttpError)
     end
 
     it_should_behave_like 'the find method' do

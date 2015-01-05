@@ -1,4 +1,6 @@
-shared_examples 'the find method' do
+require 'spec_helper'
+
+RSpec.shared_examples_for 'the find method' do
   context 'when looking up a valid item' do
     it 'returns data on the item' do
       expect(context.find(valid_items.first)).to eql(valid_responses.first)

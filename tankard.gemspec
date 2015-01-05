@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'rake', '~> 10.4'
-  spec.add_development_dependency 'rspec', '~> 2.14'
+  spec.add_development_dependency 'rspec', '~> 3.1'
   spec.add_development_dependency 'webmock', '~> 1.20'
   spec.add_development_dependency 'simplecov', '~> 0.9'
   spec.add_development_dependency 'coveralls', '~> 0.7'

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tankard::Client do
+RSpec.describe Tankard::Client do
   let(:client) { Tankard::Client.new(api_key: 'abc123') }
 
   describe '#adjunct' do
@@ -14,11 +14,11 @@ describe Tankard::Client do
     context 'when passed a hash of options' do
       before do
         @request = double('request')
-        Tankard::Request.stub(:new).and_return(@request)
+        allow(Tankard::Request).to receive(:new).and_return(@request)
       end
 
       it 'passes the options to the beer object' do
-        Tankard::Api::Adjunct.should_receive(:new).with(@request, test: 123)
+        expect(Tankard::Api::Adjunct).to receive(:new).with(@request, test: 123)
         client.adjunct(test: 123)
       end
     end
@@ -35,11 +35,11 @@ describe Tankard::Client do
     context 'when passed a hash of options' do
       before do
         @request = double('request')
-        Tankard::Request.stub(:new).and_return(@request)
+        allow(Tankard::Request).to receive(:new).and_return(@request)
       end
 
       it 'passes the options to the beer object' do
-        Tankard::Api::Adjuncts.should_receive(:new).with(@request, test: 123)
+        expect(Tankard::Api::Adjuncts).to receive(:new).with(@request, test: 123)
         client.adjuncts(test: 123)
       end
     end
@@ -56,11 +56,11 @@ describe Tankard::Client do
     context 'when passed a hash of options' do
       before do
         @request = double('request')
-        Tankard::Request.stub(:new).and_return(@request)
+        allow(Tankard::Request).to receive(:new).and_return(@request)
       end
 
       it 'passes the options to the beer object' do
-        Tankard::Api::Beer.should_receive(:new).with(@request, test: 123)
+        expect(Tankard::Api::Beer).to receive(:new).with(@request, test: 123)
         client.beer(test: 123)
       end
     end
@@ -77,11 +77,11 @@ describe Tankard::Client do
     context 'when passed a hash of options' do
       before do
         @request = double('request')
-        Tankard::Request.stub(:new).and_return(@request)
+        allow(Tankard::Request).to receive(:new).and_return(@request)
       end
 
       it 'passes the options to the beer object' do
-        Tankard::Api::Beers.should_receive(:new).with(@request, test: 123)
+        expect(Tankard::Api::Beers).to receive(:new).with(@request, test: 123)
         client.beers(test: 123)
       end
     end
@@ -107,11 +107,11 @@ describe Tankard::Client do
     context 'when passed a hash of options' do
       before do
         @request = double('request')
-        Tankard::Request.stub(:new).and_return(@request)
+        allow(Tankard::Request).to receive(:new).and_return(@request)
       end
 
       it 'passes the options to the category object' do
-        Tankard::Api::Category.should_receive(:new).with(@request, test: 123)
+        expect(Tankard::Api::Category).to receive(:new).with(@request, test: 123)
         client.category(test: 123)
       end
     end
@@ -128,11 +128,11 @@ describe Tankard::Client do
     context 'when passed a hash of options' do
       before do
         @request = double('request')
-        Tankard::Request.stub(:new).and_return(@request)
+        allow(Tankard::Request).to receive(:new).and_return(@request)
       end
 
       it 'passes the options to the search object' do
-        Tankard::Api::Search.should_receive(:new).with(@request, test: 123)
+        expect(Tankard::Api::Search).to receive(:new).with(@request, test: 123)
         client.search(test: 123)
       end
     end
@@ -158,11 +158,11 @@ describe Tankard::Client do
     context 'when passed a hash of options' do
       before do
         @request = double('request')
-        Tankard::Request.stub(:new).and_return(@request)
+        allow(Tankard::Request).to receive(:new).and_return(@request)
       end
 
       it 'passes the options to the style object' do
-        Tankard::Api::Style.should_receive(:new).with(@request, test: 123)
+        expect(Tankard::Api::Style).to receive(:new).with(@request, test: 123)
         client.style(test: 123)
       end
     end
@@ -179,11 +179,11 @@ describe Tankard::Client do
     context 'when passed a hash of options' do
       before do
         @request = double('request')
-        Tankard::Request.stub(:new).and_return(@request)
+        allow(Tankard::Request).to receive(:new).and_return(@request)
       end
 
       it 'passes the options ot the yeast object' do
-        Tankard::Api::Yeast.should_receive(:new).with(@request, test: 123)
+        expect(Tankard::Api::Yeast).to receive(:new).with(@request, test: 123)
         client.yeast(test: 123)
       end
     end
@@ -200,11 +200,11 @@ describe Tankard::Client do
     context 'when passed a hash of options' do
       before do
         @request = double('request')
-        Tankard::Request.stub(:new).and_return(@request)
+        allow(Tankard::Request).to receive(:new).and_return(@request)
       end
 
       it 'passes the options to the yeasts object' do
-        Tankard::Api::Yeasts.should_receive(:new).with(@request, test: 123)
+        expect(Tankard::Api::Yeasts).to receive(:new).with(@request, test: 123)
         client.yeasts(test: 123)
       end
     end

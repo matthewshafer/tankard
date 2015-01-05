@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Tankard::Api::Adjuncts do
+RSpec.describe Tankard::Api::Adjuncts do
   let(:adjuncts) { Tankard::Api::Adjuncts.new(@request) }
 
   before do
