@@ -1,5 +1,3 @@
-require 'hashie'
-require 'tankard/api/request/get'
 require 'tankard/api/utils/page_finders'
 
 module Tankard
@@ -9,7 +7,6 @@ module Tankard
     # @see http://www.brewerydb.com/developers/docs-endpoint/style_index
     # @author Matthew Shafer
     class Styles
-      include Tankard::Api::Request::Get
       include Tankard::Api::Utils::PageFinders
       # @!parse include ::Enumerable
 
