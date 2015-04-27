@@ -1,5 +1,4 @@
-require 'hashie'
-require 'tankard/api/utils/page_finders'
+require 'tankard/api/base/page_finders'
 
 module Tankard
   module Api
@@ -7,20 +6,15 @@ module Tankard
     #
     # @see http://www.brewerydb.com/developers/docs-endpoint/search_index
     # @author Matthew Shafer
-    class Search
-      include ::Enumerable
-      include Tankard::Api::Utils::PageFinders
+    class Search < Tankard::Api::Base::PageFinders
       # @!parse include ::Enumerable
 
-      # Initializes a new object
+      # @!method initialize(request, options = {})
+      #   Initializes a new object
       #
-      # @param request [Tankard::Request]
-      # @param options [Hash]
-      # @return [Tankard::Api::Search]
-      def initialize(request, options = {})
-        @http_client = request
-        @http_request_parameters = Hashie::Mash.new(options)
-      end
+      #   @param request [Tankard::Request]
+      #   @param options [Hash]
+      #   @return [Tankard::Api::Search]
 
       # Calls the given block once for each result
       #
@@ -44,25 +38,17 @@ module Tankard
         self
       end
 
-      # Page number to request
+      # @!method page(number)
+      #   Page number to request
       #
-      # @param number [Integer]
-      # @return [self] returns itself
-      def page(number)
-        @http_request_parameters.p = number
-        self
-      end
+      #   @param number [Integer]
+      #   @return [self] returns itself
 
-      # Additional parameters to send with the request
+      # @!method params(options = {})
+      #   Additional parameters to send with the request
       #
-      # @param options [Hash]
-      # @return [self] returns itself
-      def params(options = {})
-        options.each_pair do |key, value|
-          @http_request_parameters[key] = value
-        end
-        self
-      end
+      #   @param options [Hash]
+      #   @return [self] returns itself
 
       # Type of search to perform
       #
@@ -109,9 +95,6 @@ module Tankard
       end
 
     private
-
-      attr_reader :http_client
-      attr_reader :http_request_parameters
 
       def http_request_uri
         @request_endpoint = "/#{@http_request_parameters.delete(:endpoint)}" if @http_request_parameters.endpoint?

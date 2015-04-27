@@ -1,5 +1,5 @@
 require 'hashie'
-require 'tankard/api/utils/page_finders'
+require 'tankard/api/base/page_finders'
 
 module Tankard
   module Api
@@ -7,19 +7,15 @@ module Tankard
     #
     # @see http://www.brewerydb.com/developers/docs-endpoint/adjunct_index
     # @author Matthew Shafer
-    class Adjuncts
-      include Tankard::Api::Utils::PageFinders
+    class Adjuncts < Tankard::Api::Base::PageFinders
       # @!parse include ::Enumerable
 
-      # Initialize a new object
+      # @!method initialize(request, options = {})
+      #   Initialize a new object
       #
-      # @param request [Tankard::Request]
-      # @param options [Hash]
-      # @return [Tankard::Api::Adjuncts]
-      def initialize(request, options = {})
-        @http_client = request
-        @http_request_parameters = Hashie::Mash.new(options)
-      end
+      #   @param request [Tankard::Request]
+      #   @param options [Hash]
+      #   @return [Tankard::Api::Adjuncts]
 
       # @!method each(&block)
       #   Calls the given block once for each adjunct
@@ -30,30 +26,19 @@ module Tankard
       #   @raise [Tankard::Error::HttpError] when a status other than 200 or 401 is returned
       #   @raise [Tankard::Error::LoadError] when multi json is unable to decode json
 
-      # page number to query
+      # @!method page(number)
+      #   page number to query
       #
-      # @param beer_id [String]
-      # @return [self] returns itself
-      def page(number)
-        @http_request_parameters.p = number
-        self
-      end
+      #   @param beer_id [String]
+      #   @return [self] returns itself
 
-      # Additional parameters to send with the request
+      # @!method params(options = {})
+      #   Additional parameters to send with the request
       #
-      # @param options [Hash]
-      # @return [self] returns itself
-      def params(options = {})
-        options.each_pair do |key, value|
-          @http_request_parameters[key] = value
-        end
-        self
-      end
+      #   @param options [Hash]
+      #   @return [self] returns itself
 
     private
-
-      attr_reader :http_client
-      attr_reader :http_request_parameters
 
       def http_request_uri
         'adjuncts'

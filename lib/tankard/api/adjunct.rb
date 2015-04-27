@@ -1,5 +1,5 @@
 require 'hashie'
-require 'tankard/api/utils/find'
+require 'tankard/api/base/find'
 
 module Tankard
   module Api
@@ -7,18 +7,24 @@ module Tankard
     #
     # @see http://www.brewerydb.com/developers/docs-endpoint/adjunct_index
     # @author Matthew Shafer
-    class Adjunct
-      include Tankard::Api::Utils::Find
+    class Adjunct < Tankard::Api::Base::Find
+      # @!method initialize(request, options = {})
+      #   Initializes a new object
+      #
+      #   @param request [Tankard::Request]
+      #   @param options [Hash]
+      #   @return [Tankard::Api::Adjunct]
 
-      def initialize(request, options = {})
-        @http_client = request
-        @http_request_parameters = Hashie::Mash.new(options)
-      end
+      # @!method find(id_or_array, options={})
+      #   Find a single or multiple adjunct's by their id
+      #
+      #   @param id_or_array [String, Array]
+      #   @param options [Hash]
+      #   @return [Hash, Array] if a string with a adjunct id is passed to find then the hash of the adjunct's data is returned.
+      #     if an array is passed to find an array containing hashes with each adjunct's data is returned.
+      #     if an adjunct is not found nothing for that adjunct is returned.
 
     private
-
-      attr_reader :http_client
-      attr_reader :http_request_parameters
 
       def route
         'adjunct'

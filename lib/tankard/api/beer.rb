@@ -144,8 +144,7 @@ module Tankard
 
     private
 
-      attr_reader :http_client
-      attr_reader :http_request_parameters
+      attr_reader :http_client, :http_request_parameters
 
       def http_request_uri
         @request_endpoint = "/#{@http_request_parameters.delete(:endpoint)}" if @http_request_parameters.endpoint?
