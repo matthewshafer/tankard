@@ -1,4 +1,5 @@
 language: ruby
+sudo: false
 rvm:
   - rbx-2.3.0
   - rbx-2.4.1
