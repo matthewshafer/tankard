@@ -1,4 +1,3 @@
-require 'hashie'
 require 'tankard/api/base/page_finders'
 
 module Tankard
@@ -31,7 +30,7 @@ module Tankard
       # @param beer_name [String]
       # @return [self] returns itself
       def name(beer_name)
-        @http_request_parameters.name = beer_name
+        @http_request_parameters[:name] = beer_name
         self
       end
 
@@ -40,7 +39,7 @@ module Tankard
       # @param beer_abv [String]
       # @return [self] returns itself
       def abv(beer_abv)
-        @http_request_parameters.abv = beer_abv
+        @http_request_parameters[:abv] = beer_abv
         self
       end
 
@@ -49,7 +48,7 @@ module Tankard
       # @param beer_ibu [String]
       # @return [self] returns itself
       def ibu(beer_ibu)
-        @http_request_parameters.ibu = beer_ibu
+        @http_request_parameters[:ibu] = beer_ibu
         self
       end
 

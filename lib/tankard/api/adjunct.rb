@@ -1,4 +1,3 @@
-require 'hashie'
 require 'tankard/api/base/find'
 
 module Tankard

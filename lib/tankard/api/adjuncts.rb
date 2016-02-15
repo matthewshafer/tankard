@@ -1,4 +1,3 @@
-require 'hashie'
 require 'tankard/api/base/page_finders'
 
 module Tankard

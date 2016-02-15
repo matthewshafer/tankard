@@ -1,4 +1,3 @@
-require 'hashie'
 require 'tankard/api/utils/find'
 
 module Tankard
@@ -12,7 +11,7 @@ module Tankard
 
         def initialize(request, options = {})
           @http_client = request
-          @http_request_parameters = Hashie::Mash.new(options)
+          @http_request_parameters = options
         end
 
       private

@@ -34,7 +34,7 @@ module Tankard
       # @param search_query [String]
       # @return [self] returns itself
       def query(search_query)
-        @http_request_parameters.q = search_query
+        @http_request_parameters[:q] = search_query
         self
       end
 
@@ -55,7 +55,7 @@ module Tankard
       # @param search_type [String]
       # @return [self] returns itself
       def type(search_type)
-        @http_request_parameters.type = search_type
+        @http_request_parameters[:type] = search_type
         self
       end
 
@@ -65,8 +65,8 @@ module Tankard
       # @param upc_code [Integer]
       # @return [self] returns itself
       def upc(upc_code)
-        @http_request_parameters.code = upc_code
-        @http_request_parameters.endpoint = 'upc'
+        @http_request_parameters[:code] = upc_code
+        @http_request_parameters[:endpoint] = 'upc'
         self
       end
 
@@ -76,8 +76,8 @@ module Tankard
       # @param query [String]
       # @return [self] returns itself
       def style(query)
-        @http_request_parameters.q = query
-        @http_request_parameters.endpoint = 'style'
+        @http_request_parameters[:q] = query
+        @http_request_parameters[:endpoint] = 'style'
         self
       end
 
@@ -88,28 +88,28 @@ module Tankard
       # @param longitude [Float]
       # @return [self] returns itself
       def geo_point(latitude, longitude)
-        @http_request_parameters.lat = latitude
-        @http_request_parameters.lng = longitude
-        @http_request_parameters.endpoint = 'geo/point'
+        @http_request_parameters[:lat] = latitude
+        @http_request_parameters[:lng] = longitude
+        @http_request_parameters[:endpoint] = 'geo/point'
         self
       end
 
     private
 
       def http_request_uri
-        @request_endpoint = "/#{@http_request_parameters.delete(:endpoint)}" if @http_request_parameters.endpoint?
+        @request_endpoint = "/#{@http_request_parameters.delete(:endpoint)}" if @http_request_parameters[:endpoint]
         endpoint = 'search'
         endpoint += @request_endpoint if @request_endpoint
         endpoint
       end
 
       def raise_if_required_options_not_set
-        if @http_request_parameters.endpoint.nil?
-          fail Tankard::Error::MissingParameter, 'No search query set' unless @http_request_parameters.q?
-        elsif @http_request_parameters.endpoint == 'upc'
-          fail Tankard::Error::MissingParameter, 'missing parameter: code' unless @http_request_parameters.code?
-        elsif @http_request_parameters.endpoint == 'geo/point'
-          fail Tankard::Error::MissingParameter, 'missing Parameters: lat, lng' unless @http_request_parameters.lat? && @http_request_parameters.lng?
+        if @http_request_parameters[:endpoint].nil?
+          fail Tankard::Error::MissingParameter, 'No search query set' unless @http_request_parameters[:q]
+        elsif @http_request_parameters[:endpoint] == 'upc'
+          fail Tankard::Error::MissingParameter, 'missing parameter: code' unless @http_request_parameters[:code]
+        elsif @http_request_parameters[:endpoint] == 'geo/point'
+          fail Tankard::Error::MissingParameter, 'missing Parameters: lat, lng' unless @http_request_parameters[:lat] && @http_request_parameters[:lng]
         end
       end
     end

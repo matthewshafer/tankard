@@ -1,4 +1,3 @@
-require 'hashie'
 require 'tankard/api/utils/page_finders'
 
 module Tankard
@@ -12,11 +11,11 @@ module Tankard
 
         def initialize(request, options = {})
           @http_client = request
-          @http_request_parameters = Hashie::Mash.new(options)
+          @http_request_parameters = options
         end
 
         def page(number)
-          @http_request_parameters.p = number
+          @http_request_parameters[:p] = number
           self
         end
 

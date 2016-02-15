@@ -1,4 +1,3 @@
-require 'hashie'
 require 'tankard/api/utils/page_finders'
 require 'tankard/api/utils/find'
 
@@ -20,7 +19,7 @@ module Tankard
       # @return [Tankard::Api::Beer]
       def initialize(request, options = {})
         @http_client = request
-        @http_request_parameters = Hashie::Mash.new(options)
+        @http_request_parameters = options
       end
 
       # @!method find(id_or_array, options={})
@@ -47,7 +46,7 @@ module Tankard
       # @param beer_id [String]
       # @return [self] returns itself
       def id(beer_id)
-        @http_request_parameters.id = beer_id
+        @http_request_parameters[:id] = beer_id
         self
       end
 
@@ -55,7 +54,7 @@ module Tankard
       #
       # @return [self] returns itself
       def adjuncts
-        @http_request_parameters.endpoint = 'adjuncts'
+        @http_request_parameters[:endpoint] = 'adjuncts'
         self
       end
 
@@ -63,7 +62,7 @@ module Tankard
       #
       # @return [self] returns itself
       def breweries
-        @http_request_parameters.endpoint = 'breweries'
+        @http_request_parameters[:endpoint] = 'breweries'
         self
       end
 
@@ -71,7 +70,7 @@ module Tankard
       #
       # @return [self] returns itself
       def events
-        @http_request_parameters.endpoint = 'events'
+        @http_request_parameters[:endpoint] = 'events'
         self
       end
 
@@ -79,7 +78,7 @@ module Tankard
       #
       # @return [self] returns itself
       def fermentables
-        @http_request_parameters.endpoint = 'fermentables'
+        @http_request_parameters[:endpoint] = 'fermentables'
         self
       end
 
@@ -87,7 +86,7 @@ module Tankard
       #
       # @return [self] returns itself
       def hops
-        @http_request_parameters.endpoint = 'hops'
+        @http_request_parameters[:endpoint] = 'hops'
         self
       end
 
@@ -95,7 +94,7 @@ module Tankard
       #
       # @return [self] returns itself
       def ingredients
-        @http_request_parameters.endpoint = 'ingredients'
+        @http_request_parameters[:endpoint] = 'ingredients'
         self
       end
 
@@ -103,7 +102,7 @@ module Tankard
       #
       # @return [self] returns itself
       def social_accounts
-        @http_request_parameters.endpoint = 'socialaccounts'
+        @http_request_parameters[:endpoint] = 'socialaccounts'
         self
       end
 
@@ -111,7 +110,7 @@ module Tankard
       #
       # @return [self] returns itself
       def upcs
-        @http_request_parameters.endpoint = 'upcs'
+        @http_request_parameters[:endpoint] = 'upcs'
         self
       end
 
@@ -119,7 +118,7 @@ module Tankard
       #
       # @return [self] returns itself
       def variations
-        @http_request_parameters.endpoint = 'variations'
+        @http_request_parameters[:endpoint] = 'variations'
         self
       end
 
@@ -127,7 +126,7 @@ module Tankard
       #
       # @return [self] returns itself
       def yeasts
-        @http_request_parameters.endpoint = 'yeasts'
+        @http_request_parameters[:endpoint] = 'yeasts'
         self
       end
 
@@ -147,14 +146,14 @@ module Tankard
       attr_reader :http_client, :http_request_parameters
 
       def http_request_uri
-        @request_endpoint = "/#{@http_request_parameters.delete(:endpoint)}" if @http_request_parameters.endpoint?
+        @request_endpoint = "/#{@http_request_parameters.delete(:endpoint)}" if @http_request_parameters[:endpoint]
         endpoint = "#{route}/#{raise_if_no_id_in_options}"
         endpoint += @request_endpoint if @request_endpoint
         endpoint
       end
 
       def raise_if_no_id_in_options
-        @beer_id = @http_request_parameters.delete(:id) if @http_request_parameters.id?
+        @beer_id = @http_request_parameters.delete(:id) if @http_request_parameters[:id]
         fail Tankard::Error::MissingParameter, 'No Beer ID is set' unless @beer_id
         @beer_id
       end

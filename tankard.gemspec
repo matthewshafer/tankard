@@ -31,5 +31,4 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'atomic', '~> 1.1'
   spec.add_dependency 'httpclient', '~> 2.5'
   spec.add_dependency 'multi_json', '~> 1.10'
-  spec.add_dependency 'hashie', '~> 3.3'
 end
