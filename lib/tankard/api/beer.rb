@@ -1,5 +1,5 @@
-require 'tankard/api/utils/page_finders'
-require 'tankard/api/utils/find'
+require_relative './utils/page_finders'
+require_relative './utils/find'
 
 module Tankard
   module Api

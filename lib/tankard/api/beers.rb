@@ -1,4 +1,4 @@
-require 'tankard/api/base/page_finders'
+require_relative './base/page_finders'
 
 module Tankard
   module Api

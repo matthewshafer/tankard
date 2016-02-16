@@ -1,4 +1,4 @@
-require 'tankard/api/utils/find'
+require_relative '../../api/utils/find'
 
 module Tankard
   module Api

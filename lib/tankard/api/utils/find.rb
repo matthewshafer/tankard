@@ -1,4 +1,4 @@
-require 'tankard/api/request/get'
+require_relative '../../api/request/get'
 
 module Tankard
   module Api

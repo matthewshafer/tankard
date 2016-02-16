@@ -1,6 +1,6 @@
 require 'multi_json'
 require 'httpclient'
-require 'tankard/error'
+require_relative './error'
 
 module Tankard
   # Handles making actual requests and checking them for any invalid status codes

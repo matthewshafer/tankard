@@ -1,7 +1,7 @@
-require 'tankard/version'
-require 'tankard/configuration'
-require 'tankard/error'
-require 'tankard/client'
+require_relative 'tankard/version'
+require_relative 'tankard/configuration'
+require_relative 'tankard/error'
+require_relative 'tankard/client'
 require 'atomic'
 
 # Sets up and delegates 'most' method calls to the Tankard Client
