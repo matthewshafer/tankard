@@ -54,7 +54,7 @@ module Tankard
       #
       # @return [self] returns itself
       def adjuncts
-        @http_request_parameters[:endpoint] = 'adjuncts'
+        @http_request_parameters[:endpoint] = 'adjuncts'.freeze
         self
       end
 
@@ -62,7 +62,7 @@ module Tankard
       #
       # @return [self] returns itself
       def breweries
-        @http_request_parameters[:endpoint] = 'breweries'
+        @http_request_parameters[:endpoint] = 'breweries'.freeze
         self
       end
 
@@ -70,7 +70,7 @@ module Tankard
       #
       # @return [self] returns itself
       def events
-        @http_request_parameters[:endpoint] = 'events'
+        @http_request_parameters[:endpoint] = 'events'.freeze
         self
       end
 
@@ -78,7 +78,7 @@ module Tankard
       #
       # @return [self] returns itself
       def fermentables
-        @http_request_parameters[:endpoint] = 'fermentables'
+        @http_request_parameters[:endpoint] = 'fermentables'.freeze
         self
       end
 
@@ -86,7 +86,7 @@ module Tankard
       #
       # @return [self] returns itself
       def hops
-        @http_request_parameters[:endpoint] = 'hops'
+        @http_request_parameters[:endpoint] = 'hops'.freeze
         self
       end
 
@@ -94,7 +94,7 @@ module Tankard
       #
       # @return [self] returns itself
       def ingredients
-        @http_request_parameters[:endpoint] = 'ingredients'
+        @http_request_parameters[:endpoint] = 'ingredients'.freeze
         self
       end
 
@@ -102,7 +102,7 @@ module Tankard
       #
       # @return [self] returns itself
       def social_accounts
-        @http_request_parameters[:endpoint] = 'socialaccounts'
+        @http_request_parameters[:endpoint] = 'socialaccounts'.freeze
         self
       end
 
@@ -110,7 +110,7 @@ module Tankard
       #
       # @return [self] returns itself
       def upcs
-        @http_request_parameters[:endpoint] = 'upcs'
+        @http_request_parameters[:endpoint] = 'upcs'.freeze
         self
       end
 
@@ -118,7 +118,7 @@ module Tankard
       #
       # @return [self] returns itself
       def variations
-        @http_request_parameters[:endpoint] = 'variations'
+        @http_request_parameters[:endpoint] = 'variations'.freeze
         self
       end
 
@@ -126,7 +126,7 @@ module Tankard
       #
       # @return [self] returns itself
       def yeasts
-        @http_request_parameters[:endpoint] = 'yeasts'
+        @http_request_parameters[:endpoint] = 'yeasts'.freeze
         self
       end
 
@@ -159,7 +159,7 @@ module Tankard
       end
 
       def route
-        'beer'
+        'beer'.freeze
       end
     end
   end

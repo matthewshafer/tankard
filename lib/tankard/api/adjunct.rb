@@ -26,7 +26,7 @@ module Tankard
     private
 
       def route
-        'adjunct'
+        'adjunct'.freeze
       end
     end
   end

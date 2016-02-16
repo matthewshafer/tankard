@@ -26,7 +26,7 @@ module Tankard
     private
 
       def route
-        'style'
+        'style'.freeze
       end
     end
   end

@@ -26,7 +26,7 @@ module Tankard
     private
 
       def route
-        'yeast'
+        'yeast'.freeze
       end
     end
   end

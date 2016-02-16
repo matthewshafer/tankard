@@ -67,7 +67,7 @@ module Tankard
     private
 
       def http_request_uri
-        'beers'
+        'beers'.freeze
       end
     end
   end

@@ -6,7 +6,7 @@ module Tankard
     attr_writer :api_key
 
     KEYS = [:api_key]
-    BREWERYDB_URL = 'http://api.brewerydb.com/v2/'
+    BREWERYDB_URL = 'http://api.brewerydb.com/v2/'.freeze
 
     def configure
       yield self

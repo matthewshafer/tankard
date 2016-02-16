@@ -32,7 +32,7 @@ module Tankard
       attr_reader :http_client
 
       def http_request_uri
-        'styles'
+        'styles'.freeze
       end
 
       def http_request_parameters

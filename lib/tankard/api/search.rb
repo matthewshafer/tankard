@@ -66,7 +66,7 @@ module Tankard
       # @return [self] returns itself
       def upc(upc_code)
         @http_request_parameters[:code] = upc_code
-        @http_request_parameters[:endpoint] = 'upc'
+        @http_request_parameters[:endpoint] = 'upc'.freeze
         self
       end
 
@@ -77,7 +77,7 @@ module Tankard
       # @return [self] returns itself
       def style(query)
         @http_request_parameters[:q] = query
-        @http_request_parameters[:endpoint] = 'style'
+        @http_request_parameters[:endpoint] = 'style'.freeze
         self
       end
 
@@ -90,7 +90,7 @@ module Tankard
       def geo_point(latitude, longitude)
         @http_request_parameters[:lat] = latitude
         @http_request_parameters[:lng] = longitude
-        @http_request_parameters[:endpoint] = 'geo/point'
+        @http_request_parameters[:endpoint] = 'geo/point'.freeze
         self
       end
 
@@ -98,7 +98,7 @@ module Tankard
 
       def http_request_uri
         @request_endpoint = "/#{@http_request_parameters.delete(:endpoint)}" if @http_request_parameters[:endpoint]
-        endpoint = 'search'
+        endpoint = 'search'.freeze
         endpoint += @request_endpoint if @request_endpoint
         endpoint
       end
@@ -106,9 +106,9 @@ module Tankard
       def raise_if_required_options_not_set
         if @http_request_parameters[:endpoint].nil?
           fail Tankard::Error::MissingParameter, 'No search query set' unless @http_request_parameters[:q]
-        elsif @http_request_parameters[:endpoint] == 'upc'
+        elsif @http_request_parameters[:endpoint] == 'upc'.freeze
           fail Tankard::Error::MissingParameter, 'missing parameter: code' unless @http_request_parameters[:code]
-        elsif @http_request_parameters[:endpoint] == 'geo/point'
+        elsif @http_request_parameters[:endpoint] == 'geo/point'.freeze
           fail Tankard::Error::MissingParameter, 'missing Parameters: lat, lng' unless @http_request_parameters[:lat] && @http_request_parameters[:lng]
         end
       end

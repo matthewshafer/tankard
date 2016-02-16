@@ -40,7 +40,7 @@ module Tankard
     private
 
       def http_request_uri
-        'yeasts'
+        'yeasts'.freeze
       end
 
     end

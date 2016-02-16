@@ -26,7 +26,7 @@ module Tankard
     private
 
       def route
-        'category'
+        'category'.freeze
       end
     end
   end
